@@ -4,7 +4,7 @@
     </v-content>
 </template>
 <script>
-    import VContent from '../../VContent'
+    import VContent from '../VContent'
 
     export default{
         components: {

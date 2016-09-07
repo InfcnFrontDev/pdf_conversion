@@ -10,13 +10,13 @@ import PdfToXls from '../components/details/contents/PdfToXls.vue'
 
 var router = new VueRouter()
 router.map({
-    '/PdfToDoc': {component: PdfToDoc},
-    '/PdfToXls': {component: PdfToXls},
-    '/PdfToPpt': {component: PdfToPpt}
+    '/pdftodoc': {component: PdfToDoc},
+    '/pdftoxls': {component: PdfToXls},
+    '/pdftoppt': {component: PdfToPpt}
 })
 //重定向 默认是foo组件
 router.redirect({
-    '/': '/PdfToDoc'
+    '/': '/pdftodoc'
 })
 // 现在我们可以启动应用了！
 // 路由器会创建一个 App 实例，并且挂载到选择符 #app 匹配的元素上。

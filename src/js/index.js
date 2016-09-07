@@ -1,16 +1,6 @@
-import VHeader from '../components/VHeader'
-import VFooter from '../components/VFooter'
-import { demo } from './demo'
+import App from '../components/index/App.vue'
 
 new Vue({
     el: 'body',
-    ready: function () {
-        demo();
-    },
-    methods: {}, 
-    components: {
-
-    	
-        VHeader, VFooter
-    }
+    components: {App}
 });

@@ -15,9 +15,9 @@
 				<li class="ding"><a href="#">PDF转换处理</a>
 					<div class="kuang">
 						<ul>
-							<li><a href="details.html#!/PdfToDoc">PDF转Word</a></li>
-							<li><a href="details.html#!/PdfToXls">PDF转Excel</a></li>
-							<li><a href="details.html#!/PdfToPpt">PDF转PPT</a></li>
+							<li><a href="details.html#!/pdftodoc">PDF转Word</a></li>
+							<li><a href="details.html#!/pdftoxls">PDF转Excel</a></li>
+							<li><a href="details.html#!/pdftoppt">PDF转PPT</a></li>
 							<li><a href="#">PDF转HTML</a></li>
 							<li><a href="#">PDF转图片</a></li>
 							<li><a href="#">PDF转换文本</a></li>
