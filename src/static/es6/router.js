@@ -44,62 +44,12 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(2);
+	module.exports = __webpack_require__(45);
 
 
 /***/ },
 /* 1 */,
-/* 2 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _vue = __webpack_require__(3);
-
-	var _vue2 = _interopRequireDefault(_vue);
-
-	var _vueRouter = __webpack_require__(5);
-
-	var _vueRouter2 = _interopRequireDefault(_vueRouter);
-
-	var _App = __webpack_require__(6);
-
-	var _App2 = _interopRequireDefault(_App);
-
-	var _PdfToDoc = __webpack_require__(28);
-
-	var _PdfToDoc2 = _interopRequireDefault(_PdfToDoc);
-
-	var _PdfToPpt = __webpack_require__(41);
-
-	var _PdfToPpt2 = _interopRequireDefault(_PdfToPpt);
-
-	var _PdfToXls = __webpack_require__(44);
-
-	var _PdfToXls2 = _interopRequireDefault(_PdfToXls);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	//前期准备工作
-	_vue2.default.use(_vueRouter2.default);
-	//导入需要的组件
-
-
-	var router = new _vueRouter2.default();
-	router.map({
-	    '/PdfToDoc': { component: _PdfToDoc2.default },
-	    '/PdfToXls': { component: _PdfToXls2.default },
-	    '/PdfToPpt': { component: _PdfToPpt2.default }
-	});
-	//重定向 默认是foo组件
-	router.redirect({
-	    '/': '/PdfToDoc'
-	});
-	// 现在我们可以启动应用了！
-	// 路由器会创建一个 App 实例，并且挂载到选择符 #app 匹配的元素上。
-	router.start(_App2.default, '#app');
-
-/***/ },
+/* 2 */,
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -13129,7 +13079,7 @@
 
 	// <template>
 	//     <v-header></v-header>
-	//     <router-view></router-view>
+	//
 	//     <v-footer></v-footer>
 	// </template>
 	// <script>
@@ -13516,9 +13466,9 @@
 	// 				<li class="ding"><a href="#">PDF转换处理</a>
 	// 					<div class="kuang">
 	// 						<ul>
-	// 							<li><a href="details.html#!/PdfToDoc">PDF转Word</a></li>
-	// 							<li><a href="details.html#!/PdfToXls">PDF转Excel</a></li>
-	// 							<li><a href="details.html#!/PdfToPpt">PDF转PPT</a></li>
+	// 							<li><a href="#">PDF转Word</a></li>
+	// 							<li><a href="#">PDF转Excel</a></li>
+	// 							<li><a href="#">PDF转PPT</a></li>
 	// 							<li><a href="#">PDF转HTML</a></li>
 	// 							<li><a href="#">PDF转图片</a></li>
 	// 							<li><a href="#">PDF转换文本</a></li>
@@ -13591,7 +13541,7 @@
 /* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "\n<div class=\"header\">\n\t<div class=\"header-in1\">\n\t\t<div class=\"header-in11\">\n\t\t\t<ul>\n\t\t\t\t<li><a href=\"#\"><img src=\"" + __webpack_require__(15) + "\"><span>在线咨询</span></a></li>\n\t\t\t\t<li><a href=\"#\"><img src=\"" + __webpack_require__(16) + "\"><span>400-086-6899</span></a></li>\n\t\t\t\t<li><img src=\"" + __webpack_require__(17) + "\"><a href=\"#\"><span>登录</span></a><a href=\"#\"><span>&nbsp;|&nbsp;</span></a><a href=\"#\"><span>我要注册</span></a></li>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n\t<div class=\"header-in\">\n\t\t<img src=\"" + __webpack_require__(18) + "\">\n\t\t<ul>\n\t\t\t<li class=\"ding\"><a href=\"#\">PDF转换处理</a>\n\t\t\t\t<div class=\"kuang\">\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"details.html#!/PdfToDoc\">PDF转Word</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/PdfToXls\">PDF转Excel</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/PdfToPpt\">PDF转PPT</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转HTML</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转图片</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换文本</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换XML</a></li>\n\t\t\t\t\t\t<li style=\"border: none\"><a href=\"#\">PDF转换RTF</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</li>\n\t\t\t<li class=\"ding\"><a href=\"#\">文档转换处理</a>\n\t\t\t\t<div class=\"kuang\">\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转Word</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转Excel</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转PPT</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转HTML</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转图片</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换文本</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换XML</a></li>\n\t\t\t\t\t\t<li style=\"border: none\"><a href=\"#\">PDF转换RTF</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</li>\n\t\t\t<li class=\"ding\"><a href=\"#\">PDF页面处理</a>\n\t\t\t\t<div class=\"kuang\">\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转Word</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转Excel</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转PPT</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转HTML</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转图片</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换文本</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换XML</a></li>\n\t\t\t\t\t\t<li style=\"border: none\"><a href=\"#\">PDF转换RTF</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</li>\n\t\t\t<li class=\"ding\"><a href=\"#\">联系我们</a>\n\t\t\t\t<div class=\"kuang\">\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转Word</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转Excel</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转PPT</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转HTML</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转图片</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换文本</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换XML</a></li>\n\t\t\t\t\t\t<li style=\"border: none\"><a href=\"#\">PDF转换RTF</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</li>\n\t\t</ul>\n\t\t<form>\n\t\t\t<input type=\"text\" placeholder=\"请输入关键词\" value=\"请输入关键词\">\n\t\t</form>\n\t</div>\n</div>\n";
+	module.exports = "\n<div class=\"header\">\n\t<div class=\"header-in1\">\n\t\t<div class=\"header-in11\">\n\t\t\t<ul>\n\t\t\t\t<li><a href=\"#\"><img src=\"" + __webpack_require__(15) + "\"><span>在线咨询</span></a></li>\n\t\t\t\t<li><a href=\"#\"><img src=\"" + __webpack_require__(16) + "\"><span>400-086-6899</span></a></li>\n\t\t\t\t<li><img src=\"" + __webpack_require__(17) + "\"><a href=\"#\"><span>登录</span></a><a href=\"#\"><span>&nbsp;|&nbsp;</span></a><a href=\"#\"><span>我要注册</span></a></li>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n\t<div class=\"header-in\">\n\t\t<img src=\"" + __webpack_require__(18) + "\">\n\t\t<ul>\n\t\t\t<li class=\"ding\"><a href=\"#\">PDF转换处理</a>\n\t\t\t\t<div class=\"kuang\">\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转Word</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转Excel</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转PPT</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转HTML</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转图片</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换文本</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换XML</a></li>\n\t\t\t\t\t\t<li style=\"border: none\"><a href=\"#\">PDF转换RTF</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</li>\n\t\t\t<li class=\"ding\"><a href=\"#\">文档转换处理</a>\n\t\t\t\t<div class=\"kuang\">\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转Word</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转Excel</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转PPT</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转HTML</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转图片</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换文本</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换XML</a></li>\n\t\t\t\t\t\t<li style=\"border: none\"><a href=\"#\">PDF转换RTF</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</li>\n\t\t\t<li class=\"ding\"><a href=\"#\">PDF页面处理</a>\n\t\t\t\t<div class=\"kuang\">\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转Word</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转Excel</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转PPT</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转HTML</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转图片</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换文本</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换XML</a></li>\n\t\t\t\t\t\t<li style=\"border: none\"><a href=\"#\">PDF转换RTF</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</li>\n\t\t\t<li class=\"ding\"><a href=\"#\">联系我们</a>\n\t\t\t\t<div class=\"kuang\">\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转Word</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转Excel</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转PPT</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转HTML</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转图片</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换文本</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换XML</a></li>\n\t\t\t\t\t\t<li style=\"border: none\"><a href=\"#\">PDF转换RTF</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</li>\n\t\t</ul>\n\t\t<form>\n\t\t\t<input type=\"text\" placeholder=\"请输入关键词\" value=\"请输入关键词\">\n\t\t</form>\n\t</div>\n</div>\n";
 
 /***/ },
 /* 15 */
@@ -13761,422 +13711,74 @@
 /* 27 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<v-header></v-header>\n<router-view></router-view>\n<v-footer></v-footer>\n";
+	module.exports = "\n<v-header></v-header>\n\n<v-footer></v-footer>\n";
 
 /***/ },
-/* 28 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __vue_script__, __vue_template__
-	__webpack_require__(29)
-	__vue_script__ = __webpack_require__(31)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\components\\details\\contents\\PdfToDoc.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(40)
-	module.exports = __vue_script__ || {}
-	if (module.exports.__esModule) module.exports = module.exports.default
-	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
-	}
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), false)
-	  if (!hotAPI.compatible) return
-	  var id = "_v-a36b59bc/PdfToDoc.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
-
-/***/ },
-/* 29 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(30);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(12)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./../../../../node_modules/.8.5.3@vue-loader/lib/style-rewriter.js?id=_v-a36b59bc&scoped=true!./../../../../node_modules/.3.2.3@sass-loader/index.js!./../../../../node_modules/.8.5.3@vue-loader/lib/selector.js?type=style&index=0!./PdfToDoc.vue", function() {
-				var newContent = require("!!./../../../../node_modules/.0.23.1@css-loader/index.js!./../../../../node_modules/.8.5.3@vue-loader/lib/style-rewriter.js?id=_v-a36b59bc&scoped=true!./../../../../node_modules/.3.2.3@sass-loader/index.js!./../../../../node_modules/.8.5.3@vue-loader/lib/selector.js?type=style&index=0!./PdfToDoc.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 30 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(11)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-	// exports
-
-
-/***/ },
-/* 31 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _VContent = __webpack_require__(32);
-
-	var _VContent2 = _interopRequireDefault(_VContent);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = {
-	    components: {
-	        VContent: _VContent2.default
-	    },
-	    ready: function ready() {
-	        console.log('PdfToDoc.vue');
-	    }
-	};
-	// </script>
-	// <template>
-	//     <v-content>
-	//         <h3>选择页码</h3>
-	//         <div class="inpp">
-	//             <form>
-	//                 <input type="text">
-	//             </form>
-	//             <p>请输入待转换页面的页码以逗号分开 （例如: 1,3,5-8,10-20）　(全部转换请留空)</p>
-	//         </div>
-	//     </v-content>
-	// </template>
-	// <style scoped rel="stylesheet/scss" lang="sass">
-	// </style>
-	// <script>
-
-/***/ },
-/* 32 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __vue_script__, __vue_template__
-	__webpack_require__(33)
-	__vue_script__ = __webpack_require__(35)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\components\\VContent.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(36)
-	module.exports = __vue_script__ || {}
-	if (module.exports.__esModule) module.exports = module.exports.default
-	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
-	}
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), false)
-	  if (!hotAPI.compatible) return
-	  var id = "_v-72448be4/VContent.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
-
-/***/ },
-/* 33 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(34);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(12)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.0.23.1@css-loader/index.js!./../../node_modules/.8.5.3@vue-loader/lib/style-rewriter.js!./../../node_modules/.8.5.3@vue-loader/lib/selector.js?type=style&index=0!./VContent.vue", function() {
-				var newContent = require("!!./../../node_modules/.0.23.1@css-loader/index.js!./../../node_modules/.8.5.3@vue-loader/lib/style-rewriter.js!./../../node_modules/.8.5.3@vue-loader/lib/selector.js?type=style&index=0!./VContent.vue");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 34 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(11)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-	// exports
-
-
-/***/ },
-/* 35 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	// <template>
-	//     <div class="body-in">
-	//         <h1><span>PDF</span>文档转换为<span>Word</span></h1>
-	//         <ul class="ul">
-	//             <li class="change"><a href="#">1</a><span></span><b>上传文件</b></li>
-	//             <li><a href="#">2</a><span></span><b>上传完毕</b></li>
-	//             <li><a href="#">3</a><span></span><b>开始转换</b></li>
-	//             <li ><a href="#">4</a><span></span><b>完成</b></li>
-	//         </ul>
-	//         <div class="botton">
-	//             <h3>选择文件</h3>
-	//             <a class="a1" href="javascript:;">选择本地文件</a>
-	//             <a class="a2" href="javascript:;">开始转换</a>
-	//             <div style="clear: both"></div>
-	//         </div>
-	//         <div class="file">
-	//             <h3>未选择文件</h3>
-	//         </div>
-	//         <div class="file2" style="display: none">
-	//             <div class="pdf">
-	//                 <img src="../static/img//pdfff.png">
-	//                 <a href="javascript:;" class="aa1">信息化建设简述.pdf</a>
-	//                 <img src="../static/img//x.png" class="ii1">
-	//                 <a href="javascript:;" class="aa2">移除</a>
-	//                 <img src="../static/img//download.png" class="ii2">
-	//                 <a href="javascript:;">下载</a>
-	//             </div>
-	//             <div class="pdf">
-	//                 <img src="../static/img//pdfff.png">
-	//                 <a href="javascript:;" class="aa1">信息化建设简述.pdf</a>
-	//                 <img src="../static/img//x.png" class="ii1">
-	//                 <a href="javascript:;" class="aa2">移除</a>
-	//                 <img src="../static/img//download.png" class="ii2">
-	//                 <a href="javascript:;">下载</a>
-	//             </div>
-	//             <div class="pdf">
-	//                 <img src="../static/img//pdfff.png">
-	//                 <a href="javascript:;" class="aa1">信息化建设简述.pdf</a>
-	//                 <img src="../static/img//x.png" class="ii1">
-	//                 <a href="javascript:;" class="aa2">移除</a>
-	//                 <img src="../static/img//download.png" class="ii2">
-	//                 <a href="javascript:;">下载</a>
-	//             </div>
-	//         </div>
-	//         <div class="file3">
-	//             <slot></slot>
-	//         </div>
-	//         <div class="file4" style="display: none">
-	//             <h3>转换结果</h3>
-	//             <p>pdf转换word.doc</p>
-	//             <a href="javascript:;">下载</a>
-	//         </div>
-	//         <div style="clear: both"></div>
-	//     </div>
-	// </template>
-	// <style>
-	//
-	// </style>
-	// <script>
-	exports.default = {
-	    ready: function ready() {
-	        console.log('content,测试所有home业务模块下的js都会被编译');
-	    }
-	};
-	// </script>
-
-/***/ },
-/* 36 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = "\n<div class=\"body-in\">\n    <h1><span>PDF</span>文档转换为<span>Word</span></h1>\n    <ul class=\"ul\">\n        <li class=\"change\"><a href=\"#\">1</a><span></span><b>上传文件</b></li>\n        <li><a href=\"#\">2</a><span></span><b>上传完毕</b></li>\n        <li><a href=\"#\">3</a><span></span><b>开始转换</b></li>\n        <li ><a href=\"#\">4</a><span></span><b>完成</b></li>\n    </ul>\n    <div class=\"botton\">\n        <h3>选择文件</h3>\n        <a class=\"a1\" href=\"javascript:;\">选择本地文件</a>\n        <a class=\"a2\" href=\"javascript:;\">开始转换</a>\n        <div style=\"clear: both\"></div>\n    </div>\n    <div class=\"file\">\n        <h3>未选择文件</h3>\n    </div>\n    <div class=\"file2\" style=\"display: none\">\n        <div class=\"pdf\">\n            <img src=\"" + __webpack_require__(37) + "\">\n            <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n            <img src=\"" + __webpack_require__(38) + "\" class=\"ii1\">\n            <a href=\"javascript:;\" class=\"aa2\">移除</a>\n            <img src=\"" + __webpack_require__(39) + "\" class=\"ii2\">\n            <a href=\"javascript:;\">下载</a>\n        </div>\n        <div class=\"pdf\">\n            <img src=\"" + __webpack_require__(37) + "\">\n            <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n            <img src=\"" + __webpack_require__(38) + "\" class=\"ii1\">\n            <a href=\"javascript:;\" class=\"aa2\">移除</a>\n            <img src=\"" + __webpack_require__(39) + "\" class=\"ii2\">\n            <a href=\"javascript:;\">下载</a>\n        </div>\n        <div class=\"pdf\">\n            <img src=\"" + __webpack_require__(37) + "\">\n            <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n            <img src=\"" + __webpack_require__(38) + "\" class=\"ii1\">\n            <a href=\"javascript:;\" class=\"aa2\">移除</a>\n            <img src=\"" + __webpack_require__(39) + "\" class=\"ii2\">\n            <a href=\"javascript:;\">下载</a>\n        </div>\n    </div>\n    <div class=\"file3\">\n        <slot></slot>\n    </div>\n    <div class=\"file4\" style=\"display: none\">\n        <h3>转换结果</h3>\n        <p>pdf转换word.doc</p>\n        <a href=\"javascript:;\">下载</a>\n    </div>\n    <div style=\"clear: both\"></div>\n</div>\n";
-
-/***/ },
-/* 37 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACUAAAAVCAYAAADB5CeuAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAGNSURBVHja7Ja/S0JhFIYfLzm49A1NiVo6uHiNiLaIoCVpaY2GHCWhKRDFVkmiMS45FhT9ASFOgoi0RFBaQ9A1vQ4uDdfFQbAWi/Qa3MLqDj3j4Xzneznn/X7YAHIu3yRwAKwDEr9PFzgHdkINtWnLuXxTwBPWYVoCjrEWxxKwZDFRSxIWxJKixoYF/YkY3mjEEH8ulriLJ2nXNexCsFy5NuS06xqqckTj9Pw9tly5xi6EIbej6+TlOXOi3qgqGR729gHwRiP4EzFmjw65XF37tPD82QmBdAq7EFSVTF+9vDxHR9dHN76qkqFd1xgPyowH5U/zrjY2ade1oZ3+U0/pt2XsQjCxuPCzorzRCA6Pm1a5QqtcMbXG4XGPzugfhXwcQ/Miy31813TxQXMPHoybrW2aF9nvG/07DHZ05Eb/CmImSEfXeS6WrGH0QDqFw+M2XAcj85RZ36xoj30ju4sn+y7Pr2LLuXwv/2+fSVEFi2kqSEDYYqLCUqih1gAncNb7K/8F3d7+zlBDrb0OAMz0g2jEO4Q6AAAAAElFTkSuQmCC"
-
-/***/ },
-/* 38 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAACYSURBVHjadM/BCcIwFAbgr1WcQbCnDuESil4suITgLs5QKCiCnrqNIE5RKHh5gbZo4EGS9yX5k7VFucYDJ9yMxwEXbOe4Y4k6mrcBqrHAdY4zmtioB7cl1OGctUWZTjeYRcMAVXjmg+eO6AOMEOST8P2/df4jeBe1iI9uEpyiKmqEs7YoP1hNM2GHa+BXjj3eEyTmVep9BwAR4imuyh9OvgAAAABJRU5ErkJggg=="
-
-/***/ },
-/* 39 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAKCAYAAACALL/6AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAACmSURBVHjalNC9CQJBEAXgzx9M7UNQhIsECxAEMw/FFizDEqxAwcjUyFQQ4TI7sAYj4cBklOVQxAfLDu+9mX07tXmeq2CJbtRXrFOx7k80P3AjjKM+fHthgAsKDBN9GNybfzWcY1If7aShHdwap2qkLUps0AjugQX2aaQsMewwC+MD08TcQNaMfL1YoTCUuOOYJOigeEWaoJWIt7izyvbef1jF+YnnANfiHcPfn0KJAAAAAElFTkSuQmCC"
-
-/***/ },
-/* 40 */
-/***/ function(module, exports) {
-
-	module.exports = "\n<v-content _v-a36b59bc=\"\">\n    <h3 _v-a36b59bc=\"\">选择页码</h3>\n    <div class=\"inpp\" _v-a36b59bc=\"\">\n        <form _v-a36b59bc=\"\">\n            <input type=\"text\" _v-a36b59bc=\"\">\n        </form>\n        <p _v-a36b59bc=\"\">请输入待转换页面的页码以逗号分开 （例如: 1,3,5-8,10-20）　(全部转换请留空)</p>\n    </div>\n</v-content>\n";
-
-/***/ },
-/* 41 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(42)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\components\\details\\contents\\PdfToPpt.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(43)
-	module.exports = __vue_script__ || {}
-	if (module.exports.__esModule) module.exports = module.exports.default
-	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
-	}
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), false)
-	  if (!hotAPI.compatible) return
-	  var id = "_v-2bb9825e/PdfToPpt.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
-
-/***/ },
-/* 42 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _VContent = __webpack_require__(32);
-
-	var _VContent2 = _interopRequireDefault(_VContent);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = {
-	    components: {
-	        VContent: _VContent2.default
-	    },
-	    ready: function ready() {
-	        console.log('PdfToPpt.vue');
-	    }
-	};
-	// </script>
-	// <template>
-	//     <v-content>
-	//         <h3>pdf to ppt</h3>
-	//     </v-content>
-	// </template>
-	// <script>
-
-/***/ },
-/* 43 */
-/***/ function(module, exports) {
-
-	module.exports = "\n<v-content>\n    <h3>pdf to ppt</h3>\n</v-content>\n";
-
-/***/ },
-/* 44 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(45)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\components\\details\\contents\\PdfToXls.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(46)
-	module.exports = __vue_script__ || {}
-	if (module.exports.__esModule) module.exports = module.exports.default
-	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
-	}
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), false)
-	  if (!hotAPI.compatible) return
-	  var id = "_v-67ec3b2e/PdfToXls.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
-
-/***/ },
+/* 28 */,
+/* 29 */,
+/* 30 */,
+/* 31 */,
+/* 32 */,
+/* 33 */,
+/* 34 */,
+/* 35 */,
+/* 36 */,
+/* 37 */,
+/* 38 */,
+/* 39 */,
+/* 40 */,
+/* 41 */,
+/* 42 */,
+/* 43 */,
+/* 44 */,
 /* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
+	var _vue = __webpack_require__(3);
 
-	var _VContent = __webpack_require__(32);
+	var _vue2 = _interopRequireDefault(_vue);
 
-	var _VContent2 = _interopRequireDefault(_VContent);
+	var _vueRouter = __webpack_require__(5);
+
+	var _vueRouter2 = _interopRequireDefault(_vueRouter);
+
+	var _App = __webpack_require__(6);
+
+	var _App2 = _interopRequireDefault(_App);
+
+	var _Home = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./Home.vue\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+	var _Home2 = _interopRequireDefault(_Home);
+
+	var _Account = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./Account.vue\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+	var _Account2 = _interopRequireDefault(_Account);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	exports.default = {
-	    components: {
-	        VContent: _VContent2.default
+	//前期准备工作
+	_vue2.default.use(_vueRouter2.default);
+	//导入需要的组件
+
+
+	var router = new _vueRouter2.default();
+	router.map({
+	    '/home': {
+	        component: _Home2.default
 	    },
-	    ready: function ready() {
-	        console.log('PdfToXls.vue');
+	    '/account': {
+	        component: _Account2.default
 	    }
-	};
-	// </script>
-	// <template>
-	//     <v-content>
-	//         <h3>pdf to xls</h3>
-	//     </v-content>
-	// </template>
-	// <script>
-
-/***/ },
-/* 46 */
-/***/ function(module, exports) {
-
-	module.exports = "\n<v-content>\n    <h3>pdf to xls</h3>\n</v-content>\n";
+	});
+	//重定向 默认是foo组件
+	router.redirect({
+	    '/': '/home'
+	});
+	// 现在我们可以启动应用了！
+	// 路由器会创建一个 App 实例，并且挂载到选择符 #app 匹配的元素上。
+	router.start(_App2.default, '#app');
 
 /***/ }
 /******/ ]);
