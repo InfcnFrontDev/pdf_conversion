@@ -45,26 +45,28 @@
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(23);
+	module.exports = __webpack_require__(21);
 
 
 /***/ },
 
-/***/ 23:
-/***/ function(module, exports) {
+/***/ 21:
+/***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-		value: true
+	var _header = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../../components/header.vue\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+	var _header2 = _interopRequireDefault(_header);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var V = new Vue({
+		el: 'body',
+		components: {
+			myHead: _header2.default
+		}
 	});
-	exports.say = say;
-	// 你封装的工具库
-
-	function say(msg) {
-		console.log(msg);
-		console.log(msg);
-	}
 
 /***/ }
 
