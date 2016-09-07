@@ -1,4 +1,5 @@
 <template>
+ <div class="footer">
     <div class="footer-in">
         <div class="left"><img src="../static/img/infcn.png"></div>
         <div class="center">
@@ -23,7 +24,7 @@
             <p>京ICP备14019076号 京公网安备11010802016118号</p>
         </div>
     </div>
-    <div class="footer"></div>
+</div>
 </template>
 <style>
 

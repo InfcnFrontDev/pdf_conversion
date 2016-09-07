@@ -7,8 +7,10 @@ new Vue({
     ready: function () {
         demo();
     },
-    methods: {},
+    methods: {}, 
     components: {
+
+    	
         VHeader, VFooter
     }
 });
