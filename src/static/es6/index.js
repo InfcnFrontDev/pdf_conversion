@@ -119,7 +119,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "_v-4553f21c/VHeader.vue"
+	  var id = "./VHeader.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -143,8 +143,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.0.23.1@css-loader/index.js!./../../node_modules/.8.5.3@vue-loader/lib/style-rewriter.js!./../../node_modules/.8.5.3@vue-loader/lib/selector.js?type=style&index=0!./VHeader.vue", function() {
-				var newContent = require("!!./../../node_modules/.0.23.1@css-loader/index.js!./../../node_modules/.8.5.3@vue-loader/lib/style-rewriter.js!./../../node_modules/.8.5.3@vue-loader/lib/selector.js?type=style&index=0!./VHeader.vue");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./VHeader.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./VHeader.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -593,7 +593,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "_v-87b8ba00/VFooter.vue"
+	  var id = "./VFooter.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -617,8 +617,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.0.23.1@css-loader/index.js!./../../node_modules/.8.5.3@vue-loader/lib/style-rewriter.js!./../../node_modules/.8.5.3@vue-loader/lib/selector.js?type=style&index=0!./VFooter.vue", function() {
-				var newContent = require("!!./../../node_modules/.0.23.1@css-loader/index.js!./../../node_modules/.8.5.3@vue-loader/lib/style-rewriter.js!./../../node_modules/.8.5.3@vue-loader/lib/selector.js?type=style&index=0!./VFooter.vue");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./VFooter.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./VFooter.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -636,7 +636,7 @@
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 	// exports
 
@@ -651,6 +651,7 @@
 	    value: true
 	});
 	// <template>
+	//  <div class="footer">
 	//     <div class="footer-in">
 	//         <div class="left"><img src="../static/img/infcn.png"></div>
 	//         <div class="center">
@@ -675,7 +676,7 @@
 	//             <p>京ICP备14019076号 京公网安备11010802016118号</p>
 	//         </div>
 	//     </div>
-	//     <div class="footer"></div>
+	// </div>
 	// </template>
 	// <style>
 	//
@@ -692,7 +693,7 @@
 /* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "\n<div class=\"footer-in\">\n    <div class=\"left\"><img src=\"" + __webpack_require__(19) + "\"></div>\n    <div class=\"center\">\n        <img src=\"" + __webpack_require__(20) + "\">\n        <ul>\n            <li><a href=\"javascript:;\">诚聘英才</a></li>\n            <li><a href=\"javascript:;\">产品与服务</a></li>\n            <li><a href=\"javascript:;\">在线咨询</a></li>\n        </ul>\n    </div>\n    <div class=\"right\">\n        <img src=\"" + __webpack_require__(21) + "\">\n        <ul>\n            <li><a href=\"javascript:;\">关于我们</a></li>\n            <li><a href=\"javascript:;\">新闻与活动</a></li>\n            <li><a href=\"javascript:;\">最新公告</a></li>\n        </ul>\n        <a href=\"#\" class=\"er\"></a>\n    </div>\n    <div class=\"bottom\">\n        <p>© 2011-2016 北京英富森软件股份有限公司 版权所有</p>\n        <p>京ICP备14019076号 京公网安备11010802016118号</p>\n    </div>\n</div>\n<div class=\"footer\"></div>\n";
+	module.exports = "\n <div class=\"footer\">\n    <div class=\"footer-in\">\n        <div class=\"left\"><img src=\"" + __webpack_require__(19) + "\"></div>\n        <div class=\"center\">\n            <img src=\"" + __webpack_require__(20) + "\">\n            <ul>\n                <li><a href=\"javascript:;\">诚聘英才</a></li>\n                <li><a href=\"javascript:;\">产品与服务</a></li>\n                <li><a href=\"javascript:;\">在线咨询</a></li>\n            </ul>\n        </div>\n        <div class=\"right\">\n            <img src=\"" + __webpack_require__(21) + "\">\n            <ul>\n                <li><a href=\"javascript:;\">关于我们</a></li>\n                <li><a href=\"javascript:;\">新闻与活动</a></li>\n                <li><a href=\"javascript:;\">最新公告</a></li>\n            </ul>\n            <a href=\"#\" class=\"er\"></a>\n        </div>\n        <div class=\"bottom\">\n            <p>© 2011-2016 北京英富森软件股份有限公司 版权所有</p>\n            <p>京ICP备14019076号 京公网安备11010802016118号</p>\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
 /* 19 */
@@ -753,6 +754,7 @@
 	    },
 	    methods: {},
 	    components: {
+
 	        VHeader: _VHeader2.default, VFooter: _VFooter2.default
 	    }
 	});

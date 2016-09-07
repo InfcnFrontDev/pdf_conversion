@@ -11,6 +11,8 @@ new Vue({
     },
     methods: {},
     components: {
+    	
+
         VHeader, VFooter, PdfToDoc, PdfToPpt
     }
 });
