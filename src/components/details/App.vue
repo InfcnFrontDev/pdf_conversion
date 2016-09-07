@@ -1,6 +1,6 @@
 <template>
     <v-header></v-header>
-    <router-view></router-view>
+    <router-view transition="back" keep-alive></router-view>
     <v-footer></v-footer>
 </template>
 <script>
@@ -16,3 +16,14 @@
         }
     }
 </script>
+<style>
+.back-transition { 
+  transition: transform .5s ease;
+}
+.back-enter{
+  transform: translate(100%,0);
+}
+.back-leave {
+  transform: translate(-100%,0);
+}
+</style>

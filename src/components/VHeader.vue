@@ -18,11 +18,11 @@
 							<li><a href="details.html#!/pdftodoc">PDF转Word</a></li>
 							<li><a href="details.html#!/pdftoxls">PDF转Excel</a></li>
 							<li><a href="details.html#!/pdftoppt">PDF转PPT</a></li>
-							<li><a href="#">PDF转HTML</a></li>
-							<li><a href="#">PDF转图片</a></li>
-							<li><a href="#">PDF转换文本</a></li>
-							<li><a href="#">PDF转换XML</a></li>
-							<li style="border: none"><a href="#">PDF转换RTF</a></li>
+							<li><a href="details.html#!/pdftohtml">PDF转HTML</a></li>
+							<li><a href="details.html#!/pdftoimg">PDF转图片</a></li>
+							<li><a href="details.html#!/pdftotxt">PDF转换文本</a></li>
+							<li><a href="details.html#!/pdftoxml">PDF转换XML</a></li>
+							<li><a href="details.html#!/pdftortf">PDF转换RTF</a></li>
 						</ul>
 					</div>
 				</li>

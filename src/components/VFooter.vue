@@ -31,8 +31,7 @@
 </style>
 <script>
     export default{
-        ready() {
-            console.log('footer,测试所有home业务模块下的js都会被编译');
+        ready() { 
         }
     }
 </script>
