@@ -1,0 +1,11 @@
+{
+  "name": "pdf_conversion",
+  "description": "",
+  "version": "0.0.0",
+  "homepage": "",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "jquery": "^3.1.0"
+  }
+}

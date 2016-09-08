@@ -19,79 +19,79 @@
             </div>
             <div class="file2" style="display:none">
                 <div class="pdf">
-                    <img src="../static/img/pdfff.png">
+                    <img src="../images/pdfff.png">
                     <a href="javascript:;" class="aa1">信息化建设简述.pdf</a>
-                    <img src="../static/img/x.png" class="ii1">
+                    <img src="../images/x.png" class="ii1">
                     <a href="javascript:;" class="aa2">移除</a>
-                    <img src="../static/img/download.png" class="ii2">
+                    <img src="../images/download.png" class="ii2">
                     <a href="javascript:;">下载</a>
                 </div>
                 <div class="pdf">
-                    <img src="../static/img/pdfff.png">
+                    <img src="../images/pdfff.png">
                     <a href="javascript:;" class="aa1">信息化建设简述.pdf</a>
-                    <img src="../static/img/x.png" class="ii1">
+                    <img src="../images/x.png" class="ii1">
                     <a href="javascript:;" class="aa2">移除</a>
-                    <img src="../static/img/download.png" class="ii2">
+                    <img src="../images/download.png" class="ii2">
                     <a href="javascript:;">下载</a>
                 </div>
                 <div class="pdf">
-                    <img src="../static/img/pdfff.png">
+                    <img src="../images/pdfff.png">
                     <a href="javascript:;" class="aa1">信息化建设简述.pdf</a>
-                    <img src="../static/img/x.png" class="ii1">
+                    <img src="../images/x.png" class="ii1">
                     <a href="javascript:;" class="aa2">移除</a>
-                    <img src="../static/img/download.png" class="ii2">
-                    <a href="javascript:;">下载</a>
-                </div>
-            </div>
-            <div class="file2" style="display: none">
-                <div class="pdf">
-                    <img src="../static/img/pdfff.png">
-                    <a href="javascript:;" class="aa1">信息化建设简述.pdf</a>
-                    <img src="../static/img/x.png" class="ii1">
-                    <a href="javascript:;" class="aa2">移除</a>
-                    <img src="../static/img/download.png" class="ii2">
-                    <a href="javascript:;">下载</a>
-                </div>
-                <div class="pdf">
-                    <img src="../static/img/pdfff.png">
-                    <a href="javascript:;" class="aa1">信息化建设简述.pdf</a>
-                    <img src="../static/img/x.png" class="ii1">
-                    <a href="javascript:;" class="aa2">移除</a>
-                    <img src="../static/img/download.png" class="ii2">
-                    <a href="javascript:;">下载</a>
-                </div>
-                <div class="pdf">
-                    <img src="../static/img/pdfff.png">
-                    <a href="javascript:;" class="aa1">信息化建设简述.pdf</a>
-                    <img src="../static/img/x.png" class="ii1">
-                    <a href="javascript:;" class="aa2">移除</a>
-                    <img src="../static/img/download.png" class="ii2">
+                    <img src="../images/download.png" class="ii2">
                     <a href="javascript:;">下载</a>
                 </div>
             </div>
             <div class="file2" style="display: none">
                 <div class="pdf">
-                    <img src="../static/img/pdfff.png">
+                    <img src="../images/pdfff.png">
                     <a href="javascript:;" class="aa1">信息化建设简述.pdf</a>
-                    <img src="../static/img/x.png" class="ii1">
+                    <img src="../images/x.png" class="ii1">
                     <a href="javascript:;" class="aa2">移除</a>
-                    <img src="../static/img/download.png" class="ii2">
+                    <img src="../images/download.png" class="ii2">
                     <a href="javascript:;">下载</a>
                 </div>
                 <div class="pdf">
-                    <img src="../static/img/pdfff.png">
+                    <img src="../images/pdfff.png">
                     <a href="javascript:;" class="aa1">信息化建设简述.pdf</a>
-                    <img src="../static/img/x.png" class="ii1">
+                    <img src="../images/x.png" class="ii1">
                     <a href="javascript:;" class="aa2">移除</a>
-                    <img src="../static/img/download.png" class="ii2">
+                    <img src="../images/download.png" class="ii2">
                     <a href="javascript:;">下载</a>
                 </div>
                 <div class="pdf">
-                    <img src="../static/img/pdfff.png">
+                    <img src="../images/pdfff.png">
                     <a href="javascript:;" class="aa1">信息化建设简述.pdf</a>
-                    <img src="../static/img/x.png" class="ii1">
+                    <img src="../images/x.png" class="ii1">
                     <a href="javascript:;" class="aa2">移除</a>
-                    <img src="../static/img/download.png" class="ii2">
+                    <img src="../images/download.png" class="ii2">
+                    <a href="javascript:;">下载</a>
+                </div>
+            </div>
+            <div class="file2" style="display: none">
+                <div class="pdf">
+                    <img src="../images/pdfff.png">
+                    <a href="javascript:;" class="aa1">信息化建设简述.pdf</a>
+                    <img src="../images/x.png" class="ii1">
+                    <a href="javascript:;" class="aa2">移除</a>
+                    <img src="../images/download.png" class="ii2">
+                    <a href="javascript:;">下载</a>
+                </div>
+                <div class="pdf">
+                    <img src="../images/pdfff.png">
+                    <a href="javascript:;" class="aa1">信息化建设简述.pdf</a>
+                    <img src="../images/x.png" class="ii1">
+                    <a href="javascript:;" class="aa2">移除</a>
+                    <img src="../images/download.png" class="ii2">
+                    <a href="javascript:;">下载</a>
+                </div>
+                <div class="pdf">
+                    <img src="../images/pdfff.png">
+                    <a href="javascript:;" class="aa1">信息化建设简述.pdf</a>
+                    <img src="../images/x.png" class="ii1">
+                    <a href="javascript:;" class="aa2">移除</a>
+                    <img src="../images/download.png" class="ii2">
                     <a href="javascript:;">下载</a>
                 </div>
             </div>
