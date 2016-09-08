@@ -13132,7 +13132,7 @@
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 	// exports
 
@@ -13443,11 +13443,16 @@
 	//     </div>
 	// </template>
 	// <script>
+
 	exports.default = {
 	    components: {
 	        VHeader: _header2.default, VFooter: _footer2.default
 	    },
-	    ready: function ready() {}
+	    ready: function ready() {
+	        $(".a2").on("click", function () {
+	            alert(ok);
+	        });
+	    }
 	};
 	// </script>
 	// <style>
@@ -13807,8 +13812,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-597b7bdd&scoped=true!./../../node_modules/sass-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./details-pdf2doc.vue", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-597b7bdd&scoped=true!./../../node_modules/sass-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./details-pdf2doc.vue");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-e70d1786&scoped=true!./../../node_modules/sass-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./details-pdf2doc.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-e70d1786&scoped=true!./../../node_modules/sass-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./details-pdf2doc.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -13863,7 +13868,7 @@
 	//             <form>
 	//                 <input type="text">
 	//             </form>
-	//             <p>请输入待转换页面的页码以逗号分开 （例如: 1,3,5-8,10-20）　(全部转换请留空)</p>
+	//             <p>请输入待转换页面的码以逗号分开 （例如: 1,3,5-8,10-20）　(全部转换请留空)</p>
 	//         </div>
 	//     </v-content>
 	// </template>
@@ -13942,8 +13947,8 @@
 	// <template>
 	//     <div class="banner">
 	//         <div class="body-in">
-	//             <h1><span>PDF</span>文档转换为<span>Word</span></h1>
-	//             <ul class="ul">
+	//             <h1><span>PDF</span>文档换为<span>Word</span></h1>
+	//             <ul class="ul"> 
 	//                 <li class="change"><a href="#">1</a><span></span><b>上传文件</b></li>
 	//                 <li><a href="#">2</a><span></span><b>上传完毕</b></li>
 	//                 <li><a href="#">3</a><span></span><b>开始转换</b></li>
@@ -13951,14 +13956,14 @@
 	//             </ul>
 	//             <div class="botton">
 	//                 <h3>选择文件</h3>
-	//                 <a class="a1" href="javascript:;">选择本地文件</a>
+	//                 <a class="a1" href="javascript:;" id="picker">选择本地文件</a>
 	//                 <a class="a2" href="javascript:;">开始转换</a>
 	//                 <div style="clear: both"></div>
 	//             </div>
-	//             <div class="file">
+	//             <div class="file" style="display:none">
 	//                 <h3>未选择文件</h3>
 	//             </div>
-	//             <div class="file2" style="display: none">
+	//             <div class="file2" style="display:block">
 	//                 <div class="pdf">
 	//                     <img src="../static/img/pdfff.png">
 	//                     <a href="javascript:;" class="aa1">信息化建设简述.pdf</a>
@@ -14040,7 +14045,7 @@
 	//                 <slot></slot>
 	//             </div>
 	//             <div class="file4" style="display: none">
-	//                 <h3>转换结果</h3>
+	//                 <h3>转结果</h3>
 	//                 <p>pdf转换word.doc</p>
 	//                 <a href="javascript:;">下载</a>
 	//             </div>
@@ -14063,7 +14068,7 @@
 /* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "\n<div class=\"banner\">\n    <div class=\"body-in\">\n        <h1><span>PDF</span>文档转换为<span>Word</span></h1>\n        <ul class=\"ul\">\n            <li class=\"change\"><a href=\"#\">1</a><span></span><b>上传文件</b></li>\n            <li><a href=\"#\">2</a><span></span><b>上传完毕</b></li>\n            <li><a href=\"#\">3</a><span></span><b>开始转换</b></li>\n            <li><a href=\"#\">4</a><span></span><b>完成</b></li>\n        </ul>\n        <div class=\"botton\">\n            <h3>选择文件</h3>\n            <a class=\"a1\" href=\"javascript:;\">选择本地文件</a>\n            <a class=\"a2\" href=\"javascript:;\">开始转换</a>\n            <div style=\"clear: both\"></div>\n        </div>\n        <div class=\"file\">\n            <h3>未选择文件</h3>\n        </div>\n        <div class=\"file2\" style=\"display: none\">\n            <div class=\"pdf\">\n                <img src=\"" + __webpack_require__(38) + "\">\n                <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n                <img src=\"" + __webpack_require__(39) + "\" class=\"ii1\">\n                <a href=\"javascript:;\" class=\"aa2\">移除</a>\n                <img src=\"" + __webpack_require__(40) + "\" class=\"ii2\">\n                <a href=\"javascript:;\">下载</a>\n            </div>\n            <div class=\"pdf\">\n                <img src=\"" + __webpack_require__(38) + "\">\n                <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n                <img src=\"" + __webpack_require__(39) + "\" class=\"ii1\">\n                <a href=\"javascript:;\" class=\"aa2\">移除</a>\n                <img src=\"" + __webpack_require__(40) + "\" class=\"ii2\">\n                <a href=\"javascript:;\">下载</a>\n            </div>\n            <div class=\"pdf\">\n                <img src=\"" + __webpack_require__(38) + "\">\n                <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n                <img src=\"" + __webpack_require__(39) + "\" class=\"ii1\">\n                <a href=\"javascript:;\" class=\"aa2\">移除</a>\n                <img src=\"" + __webpack_require__(40) + "\" class=\"ii2\">\n                <a href=\"javascript:;\">下载</a>\n            </div>\n        </div>\n        <div class=\"file2\" style=\"display: none\">\n            <div class=\"pdf\">\n                <img src=\"" + __webpack_require__(38) + "\">\n                <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n                <img src=\"" + __webpack_require__(39) + "\" class=\"ii1\">\n                <a href=\"javascript:;\" class=\"aa2\">移除</a>\n                <img src=\"" + __webpack_require__(40) + "\" class=\"ii2\">\n                <a href=\"javascript:;\">下载</a>\n            </div>\n            <div class=\"pdf\">\n                <img src=\"" + __webpack_require__(38) + "\">\n                <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n                <img src=\"" + __webpack_require__(39) + "\" class=\"ii1\">\n                <a href=\"javascript:;\" class=\"aa2\">移除</a>\n                <img src=\"" + __webpack_require__(40) + "\" class=\"ii2\">\n                <a href=\"javascript:;\">下载</a>\n            </div>\n            <div class=\"pdf\">\n                <img src=\"" + __webpack_require__(38) + "\">\n                <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n                <img src=\"" + __webpack_require__(39) + "\" class=\"ii1\">\n                <a href=\"javascript:;\" class=\"aa2\">移除</a>\n                <img src=\"" + __webpack_require__(40) + "\" class=\"ii2\">\n                <a href=\"javascript:;\">下载</a>\n            </div>\n        </div>\n        <div class=\"file2\" style=\"display: none\">\n            <div class=\"pdf\">\n                <img src=\"" + __webpack_require__(38) + "\">\n                <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n                <img src=\"" + __webpack_require__(39) + "\" class=\"ii1\">\n                <a href=\"javascript:;\" class=\"aa2\">移除</a>\n                <img src=\"" + __webpack_require__(40) + "\" class=\"ii2\">\n                <a href=\"javascript:;\">下载</a>\n            </div>\n            <div class=\"pdf\">\n                <img src=\"" + __webpack_require__(38) + "\">\n                <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n                <img src=\"" + __webpack_require__(39) + "\" class=\"ii1\">\n                <a href=\"javascript:;\" class=\"aa2\">移除</a>\n                <img src=\"" + __webpack_require__(40) + "\" class=\"ii2\">\n                <a href=\"javascript:;\">下载</a>\n            </div>\n            <div class=\"pdf\">\n                <img src=\"" + __webpack_require__(38) + "\">\n                <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n                <img src=\"" + __webpack_require__(39) + "\" class=\"ii1\">\n                <a href=\"javascript:;\" class=\"aa2\">移除</a>\n                <img src=\"" + __webpack_require__(40) + "\" class=\"ii2\">\n                <a href=\"javascript:;\">下载</a>\n            </div>\n        </div>\n        <div class=\"file3\">\n            <slot></slot>\n        </div>\n        <div class=\"file4\" style=\"display: none\">\n            <h3>转换结果</h3>\n            <p>pdf转换word.doc</p>\n            <a href=\"javascript:;\">下载</a>\n        </div>\n        <div style=\"clear: both\"></div>\n    </div>\n</div>\n";
+	module.exports = "\n<div class=\"banner\">\n    <div class=\"body-in\">\n        <h1><span>PDF</span>文档换为<span>Word</span></h1>\n        <ul class=\"ul\"> \n            <li class=\"change\"><a href=\"#\">1</a><span></span><b>上传文件</b></li>\n            <li><a href=\"#\">2</a><span></span><b>上传完毕</b></li>\n            <li><a href=\"#\">3</a><span></span><b>开始转换</b></li>\n            <li><a href=\"#\">4</a><span></span><b>完成</b></li>\n        </ul>\n        <div class=\"botton\">\n            <h3>选择文件</h3>\n            <a class=\"a1\" href=\"javascript:;\" id=\"picker\">选择本地文件</a>\n            <a class=\"a2\" href=\"javascript:;\">开始转换</a>\n            <div style=\"clear: both\"></div>\n        </div>\n        <div class=\"file\" style=\"display:none\">\n            <h3>未选择文件</h3>\n        </div>\n        <div class=\"file2\" style=\"display:block\">\n            <div class=\"pdf\">\n                <img src=\"" + __webpack_require__(38) + "\">\n                <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n                <img src=\"" + __webpack_require__(39) + "\" class=\"ii1\">\n                <a href=\"javascript:;\" class=\"aa2\">移除</a>\n                <img src=\"" + __webpack_require__(40) + "\" class=\"ii2\">\n                <a href=\"javascript:;\">下载</a>\n            </div>\n            <div class=\"pdf\">\n                <img src=\"" + __webpack_require__(38) + "\">\n                <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n                <img src=\"" + __webpack_require__(39) + "\" class=\"ii1\">\n                <a href=\"javascript:;\" class=\"aa2\">移除</a>\n                <img src=\"" + __webpack_require__(40) + "\" class=\"ii2\">\n                <a href=\"javascript:;\">下载</a>\n            </div>\n            <div class=\"pdf\">\n                <img src=\"" + __webpack_require__(38) + "\">\n                <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n                <img src=\"" + __webpack_require__(39) + "\" class=\"ii1\">\n                <a href=\"javascript:;\" class=\"aa2\">移除</a>\n                <img src=\"" + __webpack_require__(40) + "\" class=\"ii2\">\n                <a href=\"javascript:;\">下载</a>\n            </div>\n        </div>\n        <div class=\"file2\" style=\"display: none\">\n            <div class=\"pdf\">\n                <img src=\"" + __webpack_require__(38) + "\">\n                <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n                <img src=\"" + __webpack_require__(39) + "\" class=\"ii1\">\n                <a href=\"javascript:;\" class=\"aa2\">移除</a>\n                <img src=\"" + __webpack_require__(40) + "\" class=\"ii2\">\n                <a href=\"javascript:;\">下载</a>\n            </div>\n            <div class=\"pdf\">\n                <img src=\"" + __webpack_require__(38) + "\">\n                <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n                <img src=\"" + __webpack_require__(39) + "\" class=\"ii1\">\n                <a href=\"javascript:;\" class=\"aa2\">移除</a>\n                <img src=\"" + __webpack_require__(40) + "\" class=\"ii2\">\n                <a href=\"javascript:;\">下载</a>\n            </div>\n            <div class=\"pdf\">\n                <img src=\"" + __webpack_require__(38) + "\">\n                <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n                <img src=\"" + __webpack_require__(39) + "\" class=\"ii1\">\n                <a href=\"javascript:;\" class=\"aa2\">移除</a>\n                <img src=\"" + __webpack_require__(40) + "\" class=\"ii2\">\n                <a href=\"javascript:;\">下载</a>\n            </div>\n        </div>\n        <div class=\"file2\" style=\"display: none\">\n            <div class=\"pdf\">\n                <img src=\"" + __webpack_require__(38) + "\">\n                <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n                <img src=\"" + __webpack_require__(39) + "\" class=\"ii1\">\n                <a href=\"javascript:;\" class=\"aa2\">移除</a>\n                <img src=\"" + __webpack_require__(40) + "\" class=\"ii2\">\n                <a href=\"javascript:;\">下载</a>\n            </div>\n            <div class=\"pdf\">\n                <img src=\"" + __webpack_require__(38) + "\">\n                <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n                <img src=\"" + __webpack_require__(39) + "\" class=\"ii1\">\n                <a href=\"javascript:;\" class=\"aa2\">移除</a>\n                <img src=\"" + __webpack_require__(40) + "\" class=\"ii2\">\n                <a href=\"javascript:;\">下载</a>\n            </div>\n            <div class=\"pdf\">\n                <img src=\"" + __webpack_require__(38) + "\">\n                <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n                <img src=\"" + __webpack_require__(39) + "\" class=\"ii1\">\n                <a href=\"javascript:;\" class=\"aa2\">移除</a>\n                <img src=\"" + __webpack_require__(40) + "\" class=\"ii2\">\n                <a href=\"javascript:;\">下载</a>\n            </div>\n        </div>\n        <div class=\"file3\">\n            <slot></slot>\n        </div>\n        <div class=\"file4\" style=\"display: none\">\n            <h3>转结果</h3>\n            <p>pdf转换word.doc</p>\n            <a href=\"javascript:;\">下载</a>\n        </div>\n        <div style=\"clear: both\"></div>\n    </div>\n</div>\n";
 
 /***/ },
 /* 38 */
@@ -14087,7 +14092,7 @@
 /* 41 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<v-content _v-597b7bdd=\"\">\n    <h3 _v-597b7bdd=\"\">选择页码</h3>\n    <div class=\"inpp\" _v-597b7bdd=\"\">\n        <form _v-597b7bdd=\"\">\n            <input type=\"text\" _v-597b7bdd=\"\">\n        </form>\n        <p _v-597b7bdd=\"\">请输入待转换页面的页码以逗号分开 （例如: 1,3,5-8,10-20）　(全部转换请留空)</p>\n    </div>\n</v-content>\n";
+	module.exports = "\n<v-content _v-e70d1786=\"\">\n    <h3 _v-e70d1786=\"\">选择页码</h3>\n    <div class=\"inpp\" _v-e70d1786=\"\">\n        <form _v-e70d1786=\"\">\n            <input type=\"text\" _v-e70d1786=\"\">\n        </form>\n        <p _v-e70d1786=\"\">请输入待转换页面的码以逗号分开 （例如: 1,3,5-8,10-20）　(全部转换请留空)</p>\n    </div>\n</v-content>\n";
 
 /***/ },
 /* 42 */
