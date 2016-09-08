@@ -3,26 +3,26 @@
 		<div class="header-in1">
 			<div class="header-in11">
 				<ul>
-					<li><a href="#"><img src="../static/img/qq.png"><span>在线咨询</span></a></li>
-					<li><a href="#"><img src="../static/img/phone.png"><span>400-086-6899</span></a></li>
-					<li><img src="../static/img/person.png"><a href="#"><span>登录</span></a><a href="#"><span>&nbsp;|&nbsp;</span></a><a href="#"><span>我要注册</span></a></li>
+					<li><a href="#"><img src="../../static/img/qq.png"><span>在线咨询</span></a></li>
+					<li><a href="#"><img src="../../static/img/phone.png"><span>400-086-6899</span></a></li>
+					<li><img src="../../static/img/person.png"><a href="#"><span>登录</span></a><a href="#"><span>&nbsp;|&nbsp;</span></a><a href="#"><span>我要注册</span></a></li>
 				</ul>
 			</div>
 		</div>
 		<div class="header-in">
-			<img src="../static/img/logo.png">
+			<img src="../../static/img/logo.png">
 			<ul>
 				<li class="ding"><a href="#">PDF转换处理</a>
 					<div class="kuang">
 						<ul>
-							<li><a href="details.html#!/pdftodoc">PDF转Word</a></li>
-							<li><a href="details.html#!/pdftoxls">PDF转Excel</a></li>
-							<li><a href="details.html#!/pdftoppt">PDF转PPT</a></li>
-							<li><a href="details.html#!/pdftohtml">PDF转HTML</a></li>
-							<li><a href="details.html#!/pdftoimg">PDF转图片</a></li>
-							<li><a href="details.html#!/pdftotxt">PDF转换文本</a></li>
-							<li><a href="details.html#!/pdftoxml">PDF转换XML</a></li>
-							<li><a href="details.html#!/pdftortf">PDF转换RTF</a></li>
+							<li><a href="details.html#!/pdf2doc">PDF转Word</a></li>
+							<li><a href="details.html#!/pdf2xls">PDF转Excel</a></li>
+							<li><a href="details.html#!/pdf2ppt">PDF转PPT</a></li>
+							<li><a href="details.html#!/pdf2html">PDF转HTML</a></li>
+							<li><a href="details.html#!/pdf2img">PDF转图片</a></li>
+							<li><a href="details.html#!/pdf2txt">PDF转换文本</a></li>
+							<li><a href="details.html#!/pdf2xml">PDF转换XML</a></li>
+							<li><a href="details.html#!/pdf2rtf">PDF转换RTF</a></li>
 						</ul>
 					</div>
 				</li>
@@ -76,7 +76,6 @@
 	</div>
 </template>
 <style>
-
 </style>
 <script>
 	export default{

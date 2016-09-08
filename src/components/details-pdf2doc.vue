@@ -12,7 +12,7 @@
 <style scoped rel="stylesheet/scss" lang="sass">
 </style>
 <script>
-    import VContent from '../VContent'
+    import VContent from './details-content'
 
     export default{
         components: {

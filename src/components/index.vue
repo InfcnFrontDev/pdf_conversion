@@ -4,9 +4,9 @@
     <v-footer></v-footer>
 </template>
 <script>
-    import VHeader from '../VHeader.vue'
-    import VFooter from '../VFooter.vue'
-    import VContent from './VContent.vue'
+    import VHeader from './common/header.vue'
+    import VFooter from './common/footer.vue'
+    import VContent from './index-content.vue'
 
     export default{
         components: {
