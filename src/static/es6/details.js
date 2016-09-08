@@ -77,6 +77,78 @@
 
 	var _detailsPdf2xls2 = _interopRequireDefault(_detailsPdf2xls);
 
+	var _detailsPdf2html = __webpack_require__(48);
+
+	var _detailsPdf2html2 = _interopRequireDefault(_detailsPdf2html);
+
+	var _detailsPdf2pic = __webpack_require__(51);
+
+	var _detailsPdf2pic2 = _interopRequireDefault(_detailsPdf2pic);
+
+	var _detailsPdf2rtf = __webpack_require__(54);
+
+	var _detailsPdf2rtf2 = _interopRequireDefault(_detailsPdf2rtf);
+
+	var _detailsPdf2txt = __webpack_require__(57);
+
+	var _detailsPdf2txt2 = _interopRequireDefault(_detailsPdf2txt);
+
+	var _detailsPdf2xml = __webpack_require__(60);
+
+	var _detailsPdf2xml2 = _interopRequireDefault(_detailsPdf2xml);
+
+	var _detailsPdfshuiying = __webpack_require__(63);
+
+	var _detailsPdfshuiying2 = _interopRequireDefault(_detailsPdfshuiying);
+
+	var _detailsPdfyasuo = __webpack_require__(66);
+
+	var _detailsPdfyasuo2 = _interopRequireDefault(_detailsPdfyasuo);
+
+	var _detailsPdftiqu = __webpack_require__(69);
+
+	var _detailsPdftiqu2 = _interopRequireDefault(_detailsPdftiqu);
+
+	var _detailsPdfjiemi = __webpack_require__(72);
+
+	var _detailsPdfjiemi2 = _interopRequireDefault(_detailsPdfjiemi);
+
+	var _detailsPdfjiami = __webpack_require__(75);
+
+	var _detailsPdfjiami2 = _interopRequireDefault(_detailsPdfjiami);
+
+	var _detailsPdfhebing = __webpack_require__(78);
+
+	var _detailsPdfhebing2 = _interopRequireDefault(_detailsPdfhebing);
+
+	var _detailsPdffenge = __webpack_require__(81);
+
+	var _detailsPdffenge2 = _interopRequireDefault(_detailsPdffenge);
+
+	var _detailsPdfdelate = __webpack_require__(84);
+
+	var _detailsPdfdelate2 = _interopRequireDefault(_detailsPdfdelate);
+
+	var _detailsPpt2pdf = __webpack_require__(87);
+
+	var _detailsPpt2pdf2 = _interopRequireDefault(_detailsPpt2pdf);
+
+	var _detailsTxt2pdf = __webpack_require__(90);
+
+	var _detailsTxt2pdf2 = _interopRequireDefault(_detailsTxt2pdf);
+
+	var _detailsDoc2pdf = __webpack_require__(93);
+
+	var _detailsDoc2pdf2 = _interopRequireDefault(_detailsDoc2pdf);
+
+	var _detailsHtml2pdf = __webpack_require__(96);
+
+	var _detailsHtml2pdf2 = _interopRequireDefault(_detailsHtml2pdf);
+
+	var _detailsXls2pdf = __webpack_require__(99);
+
+	var _detailsXls2pdf2 = _interopRequireDefault(_detailsXls2pdf);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	//前期准备工作
@@ -88,12 +160,32 @@
 	router.map({
 	    '/pdf2doc': { component: _detailsPdf2doc2.default },
 	    '/pdf2ppt': { component: _detailsPdf2ppt2.default },
-	    '/pdf2xls': { component: _detailsPdf2xls2.default }
+	    '/pdf2xls': { component: _detailsPdf2xls2.default },
+	    '/pdf2html': { component: _detailsPdf2doc2.default },
+	    '/pdf2pic': { component: _detailsPdf2pic2.default },
+	    '/pdf2rtf': { component: _detailsPdf2rtf2.default },
+	    '/pdf2txt': { component: _detailsPdf2txt2.default },
+	    '/pdf2xml': { component: _detailsPdf2xml2.default },
+	    '/pdfshuiying': { component: _detailsPdfshuiying2.default },
+	    '/pdfyasuo': { component: _detailsPdfyasuo2.default },
+	    '/pdftiqu': { component: _detailsPdftiqu2.default },
+	    '/pdfjiemi': { component: _detailsPdfjiemi2.default },
+	    '/pdfjiami': { component: _detailsPdfjiami2.default },
+	    '/pdfhebing': { component: _detailsPdfhebing2.default },
+	    '/pdffenge': { component: _detailsPdffenge2.default },
+	    '/pdfdelate': { component: _detailsPdfdelate2.default },
+	    '/ppt2pdf': { component: _detailsPpt2pdf2.default },
+	    '/txt2pdf': { component: _detailsTxt2pdf2.default },
+	    '/doc2pdf': { component: _detailsDoc2pdf2.default },
+	    '/html2pdf': { component: _detailsHtml2pdf2.default },
+	    '/xls2pdf': { component: _detailsXls2pdf2.default }
 	});
+
 	//重定向 默认是foo组件
 	router.redirect({
 	    '/': '/pdf2doc'
 	});
+
 	// 现在我们可以启动应用了！
 	// 路由器会创建一个 App 实例，并且挂载到选择符 #app 匹配的元素上。
 	router.start(_details2.default, '#app');
@@ -13099,7 +13191,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "_v-72ab4b31/details.vue"
+	  var id = "./details.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -13123,8 +13215,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.0.23.1@css-loader/index.js!./../../node_modules/.8.5.3@vue-loader/lib/style-rewriter.js!./../../node_modules/.8.5.3@vue-loader/lib/selector.js?type=style&index=0!./details.vue", function() {
-				var newContent = require("!!./../../node_modules/.0.23.1@css-loader/index.js!./../../node_modules/.8.5.3@vue-loader/lib/style-rewriter.js!./../../node_modules/.8.5.3@vue-loader/lib/selector.js?type=style&index=0!./details.vue");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./details.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./details.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -13484,7 +13576,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "_v-3efd7966/header.vue"
+	  var id = "./header.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -13508,8 +13600,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/.0.23.1@css-loader/index.js!./../../../node_modules/.8.5.3@vue-loader/lib/style-rewriter.js!./../../../node_modules/.8.5.3@vue-loader/lib/selector.js?type=style&index=0!./header.vue", function() {
-				var newContent = require("!!./../../../node_modules/.0.23.1@css-loader/index.js!./../../../node_modules/.8.5.3@vue-loader/lib/style-rewriter.js!./../../../node_modules/.8.5.3@vue-loader/lib/selector.js?type=style&index=0!./header.vue");
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./header.vue", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./header.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -13527,7 +13619,7 @@
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 	// exports
 
@@ -13562,7 +13654,7 @@
 	// 							<li><a href="details.html#!/pdf2xls">PDF转Excel</a></li>
 	// 							<li><a href="details.html#!/pdf2ppt">PDF转PPT</a></li>
 	// 							<li><a href="details.html#!/pdf2html">PDF转HTML</a></li>
-	// 							<li><a href="details.html#!/pdf2img">PDF转图片</a></li>
+	// 							<li><a href="details.html#!/pdf2pic">PDF转图片</a></li>
 	// 							<li><a href="details.html#!/pdf2txt">PDF转换文本</a></li>
 	// 							<li><a href="details.html#!/pdf2xml">PDF转换XML</a></li>
 	// 							<li><a href="details.html#!/pdf2rtf">PDF转换RTF</a></li>
@@ -13572,45 +13664,29 @@
 	// 				<li class="ding"><a href="#">文档转换处理</a>
 	// 					<div class="kuang">
 	// 						<ul>
-	// 							<li><a href="#">PDF转Word</a></li>
-	// 							<li><a href="#">PDF转Excel</a></li>
-	// 							<li><a href="#">PDF转PPT</a></li>
-	// 							<li><a href="#">PDF转HTML</a></li>
-	// 							<li><a href="#">PDF转图片</a></li>
-	// 							<li><a href="#">PDF转换文本</a></li>
-	// 							<li><a href="#">PDF转换XML</a></li>
-	// 							<li style="border: none"><a href="#">PDF转换RTF</a></li>
+	// 							<li><a href="details.html#!/doc2pdf">Word转PDF</a></li>
+	// 							<li><a href="details.html#!/xls2pdf">Excel转PDF</a></li>
+	// 							<li><a href="details.html#!/ppt2pdf">PPT转PDF</a></li>
+	// 							<li><a href="details.html#!/html2pdf">HTML转PDF</a></li>
+	// 							<li style="border: none"><a href="details.html#!/txt2pdf">TXT转PDF</a></li>
 	// 						</ul>
 	// 					</div>
 	// 				</li>
 	// 				<li class="ding"><a href="#">PDF页面处理</a>
 	// 					<div class="kuang">
 	// 						<ul>
-	// 							<li><a href="#">PDF转Word</a></li>
-	// 							<li><a href="#">PDF转Excel</a></li>
-	// 							<li><a href="#">PDF转PPT</a></li>
-	// 							<li><a href="#">PDF转HTML</a></li>
-	// 							<li><a href="#">PDF转图片</a></li>
-	// 							<li><a href="#">PDF转换文本</a></li>
-	// 							<li><a href="#">PDF转换XML</a></li>
-	// 							<li style="border: none"><a href="#">PDF转换RTF</a></li>
+	// 							<li><a href="details.html#!/pdfjiemi">PDF解密</a></li>
+	// 							<li><a href="details.html#!/pdfjiami">PDF加密</a></li>
+	// 							<li><a href="details.html#!/pdffenge">PDF页面分割</a></li>
+	// 							<li><a href="details.html#!/pdfhebing">PDF合并</a></li>
+	// 							<li><a href="details.html#!/pdftiqu">PDF图片提取</a></li>
+	// 							<li><a href="details.html#!/pdfdelate">PDF删除页面</a></li>
+	// 							<li><a href="details.html#!/pdfyasuo">PDF压缩</a></li>
+	// 							<li style="border: none"><a href="details.html#!/pdfshuiying">PDF添加水印</a></li>
 	// 						</ul>
 	// 					</div>
 	// 				</li>
-	// 				<li class="ding"><a href="#">联系我们</a>
-	// 					<div class="kuang">
-	// 						<ul>
-	// 							<li><a href="#">PDF转Word</a></li>
-	// 							<li><a href="#">PDF转Excel</a></li>
-	// 							<li><a href="#">PDF转PPT</a></li>
-	// 							<li><a href="#">PDF转HTML</a></li>
-	// 							<li><a href="#">PDF转图片</a></li>
-	// 							<li><a href="#">PDF转换文本</a></li>
-	// 							<li><a href="#">PDF转换XML</a></li>
-	// 							<li style="border: none"><a href="#">PDF转换RTF</a></li>
-	// 						</ul>
-	// 					</div>
-	// 				</li>
+	// 				<li class="ding"><a href="#">联系我们</a></li>
 	// 			</ul>
 	// 			<form>
 	// 				<input type="text" placeholder="请输入关键词" value="请输入关键词">
@@ -13632,7 +13708,7 @@
 /* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "\n<div class=\"header\">\n\t<div class=\"header-in1\">\n\t\t<div class=\"header-in11\">\n\t\t\t<ul>\n\t\t\t\t<li><a href=\"#\"><img src=\"" + __webpack_require__(16) + "\"><span>在线咨询</span></a></li>\n\t\t\t\t<li><a href=\"#\"><img src=\"" + __webpack_require__(17) + "\"><span>400-086-6899</span></a></li>\n\t\t\t\t<li><img src=\"" + __webpack_require__(18) + "\"><a href=\"#\"><span>登录</span></a><a href=\"#\"><span>&nbsp;|&nbsp;</span></a><a href=\"#\"><span>我要注册</span></a></li>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n\t<div class=\"header-in\">\n\t\t<img src=\"" + __webpack_require__(19) + "\">\n\t\t<ul>\n\t\t\t<li class=\"ding\"><a href=\"#\">PDF转换处理</a>\n\t\t\t\t<div class=\"kuang\">\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2doc\">PDF转Word</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2xls\">PDF转Excel</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2ppt\">PDF转PPT</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2html\">PDF转HTML</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2img\">PDF转图片</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2txt\">PDF转换文本</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2xml\">PDF转换XML</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2rtf\">PDF转换RTF</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</li>\n\t\t\t<li class=\"ding\"><a href=\"#\">文档转换处理</a>\n\t\t\t\t<div class=\"kuang\">\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转Word</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转Excel</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转PPT</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转HTML</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转图片</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换文本</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换XML</a></li>\n\t\t\t\t\t\t<li style=\"border: none\"><a href=\"#\">PDF转换RTF</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</li>\n\t\t\t<li class=\"ding\"><a href=\"#\">PDF页面处理</a>\n\t\t\t\t<div class=\"kuang\">\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转Word</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转Excel</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转PPT</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转HTML</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转图片</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换文本</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换XML</a></li>\n\t\t\t\t\t\t<li style=\"border: none\"><a href=\"#\">PDF转换RTF</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</li>\n\t\t\t<li class=\"ding\"><a href=\"#\">联系我们</a>\n\t\t\t\t<div class=\"kuang\">\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转Word</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转Excel</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转PPT</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转HTML</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转图片</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换文本</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换XML</a></li>\n\t\t\t\t\t\t<li style=\"border: none\"><a href=\"#\">PDF转换RTF</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</li>\n\t\t</ul>\n\t\t<form>\n\t\t\t<input type=\"text\" placeholder=\"请输入关键词\" value=\"请输入关键词\">\n\t\t</form>\n\t</div>\n</div>\n";
+	module.exports = "\n<div class=\"header\">\n\t<div class=\"header-in1\">\n\t\t<div class=\"header-in11\">\n\t\t\t<ul>\n\t\t\t\t<li><a href=\"#\"><img src=\"" + __webpack_require__(16) + "\"><span>在线咨询</span></a></li>\n\t\t\t\t<li><a href=\"#\"><img src=\"" + __webpack_require__(17) + "\"><span>400-086-6899</span></a></li>\n\t\t\t\t<li><img src=\"" + __webpack_require__(18) + "\"><a href=\"#\"><span>登录</span></a><a href=\"#\"><span>&nbsp;|&nbsp;</span></a><a href=\"#\"><span>我要注册</span></a></li>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n\t<div class=\"header-in\">\n\t\t<img src=\"" + __webpack_require__(19) + "\">\n\t\t<ul>\n\t\t\t<li class=\"ding\"><a href=\"#\">PDF转换处理</a>\n\t\t\t\t<div class=\"kuang\">\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2doc\">PDF转Word</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2xls\">PDF转Excel</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2ppt\">PDF转PPT</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2html\">PDF转HTML</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2pic\">PDF转图片</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2txt\">PDF转换文本</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2xml\">PDF转换XML</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2rtf\">PDF转换RTF</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</li>\n\t\t\t<li class=\"ding\"><a href=\"#\">文档转换处理</a>\n\t\t\t\t<div class=\"kuang\">\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"details.html#!/doc2pdf\">Word转PDF</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/xls2pdf\">Excel转PDF</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/ppt2pdf\">PPT转PDF</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/html2pdf\">HTML转PDF</a></li>\n\t\t\t\t\t\t<li style=\"border: none\"><a href=\"details.html#!/txt2pdf\">TXT转PDF</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</li>\n\t\t\t<li class=\"ding\"><a href=\"#\">PDF页面处理</a>\n\t\t\t\t<div class=\"kuang\">\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdfjiemi\">PDF解密</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdfjiami\">PDF加密</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdffenge\">PDF页面分割</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdfhebing\">PDF合并</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdftiqu\">PDF图片提取</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdfdelate\">PDF删除页面</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdfyasuo\">PDF压缩</a></li>\n\t\t\t\t\t\t<li style=\"border: none\"><a href=\"details.html#!/pdfshuiying\">PDF添加水印</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</li>\n\t\t\t<li class=\"ding\"><a href=\"#\">联系我们</a></li>\n\t\t</ul>\n\t\t<form>\n\t\t\t<input type=\"text\" placeholder=\"请输入关键词\" value=\"请输入关键词\">\n\t\t</form>\n\t</div>\n</div>\n";
 
 /***/ },
 /* 16 */
@@ -13679,7 +13755,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "_v-8162414a/footer.vue"
+	  var id = "./footer.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -13703,8 +13779,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/.0.23.1@css-loader/index.js!./../../../node_modules/.8.5.3@vue-loader/lib/style-rewriter.js!./../../../node_modules/.8.5.3@vue-loader/lib/selector.js?type=style&index=0!./footer.vue", function() {
-				var newContent = require("!!./../../../node_modules/.0.23.1@css-loader/index.js!./../../../node_modules/.8.5.3@vue-loader/lib/style-rewriter.js!./../../../node_modules/.8.5.3@vue-loader/lib/selector.js?type=style&index=0!./footer.vue");
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./footer.vue", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./footer.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -13823,7 +13899,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "_v-db0580c8/details-pdf2doc.vue"
+	  var id = "./details-pdf2doc.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -13847,8 +13923,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.0.23.1@css-loader/index.js!./../../node_modules/.8.5.3@vue-loader/lib/style-rewriter.js?id=_v-db0580c8&scoped=true!./../../node_modules/.3.2.3@sass-loader/index.js!./../../node_modules/.8.5.3@vue-loader/lib/selector.js?type=style&index=0!./details-pdf2doc.vue", function() {
-				var newContent = require("!!./../../node_modules/.0.23.1@css-loader/index.js!./../../node_modules/.8.5.3@vue-loader/lib/style-rewriter.js?id=_v-db0580c8&scoped=true!./../../node_modules/.3.2.3@sass-loader/index.js!./../../node_modules/.8.5.3@vue-loader/lib/selector.js?type=style&index=0!./details-pdf2doc.vue");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-597b7bdd&scoped=true!./../../node_modules/sass-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./details-pdf2doc.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-597b7bdd&scoped=true!./../../node_modules/sass-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./details-pdf2doc.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -13932,7 +14008,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "_v-205a03dd/details-content.vue"
+	  var id = "./details-content.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -13956,8 +14032,8 @@
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.0.23.1@css-loader/index.js!./../../node_modules/.8.5.3@vue-loader/lib/style-rewriter.js!./../../node_modules/.8.5.3@vue-loader/lib/selector.js?type=style&index=0!./details-content.vue", function() {
-				var newContent = require("!!./../../node_modules/.0.23.1@css-loader/index.js!./../../node_modules/.8.5.3@vue-loader/lib/style-rewriter.js!./../../node_modules/.8.5.3@vue-loader/lib/selector.js?type=style&index=0!./details-content.vue");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./details-content.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./details-content.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -14137,7 +14213,7 @@
 /* 41 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<v-content _v-db0580c8=\"\">\n    <h3 _v-db0580c8=\"\">选择页码</h3>\n    <div class=\"inpp\" _v-db0580c8=\"\">\n        <form _v-db0580c8=\"\">\n            <input type=\"text\" _v-db0580c8=\"\">\n        </form>\n        <p _v-db0580c8=\"\">请输入待转换页面的页码以逗号分开 （例如: 1,3,5-8,10-20）　(全部转换请留空)</p>\n    </div>\n</v-content>\n";
+	module.exports = "\n<v-content _v-597b7bdd=\"\">\n    <h3 _v-597b7bdd=\"\">选择页码</h3>\n    <div class=\"inpp\" _v-597b7bdd=\"\">\n        <form _v-597b7bdd=\"\">\n            <input type=\"text\" _v-597b7bdd=\"\">\n        </form>\n        <p _v-597b7bdd=\"\">请输入待转换页面的页码以逗号分开 （例如: 1,3,5-8,10-20）　(全部转换请留空)</p>\n    </div>\n</v-content>\n";
 
 /***/ },
 /* 42 */
@@ -14159,7 +14235,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "_v-0fec6ed8/details-pdf2ppt.vue"
+	  var id = "./details-pdf2ppt.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -14225,7 +14301,7 @@
 	  var hotAPI = require("vue-hot-reload-api")
 	  hotAPI.install(require("vue"), false)
 	  if (!hotAPI.compatible) return
-	  var id = "_v-9f86623a/details-pdf2xls.vue"
+	  var id = "./details-pdf2xls.vue"
 	  if (!module.hot.data) {
 	    hotAPI.createRecord(id, module.exports)
 	  } else {
@@ -14270,6 +14346,1194 @@
 /***/ function(module, exports) {
 
 	module.exports = "\n<v-content>\n    <h3>pdf to xls</h3>\n</v-content>\n";
+
+/***/ },
+/* 48 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(49)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\details-pdf2html.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(50)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./details-pdf2html.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 49 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _detailsContent = __webpack_require__(33);
+
+	var _detailsContent2 = _interopRequireDefault(_detailsContent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        VContent: _detailsContent2.default
+	    },
+	    ready: function ready() {
+	        console.log('PdfTohtml.vue');
+	    }
+	};
+	// </script>
+	// <template>
+	//     <v-content>
+	//         <h3>pdf to html</h3>
+	//     </v-content>
+	// </template>
+	// <script>
+
+/***/ },
+/* 50 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<v-content>\n    <h3>pdf to html</h3>\n</v-content>\n";
+
+/***/ },
+/* 51 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(52)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\details-pdf2pic.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(53)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./details-pdf2pic.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 52 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _detailsContent = __webpack_require__(33);
+
+	var _detailsContent2 = _interopRequireDefault(_detailsContent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        VContent: _detailsContent2.default
+	    },
+	    ready: function ready() {
+	        console.log('PdfToPic.vue');
+	    }
+	};
+	// </script>
+	// <template>
+	//     <v-content>
+	//         <h3>pdf to pic</h3>
+	//     </v-content>
+	// </template>
+	// <script>
+
+/***/ },
+/* 53 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<v-content>\n    <h3>pdf to pic</h3>\n</v-content>\n";
+
+/***/ },
+/* 54 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(55)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\details-pdf2rtf.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(56)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./details-pdf2rtf.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 55 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _detailsContent = __webpack_require__(33);
+
+	var _detailsContent2 = _interopRequireDefault(_detailsContent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        VContent: _detailsContent2.default
+	    },
+	    ready: function ready() {
+	        console.log('PdfTortf.vue');
+	    }
+	};
+	// </script>
+	// <template>
+	//     <v-content>
+	//         <h3>pdf to rtf</h3>
+	//     </v-content>
+	// </template>
+	// <script>
+
+/***/ },
+/* 56 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<v-content>\n    <h3>pdf to rtf</h3>\n</v-content>\n";
+
+/***/ },
+/* 57 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(58)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\details-pdf2txt.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(59)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./details-pdf2txt.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 58 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _detailsContent = __webpack_require__(33);
+
+	var _detailsContent2 = _interopRequireDefault(_detailsContent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        VContent: _detailsContent2.default
+	    },
+	    ready: function ready() {
+	        console.log('PdfTotxt.vue');
+	    }
+	};
+	// </script>
+	// <template>
+	//     <v-content>
+	//         <h3>pdf to txt</h3>
+	//     </v-content>
+	// </template>
+	// <script>
+
+/***/ },
+/* 59 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<v-content>\n    <h3>pdf to txt</h3>\n</v-content>\n";
+
+/***/ },
+/* 60 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(61)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\details-pdf2xml.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(62)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./details-pdf2xml.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 61 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _detailsContent = __webpack_require__(33);
+
+	var _detailsContent2 = _interopRequireDefault(_detailsContent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        VContent: _detailsContent2.default
+	    },
+	    ready: function ready() {
+	        console.log('PdfToxml.vue');
+	    }
+	};
+	// </script>
+	// <template>
+	//     <v-content>
+	//         <h3>pdf to xml</h3>
+	//     </v-content>
+	// </template>
+	// <script>
+
+/***/ },
+/* 62 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<v-content>\n    <h3>pdf to xml</h3>\n</v-content>\n";
+
+/***/ },
+/* 63 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(64)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\details-pdfshuiying.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(65)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./details-pdfshuiying.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 64 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _detailsContent = __webpack_require__(33);
+
+	var _detailsContent2 = _interopRequireDefault(_detailsContent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        VContent: _detailsContent2.default
+	    },
+	    ready: function ready() {
+	        console.log('PdfToXls.vue');
+	    }
+	};
+	// </script>
+	// <template>
+	//     <v-content>
+	//         <h3>pdf shuiying</h3>
+	//     </v-content>
+	// </template>
+	// <script>
+
+/***/ },
+/* 65 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<v-content>\n    <h3>pdf shuiying</h3>\n</v-content>\n";
+
+/***/ },
+/* 66 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(67)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\details-pdfyasuo.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(68)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./details-pdfyasuo.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 67 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _detailsContent = __webpack_require__(33);
+
+	var _detailsContent2 = _interopRequireDefault(_detailsContent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        VContent: _detailsContent2.default
+	    },
+	    ready: function ready() {
+	        console.log('PdfToXls.vue');
+	    }
+	};
+	// </script>
+	// <template>
+	//     <v-content>
+	//         <h3>pdf yasuo</h3>
+	//     </v-content>
+	// </template>
+	// <script>
+
+/***/ },
+/* 68 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<v-content>\n    <h3>pdf yasuo</h3>\n</v-content>\n";
+
+/***/ },
+/* 69 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(70)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\details-pdftiqu.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(71)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./details-pdftiqu.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 70 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _detailsContent = __webpack_require__(33);
+
+	var _detailsContent2 = _interopRequireDefault(_detailsContent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        VContent: _detailsContent2.default
+	    },
+	    ready: function ready() {
+	        console.log('PdfToXls.vue');
+	    }
+	};
+	// </script>
+	// <template>
+	//     <v-content>
+	//         <h3>pdf tiqu</h3>
+	//     </v-content>
+	// </template>
+	// <script>
+
+/***/ },
+/* 71 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<v-content>\n    <h3>pdf tiqu</h3>\n</v-content>\n";
+
+/***/ },
+/* 72 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(73)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\details-pdfjiemi.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(74)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./details-pdfjiemi.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 73 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _detailsContent = __webpack_require__(33);
+
+	var _detailsContent2 = _interopRequireDefault(_detailsContent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        VContent: _detailsContent2.default
+	    },
+	    ready: function ready() {
+	        console.log('PdfToXls.vue');
+	    }
+	};
+	// </script>
+	// <template>
+	//     <v-content>
+	//         <h3>pdf jiemi</h3>
+	//     </v-content>
+	// </template>
+	// <script>
+
+/***/ },
+/* 74 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<v-content>\n    <h3>pdf jiemi</h3>\n</v-content>\n";
+
+/***/ },
+/* 75 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(76)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\details-pdfjiami.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(77)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./details-pdfjiami.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 76 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _detailsContent = __webpack_require__(33);
+
+	var _detailsContent2 = _interopRequireDefault(_detailsContent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        VContent: _detailsContent2.default
+	    },
+	    ready: function ready() {
+	        console.log('PdfToXls.vue');
+	    }
+	};
+	// </script>
+	// <template>
+	//     <v-content>
+	//         <h3>pdf jiami</h3>
+	//     </v-content>
+	// </template>
+	// <script>
+
+/***/ },
+/* 77 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<v-content>\n    <h3>pdf jiami</h3>\n</v-content>\n";
+
+/***/ },
+/* 78 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(79)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\details-pdfhebing.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(80)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./details-pdfhebing.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 79 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _detailsContent = __webpack_require__(33);
+
+	var _detailsContent2 = _interopRequireDefault(_detailsContent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        VContent: _detailsContent2.default
+	    },
+	    ready: function ready() {
+	        console.log('PdfToXls.vue');
+	    }
+	};
+	// </script>
+	// <template>
+	//     <v-content>
+	//         <h3>pdf hebing</h3>
+	//     </v-content>
+	// </template>
+	// <script>
+
+/***/ },
+/* 80 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<v-content>\n    <h3>pdf hebing</h3>\n</v-content>\n";
+
+/***/ },
+/* 81 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(82)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\details-pdffenge.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(83)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./details-pdffenge.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 82 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _detailsContent = __webpack_require__(33);
+
+	var _detailsContent2 = _interopRequireDefault(_detailsContent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        VContent: _detailsContent2.default
+	    },
+	    ready: function ready() {
+	        console.log('PdfToXls.vue');
+	    }
+	};
+	// </script>
+	// <template>
+	//     <v-content>
+	//         <h3>pdf fenge</h3>
+	//     </v-content>
+	// </template>
+	// <script>
+
+/***/ },
+/* 83 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<v-content>\n    <h3>pdf fenge</h3>\n</v-content>\n";
+
+/***/ },
+/* 84 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(85)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\details-pdfdelate.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(86)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./details-pdfdelate.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 85 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _detailsContent = __webpack_require__(33);
+
+	var _detailsContent2 = _interopRequireDefault(_detailsContent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        VContent: _detailsContent2.default
+	    },
+	    ready: function ready() {
+	        console.log('PdfToXls.vue');
+	    }
+	};
+	// </script>
+	// <template>
+	//     <v-content>
+	//         <h3>pdf delate</h3>
+	//     </v-content>
+	// </template>
+	// <script>
+
+/***/ },
+/* 86 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<v-content>\n    <h3>pdf delate</h3>\n</v-content>\n";
+
+/***/ },
+/* 87 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(88)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\details-ppt2pdf.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(89)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./details-ppt2pdf.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 88 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _detailsContent = __webpack_require__(33);
+
+	var _detailsContent2 = _interopRequireDefault(_detailsContent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        VContent: _detailsContent2.default
+	    },
+	    ready: function ready() {
+	        console.log('PdfToXls.vue');
+	    }
+	};
+	// </script>
+	// <template>
+	//     <v-content>
+	//         <h3>ppt to pdf</h3>
+	//     </v-content>
+	// </template>
+	// <script>
+
+/***/ },
+/* 89 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<v-content>\n    <h3>ppt to pdf</h3>\n</v-content>\n";
+
+/***/ },
+/* 90 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(91)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\details-txt2pdf.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(92)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./details-txt2pdf.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 91 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _detailsContent = __webpack_require__(33);
+
+	var _detailsContent2 = _interopRequireDefault(_detailsContent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        VContent: _detailsContent2.default
+	    },
+	    ready: function ready() {
+	        console.log('PdfToXls.vue');
+	    }
+	};
+	// </script>
+	// <template>
+	//     <v-content>
+	//         <h3>txt to pdf</h3>
+	//     </v-content>
+	// </template>
+	// <script>
+
+/***/ },
+/* 92 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<v-content>\n    <h3>txt to pdf</h3>\n</v-content>\n";
+
+/***/ },
+/* 93 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(94)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\details-doc2pdf.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(95)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./details-doc2pdf.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 94 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _detailsContent = __webpack_require__(33);
+
+	var _detailsContent2 = _interopRequireDefault(_detailsContent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        VContent: _detailsContent2.default
+	    },
+	    ready: function ready() {
+	        console.log('PdfToXls.vue');
+	    }
+	};
+	// </script>
+	// <template>
+	//     <v-content>
+	//         <h3>doc to pdf</h3>
+	//     </v-content>
+	// </template>
+	// <script>
+
+/***/ },
+/* 95 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<v-content>\n    <h3>doc to pdf</h3>\n</v-content>\n";
+
+/***/ },
+/* 96 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(97)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\details-html2pdf.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(98)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./details-html2pdf.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 97 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _detailsContent = __webpack_require__(33);
+
+	var _detailsContent2 = _interopRequireDefault(_detailsContent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        VContent: _detailsContent2.default
+	    },
+	    ready: function ready() {
+	        console.log('PdfToXls.vue');
+	    }
+	};
+	// </script>
+	// <template>
+	//     <v-content>
+	//         <h3>html to pdf</h3>
+	//     </v-content>
+	// </template>
+	// <script>
+
+/***/ },
+/* 98 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<v-content>\n    <h3>html to pdf</h3>\n</v-content>\n";
+
+/***/ },
+/* 99 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(100)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\details-xls2pdf.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(101)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+	if (false) {(function () {  module.hot.accept()
+	  var hotAPI = require("vue-hot-reload-api")
+	  hotAPI.install(require("vue"), false)
+	  if (!hotAPI.compatible) return
+	  var id = "./details-xls2pdf.vue"
+	  if (!module.hot.data) {
+	    hotAPI.createRecord(id, module.exports)
+	  } else {
+	    hotAPI.update(id, module.exports, __vue_template__)
+	  }
+	})()}
+
+/***/ },
+/* 100 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _detailsContent = __webpack_require__(33);
+
+	var _detailsContent2 = _interopRequireDefault(_detailsContent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        VContent: _detailsContent2.default
+	    },
+	    ready: function ready() {
+	        console.log('PdfToXls.vue');
+	    }
+	};
+	// </script>
+	// <template>
+	//     <v-content>
+	//         <h3>xls to pdf</h3>
+	//     </v-content>
+	// </template>
+	// <script>
+
+/***/ },
+/* 101 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<v-content>\n    <h3>xls to pdf</h3>\n</v-content>\n";
 
 /***/ }
 /******/ ]);
