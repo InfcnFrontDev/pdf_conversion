@@ -164,16 +164,22 @@ gulp.task('component', function () {
 	
 	watch(['./src/components/**/*.vue'], function (event) {
 		var sp = event.path.indexOf('\\') > -1 ? '\\' : '/';
-		var business = event.path.split(sp).slice(-2);
-		var jsFile   = business[1].split('-')[0];
+        var business = event.path.split(sp);
+        var business2 = business.slice(-(business.length - business.indexOf('components') - 1));
+        var jsFile   = business2[business2.length-1].split('.')[0].split('-')[0];
+
+        //console.log(business2, jsFile);
+
 		var path;
-		if (business[0] === 'common') {
+		if (business2[0] === 'common') {
 			path = ['./src/js/**/*.js','!./src/js/lib/*.js'];
-		} else if (business[0] === jsFile) {
-			path = './src/js/'+ business[0] +'/*.js';
-		} else {
-			path = './src/js/' + business[0] + '/' + jsFile + '.js';
-		}
+		} else if (business2[0] === jsFile) {
+			path = './src/js/'+ business2[0] +'/*.js';
+        } else if (business2.length == 2) {
+			path = './src/js/' + business2[0] + '/' + jsFile + '.js';
+		}else{
+            path = './src/js/' + jsFile + '.js';
+        }
 		compileJS(path);
 	})
 	
