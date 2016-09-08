@@ -34,7 +34,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/static/";
+/******/ 	__webpack_require__.p = "/pdf_conversion/static/";
 
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
@@ -57,16 +57,46 @@
 
 	var _vue2 = _interopRequireDefault(_vue);
 
-	var _index = __webpack_require__(4);
+	var _vueRouter = __webpack_require__(4);
 
-	var _index2 = _interopRequireDefault(_index);
+	var _vueRouter2 = _interopRequireDefault(_vueRouter);
+
+	var _details = __webpack_require__(5);
+
+	var _details2 = _interopRequireDefault(_details);
+
+	var _detailsPdf2doc = __webpack_require__(29);
+
+	var _detailsPdf2doc2 = _interopRequireDefault(_detailsPdf2doc);
+
+	var _detailsPdf2ppt = __webpack_require__(42);
+
+	var _detailsPdf2ppt2 = _interopRequireDefault(_detailsPdf2ppt);
+
+	var _detailsPdf2xls = __webpack_require__(45);
+
+	var _detailsPdf2xls2 = _interopRequireDefault(_detailsPdf2xls);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	new _vue2.default({
-	    el: 'body',
-	    components: { App: _index2.default }
+	//前期准备工作
+	_vue2.default.use(_vueRouter2.default);
+	//导入需要的组件  
+
+
+	var router = new _vueRouter2.default();
+	router.map({
+	    '/pdf2doc': { component: _detailsPdf2doc2.default },
+	    '/pdf2ppt': { component: _detailsPdf2ppt2.default },
+	    '/pdf2xls': { component: _detailsPdf2xls2.default }
 	});
+	//重定向 默认是foo组件
+	router.redirect({
+	    '/': '/pdf2doc'
+	});
+	// 现在我们可以启动应用了！
+	// 路由器会创建一个 App 实例，并且挂载到选择符 #app 匹配的元素上。
+	router.start(_details2.default, '#app');
 
 /***/ },
 /* 2 */
@@ -10338,115 +10368,2753 @@
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __vue_script__, __vue_template__
-	__vue_script__ = __webpack_require__(5)
-	if (__vue_script__ &&
-	    __vue_script__.__esModule &&
-	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\components\\index.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(48)
-	module.exports = __vue_script__ || {}
-	if (module.exports.__esModule) module.exports = module.exports.default
-	if (__vue_template__) {
-	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
-	}
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), false)
-	  if (!hotAPI.compatible) return
-	  var id = "./index.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
+	/*!
+	 * vue-router v0.7.13
+	 * (c) 2016 Evan You
+	 * Released under the MIT License.
+	 */
+	(function (global, factory) {
+	   true ? module.exports = factory() :
+	  typeof define === 'function' && define.amd ? define(factory) :
+	  global.VueRouter = factory();
+	}(this, function () { 'use strict';
+
+	  var babelHelpers = {};
+
+	  babelHelpers.classCallCheck = function (instance, Constructor) {
+	    if (!(instance instanceof Constructor)) {
+	      throw new TypeError("Cannot call a class as a function");
+	    }
+	  };
+	  function Target(path, matcher, delegate) {
+	    this.path = path;
+	    this.matcher = matcher;
+	    this.delegate = delegate;
 	  }
-	})()}
+
+	  Target.prototype = {
+	    to: function to(target, callback) {
+	      var delegate = this.delegate;
+
+	      if (delegate && delegate.willAddRoute) {
+	        target = delegate.willAddRoute(this.matcher.target, target);
+	      }
+
+	      this.matcher.add(this.path, target);
+
+	      if (callback) {
+	        if (callback.length === 0) {
+	          throw new Error("You must have an argument in the function passed to `to`");
+	        }
+	        this.matcher.addChild(this.path, target, callback, this.delegate);
+	      }
+	      return this;
+	    }
+	  };
+
+	  function Matcher(target) {
+	    this.routes = {};
+	    this.children = {};
+	    this.target = target;
+	  }
+
+	  Matcher.prototype = {
+	    add: function add(path, handler) {
+	      this.routes[path] = handler;
+	    },
+
+	    addChild: function addChild(path, target, callback, delegate) {
+	      var matcher = new Matcher(target);
+	      this.children[path] = matcher;
+
+	      var match = generateMatch(path, matcher, delegate);
+
+	      if (delegate && delegate.contextEntered) {
+	        delegate.contextEntered(target, match);
+	      }
+
+	      callback(match);
+	    }
+	  };
+
+	  function generateMatch(startingPath, matcher, delegate) {
+	    return function (path, nestedCallback) {
+	      var fullPath = startingPath + path;
+
+	      if (nestedCallback) {
+	        nestedCallback(generateMatch(fullPath, matcher, delegate));
+	      } else {
+	        return new Target(startingPath + path, matcher, delegate);
+	      }
+	    };
+	  }
+
+	  function addRoute(routeArray, path, handler) {
+	    var len = 0;
+	    for (var i = 0, l = routeArray.length; i < l; i++) {
+	      len += routeArray[i].path.length;
+	    }
+
+	    path = path.substr(len);
+	    var route = { path: path, handler: handler };
+	    routeArray.push(route);
+	  }
+
+	  function eachRoute(baseRoute, matcher, callback, binding) {
+	    var routes = matcher.routes;
+
+	    for (var path in routes) {
+	      if (routes.hasOwnProperty(path)) {
+	        var routeArray = baseRoute.slice();
+	        addRoute(routeArray, path, routes[path]);
+
+	        if (matcher.children[path]) {
+	          eachRoute(routeArray, matcher.children[path], callback, binding);
+	        } else {
+	          callback.call(binding, routeArray);
+	        }
+	      }
+	    }
+	  }
+
+	  function map (callback, addRouteCallback) {
+	    var matcher = new Matcher();
+
+	    callback(generateMatch("", matcher, this.delegate));
+
+	    eachRoute([], matcher, function (route) {
+	      if (addRouteCallback) {
+	        addRouteCallback(this, route);
+	      } else {
+	        this.add(route);
+	      }
+	    }, this);
+	  }
+
+	  var specials = ['/', '.', '*', '+', '?', '|', '(', ')', '[', ']', '{', '}', '\\'];
+
+	  var escapeRegex = new RegExp('(\\' + specials.join('|\\') + ')', 'g');
+
+	  var noWarning = false;
+	  function warn(msg) {
+	    if (!noWarning && typeof console !== 'undefined') {
+	      console.error('[vue-router] ' + msg);
+	    }
+	  }
+
+	  function tryDecode(uri, asComponent) {
+	    try {
+	      return asComponent ? decodeURIComponent(uri) : decodeURI(uri);
+	    } catch (e) {
+	      warn('malformed URI' + (asComponent ? ' component: ' : ': ') + uri);
+	    }
+	  }
+
+	  function isArray(test) {
+	    return Object.prototype.toString.call(test) === "[object Array]";
+	  }
+
+	  // A Segment represents a segment in the original route description.
+	  // Each Segment type provides an `eachChar` and `regex` method.
+	  //
+	  // The `eachChar` method invokes the callback with one or more character
+	  // specifications. A character specification consumes one or more input
+	  // characters.
+	  //
+	  // The `regex` method returns a regex fragment for the segment. If the
+	  // segment is a dynamic of star segment, the regex fragment also includes
+	  // a capture.
+	  //
+	  // A character specification contains:
+	  //
+	  // * `validChars`: a String with a list of all valid characters, or
+	  // * `invalidChars`: a String with a list of all invalid characters
+	  // * `repeat`: true if the character specification can repeat
+
+	  function StaticSegment(string) {
+	    this.string = string;
+	  }
+	  StaticSegment.prototype = {
+	    eachChar: function eachChar(callback) {
+	      var string = this.string,
+	          ch;
+
+	      for (var i = 0, l = string.length; i < l; i++) {
+	        ch = string.charAt(i);
+	        callback({ validChars: ch });
+	      }
+	    },
+
+	    regex: function regex() {
+	      return this.string.replace(escapeRegex, '\\$1');
+	    },
+
+	    generate: function generate() {
+	      return this.string;
+	    }
+	  };
+
+	  function DynamicSegment(name) {
+	    this.name = name;
+	  }
+	  DynamicSegment.prototype = {
+	    eachChar: function eachChar(callback) {
+	      callback({ invalidChars: "/", repeat: true });
+	    },
+
+	    regex: function regex() {
+	      return "([^/]+)";
+	    },
+
+	    generate: function generate(params) {
+	      var val = params[this.name];
+	      return val == null ? ":" + this.name : val;
+	    }
+	  };
+
+	  function StarSegment(name) {
+	    this.name = name;
+	  }
+	  StarSegment.prototype = {
+	    eachChar: function eachChar(callback) {
+	      callback({ invalidChars: "", repeat: true });
+	    },
+
+	    regex: function regex() {
+	      return "(.+)";
+	    },
+
+	    generate: function generate(params) {
+	      var val = params[this.name];
+	      return val == null ? ":" + this.name : val;
+	    }
+	  };
+
+	  function EpsilonSegment() {}
+	  EpsilonSegment.prototype = {
+	    eachChar: function eachChar() {},
+	    regex: function regex() {
+	      return "";
+	    },
+	    generate: function generate() {
+	      return "";
+	    }
+	  };
+
+	  function parse(route, names, specificity) {
+	    // normalize route as not starting with a "/". Recognition will
+	    // also normalize.
+	    if (route.charAt(0) === "/") {
+	      route = route.substr(1);
+	    }
+
+	    var segments = route.split("/"),
+	        results = [];
+
+	    // A routes has specificity determined by the order that its different segments
+	    // appear in. This system mirrors how the magnitude of numbers written as strings
+	    // works.
+	    // Consider a number written as: "abc". An example would be "200". Any other number written
+	    // "xyz" will be smaller than "abc" so long as `a > z`. For instance, "199" is smaller
+	    // then "200", even though "y" and "z" (which are both 9) are larger than "0" (the value
+	    // of (`b` and `c`). This is because the leading symbol, "2", is larger than the other
+	    // leading symbol, "1".
+	    // The rule is that symbols to the left carry more weight than symbols to the right
+	    // when a number is written out as a string. In the above strings, the leading digit
+	    // represents how many 100's are in the number, and it carries more weight than the middle
+	    // number which represents how many 10's are in the number.
+	    // This system of number magnitude works well for route specificity, too. A route written as
+	    // `a/b/c` will be more specific than `x/y/z` as long as `a` is more specific than
+	    // `x`, irrespective of the other parts.
+	    // Because of this similarity, we assign each type of segment a number value written as a
+	    // string. We can find the specificity of compound routes by concatenating these strings
+	    // together, from left to right. After we have looped through all of the segments,
+	    // we convert the string to a number.
+	    specificity.val = '';
+
+	    for (var i = 0, l = segments.length; i < l; i++) {
+	      var segment = segments[i],
+	          match;
+
+	      if (match = segment.match(/^:([^\/]+)$/)) {
+	        results.push(new DynamicSegment(match[1]));
+	        names.push(match[1]);
+	        specificity.val += '3';
+	      } else if (match = segment.match(/^\*([^\/]+)$/)) {
+	        results.push(new StarSegment(match[1]));
+	        specificity.val += '2';
+	        names.push(match[1]);
+	      } else if (segment === "") {
+	        results.push(new EpsilonSegment());
+	        specificity.val += '1';
+	      } else {
+	        results.push(new StaticSegment(segment));
+	        specificity.val += '4';
+	      }
+	    }
+
+	    specificity.val = +specificity.val;
+
+	    return results;
+	  }
+
+	  // A State has a character specification and (`charSpec`) and a list of possible
+	  // subsequent states (`nextStates`).
+	  //
+	  // If a State is an accepting state, it will also have several additional
+	  // properties:
+	  //
+	  // * `regex`: A regular expression that is used to extract parameters from paths
+	  //   that reached this accepting state.
+	  // * `handlers`: Information on how to convert the list of captures into calls
+	  //   to registered handlers with the specified parameters
+	  // * `types`: How many static, dynamic or star segments in this route. Used to
+	  //   decide which route to use if multiple registered routes match a path.
+	  //
+	  // Currently, State is implemented naively by looping over `nextStates` and
+	  // comparing a character specification against a character. A more efficient
+	  // implementation would use a hash of keys pointing at one or more next states.
+
+	  function State(charSpec) {
+	    this.charSpec = charSpec;
+	    this.nextStates = [];
+	  }
+
+	  State.prototype = {
+	    get: function get(charSpec) {
+	      var nextStates = this.nextStates;
+
+	      for (var i = 0, l = nextStates.length; i < l; i++) {
+	        var child = nextStates[i];
+
+	        var isEqual = child.charSpec.validChars === charSpec.validChars;
+	        isEqual = isEqual && child.charSpec.invalidChars === charSpec.invalidChars;
+
+	        if (isEqual) {
+	          return child;
+	        }
+	      }
+	    },
+
+	    put: function put(charSpec) {
+	      var state;
+
+	      // If the character specification already exists in a child of the current
+	      // state, just return that state.
+	      if (state = this.get(charSpec)) {
+	        return state;
+	      }
+
+	      // Make a new state for the character spec
+	      state = new State(charSpec);
+
+	      // Insert the new state as a child of the current state
+	      this.nextStates.push(state);
+
+	      // If this character specification repeats, insert the new state as a child
+	      // of itself. Note that this will not trigger an infinite loop because each
+	      // transition during recognition consumes a character.
+	      if (charSpec.repeat) {
+	        state.nextStates.push(state);
+	      }
+
+	      // Return the new state
+	      return state;
+	    },
+
+	    // Find a list of child states matching the next character
+	    match: function match(ch) {
+	      // DEBUG "Processing `" + ch + "`:"
+	      var nextStates = this.nextStates,
+	          child,
+	          charSpec,
+	          chars;
+
+	      // DEBUG "  " + debugState(this)
+	      var returned = [];
+
+	      for (var i = 0, l = nextStates.length; i < l; i++) {
+	        child = nextStates[i];
+
+	        charSpec = child.charSpec;
+
+	        if (typeof (chars = charSpec.validChars) !== 'undefined') {
+	          if (chars.indexOf(ch) !== -1) {
+	            returned.push(child);
+	          }
+	        } else if (typeof (chars = charSpec.invalidChars) !== 'undefined') {
+	          if (chars.indexOf(ch) === -1) {
+	            returned.push(child);
+	          }
+	        }
+	      }
+
+	      return returned;
+	    }
+
+	    /** IF DEBUG
+	    , debug: function() {
+	      var charSpec = this.charSpec,
+	          debug = "[",
+	          chars = charSpec.validChars || charSpec.invalidChars;
+	       if (charSpec.invalidChars) { debug += "^"; }
+	      debug += chars;
+	      debug += "]";
+	       if (charSpec.repeat) { debug += "+"; }
+	       return debug;
+	    }
+	    END IF **/
+	  };
+
+	  /** IF DEBUG
+	  function debug(log) {
+	    console.log(log);
+	  }
+
+	  function debugState(state) {
+	    return state.nextStates.map(function(n) {
+	      if (n.nextStates.length === 0) { return "( " + n.debug() + " [accepting] )"; }
+	      return "( " + n.debug() + " <then> " + n.nextStates.map(function(s) { return s.debug() }).join(" or ") + " )";
+	    }).join(", ")
+	  }
+	  END IF **/
+
+	  // Sort the routes by specificity
+	  function sortSolutions(states) {
+	    return states.sort(function (a, b) {
+	      return b.specificity.val - a.specificity.val;
+	    });
+	  }
+
+	  function recognizeChar(states, ch) {
+	    var nextStates = [];
+
+	    for (var i = 0, l = states.length; i < l; i++) {
+	      var state = states[i];
+
+	      nextStates = nextStates.concat(state.match(ch));
+	    }
+
+	    return nextStates;
+	  }
+
+	  var oCreate = Object.create || function (proto) {
+	    function F() {}
+	    F.prototype = proto;
+	    return new F();
+	  };
+
+	  function RecognizeResults(queryParams) {
+	    this.queryParams = queryParams || {};
+	  }
+	  RecognizeResults.prototype = oCreate({
+	    splice: Array.prototype.splice,
+	    slice: Array.prototype.slice,
+	    push: Array.prototype.push,
+	    length: 0,
+	    queryParams: null
+	  });
+
+	  function findHandler(state, path, queryParams) {
+	    var handlers = state.handlers,
+	        regex = state.regex;
+	    var captures = path.match(regex),
+	        currentCapture = 1;
+	    var result = new RecognizeResults(queryParams);
+
+	    for (var i = 0, l = handlers.length; i < l; i++) {
+	      var handler = handlers[i],
+	          names = handler.names,
+	          params = {};
+
+	      for (var j = 0, m = names.length; j < m; j++) {
+	        params[names[j]] = captures[currentCapture++];
+	      }
+
+	      result.push({ handler: handler.handler, params: params, isDynamic: !!names.length });
+	    }
+
+	    return result;
+	  }
+
+	  function addSegment(currentState, segment) {
+	    segment.eachChar(function (ch) {
+	      var state;
+
+	      currentState = currentState.put(ch);
+	    });
+
+	    return currentState;
+	  }
+
+	  function decodeQueryParamPart(part) {
+	    // http://www.w3.org/TR/html401/interact/forms.html#h-17.13.4.1
+	    part = part.replace(/\+/gm, '%20');
+	    return tryDecode(part, true);
+	  }
+
+	  // The main interface
+
+	  var RouteRecognizer = function RouteRecognizer() {
+	    this.rootState = new State();
+	    this.names = {};
+	  };
+
+	  RouteRecognizer.prototype = {
+	    add: function add(routes, options) {
+	      var currentState = this.rootState,
+	          regex = "^",
+	          specificity = {},
+	          handlers = [],
+	          allSegments = [],
+	          name;
+
+	      var isEmpty = true;
+
+	      for (var i = 0, l = routes.length; i < l; i++) {
+	        var route = routes[i],
+	            names = [];
+
+	        var segments = parse(route.path, names, specificity);
+
+	        allSegments = allSegments.concat(segments);
+
+	        for (var j = 0, m = segments.length; j < m; j++) {
+	          var segment = segments[j];
+
+	          if (segment instanceof EpsilonSegment) {
+	            continue;
+	          }
+
+	          isEmpty = false;
+
+	          // Add a "/" for the new segment
+	          currentState = currentState.put({ validChars: "/" });
+	          regex += "/";
+
+	          // Add a representation of the segment to the NFA and regex
+	          currentState = addSegment(currentState, segment);
+	          regex += segment.regex();
+	        }
+
+	        var handler = { handler: route.handler, names: names };
+	        handlers.push(handler);
+	      }
+
+	      if (isEmpty) {
+	        currentState = currentState.put({ validChars: "/" });
+	        regex += "/";
+	      }
+
+	      currentState.handlers = handlers;
+	      currentState.regex = new RegExp(regex + "$");
+	      currentState.specificity = specificity;
+
+	      if (name = options && options.as) {
+	        this.names[name] = {
+	          segments: allSegments,
+	          handlers: handlers
+	        };
+	      }
+	    },
+
+	    handlersFor: function handlersFor(name) {
+	      var route = this.names[name],
+	          result = [];
+	      if (!route) {
+	        throw new Error("There is no route named " + name);
+	      }
+
+	      for (var i = 0, l = route.handlers.length; i < l; i++) {
+	        result.push(route.handlers[i]);
+	      }
+
+	      return result;
+	    },
+
+	    hasRoute: function hasRoute(name) {
+	      return !!this.names[name];
+	    },
+
+	    generate: function generate(name, params) {
+	      var route = this.names[name],
+	          output = "";
+	      if (!route) {
+	        throw new Error("There is no route named " + name);
+	      }
+
+	      var segments = route.segments;
+
+	      for (var i = 0, l = segments.length; i < l; i++) {
+	        var segment = segments[i];
+
+	        if (segment instanceof EpsilonSegment) {
+	          continue;
+	        }
+
+	        output += "/";
+	        output += segment.generate(params);
+	      }
+
+	      if (output.charAt(0) !== '/') {
+	        output = '/' + output;
+	      }
+
+	      if (params && params.queryParams) {
+	        output += this.generateQueryString(params.queryParams);
+	      }
+
+	      return output;
+	    },
+
+	    generateQueryString: function generateQueryString(params) {
+	      var pairs = [];
+	      var keys = [];
+	      for (var key in params) {
+	        if (params.hasOwnProperty(key)) {
+	          keys.push(key);
+	        }
+	      }
+	      keys.sort();
+	      for (var i = 0, len = keys.length; i < len; i++) {
+	        key = keys[i];
+	        var value = params[key];
+	        if (value == null) {
+	          continue;
+	        }
+	        var pair = encodeURIComponent(key);
+	        if (isArray(value)) {
+	          for (var j = 0, l = value.length; j < l; j++) {
+	            var arrayPair = key + '[]' + '=' + encodeURIComponent(value[j]);
+	            pairs.push(arrayPair);
+	          }
+	        } else {
+	          pair += "=" + encodeURIComponent(value);
+	          pairs.push(pair);
+	        }
+	      }
+
+	      if (pairs.length === 0) {
+	        return '';
+	      }
+
+	      return "?" + pairs.join("&");
+	    },
+
+	    parseQueryString: function parseQueryString(queryString) {
+	      var pairs = queryString.split("&"),
+	          queryParams = {};
+	      for (var i = 0; i < pairs.length; i++) {
+	        var pair = pairs[i].split('='),
+	            key = decodeQueryParamPart(pair[0]),
+	            keyLength = key.length,
+	            isArray = false,
+	            value;
+	        if (pair.length === 1) {
+	          value = 'true';
+	        } else {
+	          //Handle arrays
+	          if (keyLength > 2 && key.slice(keyLength - 2) === '[]') {
+	            isArray = true;
+	            key = key.slice(0, keyLength - 2);
+	            if (!queryParams[key]) {
+	              queryParams[key] = [];
+	            }
+	          }
+	          value = pair[1] ? decodeQueryParamPart(pair[1]) : '';
+	        }
+	        if (isArray) {
+	          queryParams[key].push(value);
+	        } else {
+	          queryParams[key] = value;
+	        }
+	      }
+	      return queryParams;
+	    },
+
+	    recognize: function recognize(path, silent) {
+	      noWarning = silent;
+	      var states = [this.rootState],
+	          pathLen,
+	          i,
+	          l,
+	          queryStart,
+	          queryParams = {},
+	          isSlashDropped = false;
+
+	      queryStart = path.indexOf('?');
+	      if (queryStart !== -1) {
+	        var queryString = path.substr(queryStart + 1, path.length);
+	        path = path.substr(0, queryStart);
+	        if (queryString) {
+	          queryParams = this.parseQueryString(queryString);
+	        }
+	      }
+
+	      path = tryDecode(path);
+	      if (!path) return;
+
+	      // DEBUG GROUP path
+
+	      if (path.charAt(0) !== "/") {
+	        path = "/" + path;
+	      }
+
+	      pathLen = path.length;
+	      if (pathLen > 1 && path.charAt(pathLen - 1) === "/") {
+	        path = path.substr(0, pathLen - 1);
+	        isSlashDropped = true;
+	      }
+
+	      for (i = 0, l = path.length; i < l; i++) {
+	        states = recognizeChar(states, path.charAt(i));
+	        if (!states.length) {
+	          break;
+	        }
+	      }
+
+	      // END DEBUG GROUP
+
+	      var solutions = [];
+	      for (i = 0, l = states.length; i < l; i++) {
+	        if (states[i].handlers) {
+	          solutions.push(states[i]);
+	        }
+	      }
+
+	      states = sortSolutions(solutions);
+
+	      var state = solutions[0];
+
+	      if (state && state.handlers) {
+	        // if a trailing slash was dropped and a star segment is the last segment
+	        // specified, put the trailing slash back
+	        if (isSlashDropped && state.regex.source.slice(-5) === "(.+)$") {
+	          path = path + "/";
+	        }
+	        return findHandler(state, path, queryParams);
+	      }
+	    }
+	  };
+
+	  RouteRecognizer.prototype.map = map;
+
+	  var genQuery = RouteRecognizer.prototype.generateQueryString;
+
+	  // export default for holding the Vue reference
+	  var exports$1 = {};
+	  /**
+	   * Warn stuff.
+	   *
+	   * @param {String} msg
+	   */
+
+	  function warn$1(msg) {
+	    /* istanbul ignore next */
+	    if (typeof console !== 'undefined') {
+	      console.error('[vue-router] ' + msg);
+	    }
+	  }
+
+	  /**
+	   * Resolve a relative path.
+	   *
+	   * @param {String} base
+	   * @param {String} relative
+	   * @param {Boolean} append
+	   * @return {String}
+	   */
+
+	  function resolvePath(base, relative, append) {
+	    var query = base.match(/(\?.*)$/);
+	    if (query) {
+	      query = query[1];
+	      base = base.slice(0, -query.length);
+	    }
+	    // a query!
+	    if (relative.charAt(0) === '?') {
+	      return base + relative;
+	    }
+	    var stack = base.split('/');
+	    // remove trailing segment if:
+	    // - not appending
+	    // - appending to trailing slash (last segment is empty)
+	    if (!append || !stack[stack.length - 1]) {
+	      stack.pop();
+	    }
+	    // resolve relative path
+	    var segments = relative.replace(/^\//, '').split('/');
+	    for (var i = 0; i < segments.length; i++) {
+	      var segment = segments[i];
+	      if (segment === '.') {
+	        continue;
+	      } else if (segment === '..') {
+	        stack.pop();
+	      } else {
+	        stack.push(segment);
+	      }
+	    }
+	    // ensure leading slash
+	    if (stack[0] !== '') {
+	      stack.unshift('');
+	    }
+	    return stack.join('/');
+	  }
+
+	  /**
+	   * Forgiving check for a promise
+	   *
+	   * @param {Object} p
+	   * @return {Boolean}
+	   */
+
+	  function isPromise(p) {
+	    return p && typeof p.then === 'function';
+	  }
+
+	  /**
+	   * Retrive a route config field from a component instance
+	   * OR a component contructor.
+	   *
+	   * @param {Function|Vue} component
+	   * @param {String} name
+	   * @return {*}
+	   */
+
+	  function getRouteConfig(component, name) {
+	    var options = component && (component.$options || component.options);
+	    return options && options.route && options.route[name];
+	  }
+
+	  /**
+	   * Resolve an async component factory. Have to do a dirty
+	   * mock here because of Vue core's internal API depends on
+	   * an ID check.
+	   *
+	   * @param {Object} handler
+	   * @param {Function} cb
+	   */
+
+	  var resolver = undefined;
+
+	  function resolveAsyncComponent(handler, cb) {
+	    if (!resolver) {
+	      resolver = {
+	        resolve: exports$1.Vue.prototype._resolveComponent,
+	        $options: {
+	          components: {
+	            _: handler.component
+	          }
+	        }
+	      };
+	    } else {
+	      resolver.$options.components._ = handler.component;
+	    }
+	    resolver.resolve('_', function (Component) {
+	      handler.component = Component;
+	      cb(Component);
+	    });
+	  }
+
+	  /**
+	   * Map the dynamic segments in a path to params.
+	   *
+	   * @param {String} path
+	   * @param {Object} params
+	   * @param {Object} query
+	   */
+
+	  function mapParams(path, params, query) {
+	    if (params === undefined) params = {};
+
+	    path = path.replace(/:([^\/]+)/g, function (_, key) {
+	      var val = params[key];
+	      /* istanbul ignore if */
+	      if (!val) {
+	        warn$1('param "' + key + '" not found when generating ' + 'path for "' + path + '" with params ' + JSON.stringify(params));
+	      }
+	      return val || '';
+	    });
+	    if (query) {
+	      path += genQuery(query);
+	    }
+	    return path;
+	  }
+
+	  var hashRE = /#.*$/;
+
+	  var HTML5History = (function () {
+	    function HTML5History(_ref) {
+	      var root = _ref.root;
+	      var onChange = _ref.onChange;
+	      babelHelpers.classCallCheck(this, HTML5History);
+
+	      if (root && root !== '/') {
+	        // make sure there's the starting slash
+	        if (root.charAt(0) !== '/') {
+	          root = '/' + root;
+	        }
+	        // remove trailing slash
+	        this.root = root.replace(/\/$/, '');
+	        this.rootRE = new RegExp('^\\' + this.root);
+	      } else {
+	        this.root = null;
+	      }
+	      this.onChange = onChange;
+	      // check base tag
+	      var baseEl = document.querySelector('base');
+	      this.base = baseEl && baseEl.getAttribute('href');
+	    }
+
+	    HTML5History.prototype.start = function start() {
+	      var _this = this;
+
+	      this.listener = function (e) {
+	        var url = location.pathname + location.search;
+	        if (_this.root) {
+	          url = url.replace(_this.rootRE, '');
+	        }
+	        _this.onChange(url, e && e.state, location.hash);
+	      };
+	      window.addEventListener('popstate', this.listener);
+	      this.listener();
+	    };
+
+	    HTML5History.prototype.stop = function stop() {
+	      window.removeEventListener('popstate', this.listener);
+	    };
+
+	    HTML5History.prototype.go = function go(path, replace, append) {
+	      var url = this.formatPath(path, append);
+	      if (replace) {
+	        history.replaceState({}, '', url);
+	      } else {
+	        // record scroll position by replacing current state
+	        history.replaceState({
+	          pos: {
+	            x: window.pageXOffset,
+	            y: window.pageYOffset
+	          }
+	        }, '', location.href);
+	        // then push new state
+	        history.pushState({}, '', url);
+	      }
+	      var hashMatch = path.match(hashRE);
+	      var hash = hashMatch && hashMatch[0];
+	      path = url
+	      // strip hash so it doesn't mess up params
+	      .replace(hashRE, '')
+	      // remove root before matching
+	      .replace(this.rootRE, '');
+	      this.onChange(path, null, hash);
+	    };
+
+	    HTML5History.prototype.formatPath = function formatPath(path, append) {
+	      return path.charAt(0) === '/'
+	      // absolute path
+	      ? this.root ? this.root + '/' + path.replace(/^\//, '') : path : resolvePath(this.base || location.pathname, path, append);
+	    };
+
+	    return HTML5History;
+	  })();
+
+	  var HashHistory = (function () {
+	    function HashHistory(_ref) {
+	      var hashbang = _ref.hashbang;
+	      var onChange = _ref.onChange;
+	      babelHelpers.classCallCheck(this, HashHistory);
+
+	      this.hashbang = hashbang;
+	      this.onChange = onChange;
+	    }
+
+	    HashHistory.prototype.start = function start() {
+	      var self = this;
+	      this.listener = function () {
+	        var path = location.hash;
+	        var raw = path.replace(/^#!?/, '');
+	        // always
+	        if (raw.charAt(0) !== '/') {
+	          raw = '/' + raw;
+	        }
+	        var formattedPath = self.formatPath(raw);
+	        if (formattedPath !== path) {
+	          location.replace(formattedPath);
+	          return;
+	        }
+	        // determine query
+	        // note it's possible to have queries in both the actual URL
+	        // and the hash fragment itself.
+	        var query = location.search && path.indexOf('?') > -1 ? '&' + location.search.slice(1) : location.search;
+	        self.onChange(path.replace(/^#!?/, '') + query);
+	      };
+	      window.addEventListener('hashchange', this.listener);
+	      this.listener();
+	    };
+
+	    HashHistory.prototype.stop = function stop() {
+	      window.removeEventListener('hashchange', this.listener);
+	    };
+
+	    HashHistory.prototype.go = function go(path, replace, append) {
+	      path = this.formatPath(path, append);
+	      if (replace) {
+	        location.replace(path);
+	      } else {
+	        location.hash = path;
+	      }
+	    };
+
+	    HashHistory.prototype.formatPath = function formatPath(path, append) {
+	      var isAbsoloute = path.charAt(0) === '/';
+	      var prefix = '#' + (this.hashbang ? '!' : '');
+	      return isAbsoloute ? prefix + path : prefix + resolvePath(location.hash.replace(/^#!?/, ''), path, append);
+	    };
+
+	    return HashHistory;
+	  })();
+
+	  var AbstractHistory = (function () {
+	    function AbstractHistory(_ref) {
+	      var onChange = _ref.onChange;
+	      babelHelpers.classCallCheck(this, AbstractHistory);
+
+	      this.onChange = onChange;
+	      this.currentPath = '/';
+	    }
+
+	    AbstractHistory.prototype.start = function start() {
+	      this.onChange('/');
+	    };
+
+	    AbstractHistory.prototype.stop = function stop() {
+	      // noop
+	    };
+
+	    AbstractHistory.prototype.go = function go(path, replace, append) {
+	      path = this.currentPath = this.formatPath(path, append);
+	      this.onChange(path);
+	    };
+
+	    AbstractHistory.prototype.formatPath = function formatPath(path, append) {
+	      return path.charAt(0) === '/' ? path : resolvePath(this.currentPath, path, append);
+	    };
+
+	    return AbstractHistory;
+	  })();
+
+	  /**
+	   * Determine the reusability of an existing router view.
+	   *
+	   * @param {Directive} view
+	   * @param {Object} handler
+	   * @param {Transition} transition
+	   */
+
+	  function canReuse(view, handler, transition) {
+	    var component = view.childVM;
+	    if (!component || !handler) {
+	      return false;
+	    }
+	    // important: check view.Component here because it may
+	    // have been changed in activate hook
+	    if (view.Component !== handler.component) {
+	      return false;
+	    }
+	    var canReuseFn = getRouteConfig(component, 'canReuse');
+	    return typeof canReuseFn === 'boolean' ? canReuseFn : canReuseFn ? canReuseFn.call(component, {
+	      to: transition.to,
+	      from: transition.from
+	    }) : true; // defaults to true
+	  }
+
+	  /**
+	   * Check if a component can deactivate.
+	   *
+	   * @param {Directive} view
+	   * @param {Transition} transition
+	   * @param {Function} next
+	   */
+
+	  function canDeactivate(view, transition, next) {
+	    var fromComponent = view.childVM;
+	    var hook = getRouteConfig(fromComponent, 'canDeactivate');
+	    if (!hook) {
+	      next();
+	    } else {
+	      transition.callHook(hook, fromComponent, next, {
+	        expectBoolean: true
+	      });
+	    }
+	  }
+
+	  /**
+	   * Check if a component can activate.
+	   *
+	   * @param {Object} handler
+	   * @param {Transition} transition
+	   * @param {Function} next
+	   */
+
+	  function canActivate(handler, transition, next) {
+	    resolveAsyncComponent(handler, function (Component) {
+	      // have to check due to async-ness
+	      if (transition.aborted) {
+	        return;
+	      }
+	      // determine if this component can be activated
+	      var hook = getRouteConfig(Component, 'canActivate');
+	      if (!hook) {
+	        next();
+	      } else {
+	        transition.callHook(hook, null, next, {
+	          expectBoolean: true
+	        });
+	      }
+	    });
+	  }
+
+	  /**
+	   * Call deactivate hooks for existing router-views.
+	   *
+	   * @param {Directive} view
+	   * @param {Transition} transition
+	   * @param {Function} next
+	   */
+
+	  function deactivate(view, transition, next) {
+	    var component = view.childVM;
+	    var hook = getRouteConfig(component, 'deactivate');
+	    if (!hook) {
+	      next();
+	    } else {
+	      transition.callHooks(hook, component, next);
+	    }
+	  }
+
+	  /**
+	   * Activate / switch component for a router-view.
+	   *
+	   * @param {Directive} view
+	   * @param {Transition} transition
+	   * @param {Number} depth
+	   * @param {Function} [cb]
+	   */
+
+	  function activate(view, transition, depth, cb, reuse) {
+	    var handler = transition.activateQueue[depth];
+	    if (!handler) {
+	      saveChildView(view);
+	      if (view._bound) {
+	        view.setComponent(null);
+	      }
+	      cb && cb();
+	      return;
+	    }
+
+	    var Component = view.Component = handler.component;
+	    var activateHook = getRouteConfig(Component, 'activate');
+	    var dataHook = getRouteConfig(Component, 'data');
+	    var waitForData = getRouteConfig(Component, 'waitForData');
+
+	    view.depth = depth;
+	    view.activated = false;
+
+	    var component = undefined;
+	    var loading = !!(dataHook && !waitForData);
+
+	    // "reuse" is a flag passed down when the parent view is
+	    // either reused via keep-alive or as a child of a kept-alive view.
+	    // of course we can only reuse if the current kept-alive instance
+	    // is of the correct type.
+	    reuse = reuse && view.childVM && view.childVM.constructor === Component;
+
+	    if (reuse) {
+	      // just reuse
+	      component = view.childVM;
+	      component.$loadingRouteData = loading;
+	    } else {
+	      saveChildView(view);
+
+	      // unbuild current component. this step also destroys
+	      // and removes all nested child views.
+	      view.unbuild(true);
+
+	      // build the new component. this will also create the
+	      // direct child view of the current one. it will register
+	      // itself as view.childView.
+	      component = view.build({
+	        _meta: {
+	          $loadingRouteData: loading
+	        },
+	        created: function created() {
+	          this._routerView = view;
+	        }
+	      });
+
+	      // handle keep-alive.
+	      // when a kept-alive child vm is restored, we need to
+	      // add its cached child views into the router's view list,
+	      // and also properly update current view's child view.
+	      if (view.keepAlive) {
+	        component.$loadingRouteData = loading;
+	        var cachedChildView = component._keepAliveRouterView;
+	        if (cachedChildView) {
+	          view.childView = cachedChildView;
+	          component._keepAliveRouterView = null;
+	        }
+	      }
+	    }
+
+	    // cleanup the component in case the transition is aborted
+	    // before the component is ever inserted.
+	    var cleanup = function cleanup() {
+	      component.$destroy();
+	    };
+
+	    // actually insert the component and trigger transition
+	    var insert = function insert() {
+	      if (reuse) {
+	        cb && cb();
+	        return;
+	      }
+	      var router = transition.router;
+	      if (router._rendered || router._transitionOnLoad) {
+	        view.transition(component);
+	      } else {
+	        // no transition on first render, manual transition
+	        /* istanbul ignore if */
+	        if (view.setCurrent) {
+	          // 0.12 compat
+	          view.setCurrent(component);
+	        } else {
+	          // 1.0
+	          view.childVM = component;
+	        }
+	        component.$before(view.anchor, null, false);
+	      }
+	      cb && cb();
+	    };
+
+	    var afterData = function afterData() {
+	      // activate the child view
+	      if (view.childView) {
+	        activate(view.childView, transition, depth + 1, null, reuse || view.keepAlive);
+	      }
+	      insert();
+	    };
+
+	    // called after activation hook is resolved
+	    var afterActivate = function afterActivate() {
+	      view.activated = true;
+	      if (dataHook && waitForData) {
+	        // wait until data loaded to insert
+	        loadData(component, transition, dataHook, afterData, cleanup);
+	      } else {
+	        // load data and insert at the same time
+	        if (dataHook) {
+	          loadData(component, transition, dataHook);
+	        }
+	        afterData();
+	      }
+	    };
+
+	    if (activateHook) {
+	      transition.callHooks(activateHook, component, afterActivate, {
+	        cleanup: cleanup,
+	        postActivate: true
+	      });
+	    } else {
+	      afterActivate();
+	    }
+	  }
+
+	  /**
+	   * Reuse a view, just reload data if necessary.
+	   *
+	   * @param {Directive} view
+	   * @param {Transition} transition
+	   */
+
+	  function reuse(view, transition) {
+	    var component = view.childVM;
+	    var dataHook = getRouteConfig(component, 'data');
+	    if (dataHook) {
+	      loadData(component, transition, dataHook);
+	    }
+	  }
+
+	  /**
+	   * Asynchronously load and apply data to component.
+	   *
+	   * @param {Vue} component
+	   * @param {Transition} transition
+	   * @param {Function} hook
+	   * @param {Function} cb
+	   * @param {Function} cleanup
+	   */
+
+	  function loadData(component, transition, hook, cb, cleanup) {
+	    component.$loadingRouteData = true;
+	    transition.callHooks(hook, component, function () {
+	      component.$loadingRouteData = false;
+	      component.$emit('route-data-loaded', component);
+	      cb && cb();
+	    }, {
+	      cleanup: cleanup,
+	      postActivate: true,
+	      processData: function processData(data) {
+	        // handle promise sugar syntax
+	        var promises = [];
+	        if (isPlainObject(data)) {
+	          Object.keys(data).forEach(function (key) {
+	            var val = data[key];
+	            if (isPromise(val)) {
+	              promises.push(val.then(function (resolvedVal) {
+	                component.$set(key, resolvedVal);
+	              }));
+	            } else {
+	              component.$set(key, val);
+	            }
+	          });
+	        }
+	        if (promises.length) {
+	          return promises[0].constructor.all(promises);
+	        }
+	      }
+	    });
+	  }
+
+	  /**
+	   * Save the child view for a kept-alive view so that
+	   * we can restore it when it is switched back to.
+	   *
+	   * @param {Directive} view
+	   */
+
+	  function saveChildView(view) {
+	    if (view.keepAlive && view.childVM && view.childView) {
+	      view.childVM._keepAliveRouterView = view.childView;
+	    }
+	    view.childView = null;
+	  }
+
+	  /**
+	   * Check plain object.
+	   *
+	   * @param {*} val
+	   */
+
+	  function isPlainObject(val) {
+	    return Object.prototype.toString.call(val) === '[object Object]';
+	  }
+
+	  /**
+	   * A RouteTransition object manages the pipeline of a
+	   * router-view switching process. This is also the object
+	   * passed into user route hooks.
+	   *
+	   * @param {Router} router
+	   * @param {Route} to
+	   * @param {Route} from
+	   */
+
+	  var RouteTransition = (function () {
+	    function RouteTransition(router, to, from) {
+	      babelHelpers.classCallCheck(this, RouteTransition);
+
+	      this.router = router;
+	      this.to = to;
+	      this.from = from;
+	      this.next = null;
+	      this.aborted = false;
+	      this.done = false;
+	    }
+
+	    /**
+	     * Abort current transition and return to previous location.
+	     */
+
+	    RouteTransition.prototype.abort = function abort() {
+	      if (!this.aborted) {
+	        this.aborted = true;
+	        // if the root path throws an error during validation
+	        // on initial load, it gets caught in an infinite loop.
+	        var abortingOnLoad = !this.from.path && this.to.path === '/';
+	        if (!abortingOnLoad) {
+	          this.router.replace(this.from.path || '/');
+	        }
+	      }
+	    };
+
+	    /**
+	     * Abort current transition and redirect to a new location.
+	     *
+	     * @param {String} path
+	     */
+
+	    RouteTransition.prototype.redirect = function redirect(path) {
+	      if (!this.aborted) {
+	        this.aborted = true;
+	        if (typeof path === 'string') {
+	          path = mapParams(path, this.to.params, this.to.query);
+	        } else {
+	          path.params = path.params || this.to.params;
+	          path.query = path.query || this.to.query;
+	        }
+	        this.router.replace(path);
+	      }
+	    };
+
+	    /**
+	     * A router view transition's pipeline can be described as
+	     * follows, assuming we are transitioning from an existing
+	     * <router-view> chain [Component A, Component B] to a new
+	     * chain [Component A, Component C]:
+	     *
+	     *  A    A
+	     *  | => |
+	     *  B    C
+	     *
+	     * 1. Reusablity phase:
+	     *   -> canReuse(A, A)
+	     *   -> canReuse(B, C)
+	     *   -> determine new queues:
+	     *      - deactivation: [B]
+	     *      - activation: [C]
+	     *
+	     * 2. Validation phase:
+	     *   -> canDeactivate(B)
+	     *   -> canActivate(C)
+	     *
+	     * 3. Activation phase:
+	     *   -> deactivate(B)
+	     *   -> activate(C)
+	     *
+	     * Each of these steps can be asynchronous, and any
+	     * step can potentially abort the transition.
+	     *
+	     * @param {Function} cb
+	     */
+
+	    RouteTransition.prototype.start = function start(cb) {
+	      var transition = this;
+
+	      // determine the queue of views to deactivate
+	      var deactivateQueue = [];
+	      var view = this.router._rootView;
+	      while (view) {
+	        deactivateQueue.unshift(view);
+	        view = view.childView;
+	      }
+	      var reverseDeactivateQueue = deactivateQueue.slice().reverse();
+
+	      // determine the queue of route handlers to activate
+	      var activateQueue = this.activateQueue = toArray(this.to.matched).map(function (match) {
+	        return match.handler;
+	      });
+
+	      // 1. Reusability phase
+	      var i = undefined,
+	          reuseQueue = undefined;
+	      for (i = 0; i < reverseDeactivateQueue.length; i++) {
+	        if (!canReuse(reverseDeactivateQueue[i], activateQueue[i], transition)) {
+	          break;
+	        }
+	      }
+	      if (i > 0) {
+	        reuseQueue = reverseDeactivateQueue.slice(0, i);
+	        deactivateQueue = reverseDeactivateQueue.slice(i).reverse();
+	        activateQueue = activateQueue.slice(i);
+	      }
+
+	      // 2. Validation phase
+	      transition.runQueue(deactivateQueue, canDeactivate, function () {
+	        transition.runQueue(activateQueue, canActivate, function () {
+	          transition.runQueue(deactivateQueue, deactivate, function () {
+	            // 3. Activation phase
+
+	            // Update router current route
+	            transition.router._onTransitionValidated(transition);
+
+	            // trigger reuse for all reused views
+	            reuseQueue && reuseQueue.forEach(function (view) {
+	              return reuse(view, transition);
+	            });
+
+	            // the root of the chain that needs to be replaced
+	            // is the top-most non-reusable view.
+	            if (deactivateQueue.length) {
+	              var _view = deactivateQueue[deactivateQueue.length - 1];
+	              var depth = reuseQueue ? reuseQueue.length : 0;
+	              activate(_view, transition, depth, cb);
+	            } else {
+	              cb();
+	            }
+	          });
+	        });
+	      });
+	    };
+
+	    /**
+	     * Asynchronously and sequentially apply a function to a
+	     * queue.
+	     *
+	     * @param {Array} queue
+	     * @param {Function} fn
+	     * @param {Function} cb
+	     */
+
+	    RouteTransition.prototype.runQueue = function runQueue(queue, fn, cb) {
+	      var transition = this;
+	      step(0);
+	      function step(index) {
+	        if (index >= queue.length) {
+	          cb();
+	        } else {
+	          fn(queue[index], transition, function () {
+	            step(index + 1);
+	          });
+	        }
+	      }
+	    };
+
+	    /**
+	     * Call a user provided route transition hook and handle
+	     * the response (e.g. if the user returns a promise).
+	     *
+	     * If the user neither expects an argument nor returns a
+	     * promise, the hook is assumed to be synchronous.
+	     *
+	     * @param {Function} hook
+	     * @param {*} [context]
+	     * @param {Function} [cb]
+	     * @param {Object} [options]
+	     *                 - {Boolean} expectBoolean
+	     *                 - {Boolean} postActive
+	     *                 - {Function} processData
+	     *                 - {Function} cleanup
+	     */
+
+	    RouteTransition.prototype.callHook = function callHook(hook, context, cb) {
+	      var _ref = arguments.length <= 3 || arguments[3] === undefined ? {} : arguments[3];
+
+	      var _ref$expectBoolean = _ref.expectBoolean;
+	      var expectBoolean = _ref$expectBoolean === undefined ? false : _ref$expectBoolean;
+	      var _ref$postActivate = _ref.postActivate;
+	      var postActivate = _ref$postActivate === undefined ? false : _ref$postActivate;
+	      var processData = _ref.processData;
+	      var cleanup = _ref.cleanup;
+
+	      var transition = this;
+	      var nextCalled = false;
+
+	      // abort the transition
+	      var abort = function abort() {
+	        cleanup && cleanup();
+	        transition.abort();
+	      };
+
+	      // handle errors
+	      var onError = function onError(err) {
+	        postActivate ? next() : abort();
+	        if (err && !transition.router._suppress) {
+	          warn$1('Uncaught error during transition: ');
+	          throw err instanceof Error ? err : new Error(err);
+	        }
+	      };
+
+	      // since promise swallows errors, we have to
+	      // throw it in the next tick...
+	      var onPromiseError = function onPromiseError(err) {
+	        try {
+	          onError(err);
+	        } catch (e) {
+	          setTimeout(function () {
+	            throw e;
+	          }, 0);
+	        }
+	      };
+
+	      // advance the transition to the next step
+	      var next = function next() {
+	        if (nextCalled) {
+	          warn$1('transition.next() should be called only once.');
+	          return;
+	        }
+	        nextCalled = true;
+	        if (transition.aborted) {
+	          cleanup && cleanup();
+	          return;
+	        }
+	        cb && cb();
+	      };
+
+	      var nextWithBoolean = function nextWithBoolean(res) {
+	        if (typeof res === 'boolean') {
+	          res ? next() : abort();
+	        } else if (isPromise(res)) {
+	          res.then(function (ok) {
+	            ok ? next() : abort();
+	          }, onPromiseError);
+	        } else if (!hook.length) {
+	          next();
+	        }
+	      };
+
+	      var nextWithData = function nextWithData(data) {
+	        var res = undefined;
+	        try {
+	          res = processData(data);
+	        } catch (err) {
+	          return onError(err);
+	        }
+	        if (isPromise(res)) {
+	          res.then(next, onPromiseError);
+	        } else {
+	          next();
+	        }
+	      };
+
+	      // expose a clone of the transition object, so that each
+	      // hook gets a clean copy and prevent the user from
+	      // messing with the internals.
+	      var exposed = {
+	        to: transition.to,
+	        from: transition.from,
+	        abort: abort,
+	        next: processData ? nextWithData : next,
+	        redirect: function redirect() {
+	          transition.redirect.apply(transition, arguments);
+	        }
+	      };
+
+	      // actually call the hook
+	      var res = undefined;
+	      try {
+	        res = hook.call(context, exposed);
+	      } catch (err) {
+	        return onError(err);
+	      }
+
+	      if (expectBoolean) {
+	        // boolean hooks
+	        nextWithBoolean(res);
+	      } else if (isPromise(res)) {
+	        // promise
+	        if (processData) {
+	          res.then(nextWithData, onPromiseError);
+	        } else {
+	          res.then(next, onPromiseError);
+	        }
+	      } else if (processData && isPlainOjbect(res)) {
+	        // data promise sugar
+	        nextWithData(res);
+	      } else if (!hook.length) {
+	        next();
+	      }
+	    };
+
+	    /**
+	     * Call a single hook or an array of async hooks in series.
+	     *
+	     * @param {Array} hooks
+	     * @param {*} context
+	     * @param {Function} cb
+	     * @param {Object} [options]
+	     */
+
+	    RouteTransition.prototype.callHooks = function callHooks(hooks, context, cb, options) {
+	      var _this = this;
+
+	      if (Array.isArray(hooks)) {
+	        this.runQueue(hooks, function (hook, _, next) {
+	          if (!_this.aborted) {
+	            _this.callHook(hook, context, next, options);
+	          }
+	        }, cb);
+	      } else {
+	        this.callHook(hooks, context, cb, options);
+	      }
+	    };
+
+	    return RouteTransition;
+	  })();
+
+	  function isPlainOjbect(val) {
+	    return Object.prototype.toString.call(val) === '[object Object]';
+	  }
+
+	  function toArray(val) {
+	    return val ? Array.prototype.slice.call(val) : [];
+	  }
+
+	  var internalKeysRE = /^(component|subRoutes|fullPath)$/;
+
+	  /**
+	   * Route Context Object
+	   *
+	   * @param {String} path
+	   * @param {Router} router
+	   */
+
+	  var Route = function Route(path, router) {
+	    var _this = this;
+
+	    babelHelpers.classCallCheck(this, Route);
+
+	    var matched = router._recognizer.recognize(path);
+	    if (matched) {
+	      // copy all custom fields from route configs
+	      [].forEach.call(matched, function (match) {
+	        for (var key in match.handler) {
+	          if (!internalKeysRE.test(key)) {
+	            _this[key] = match.handler[key];
+	          }
+	        }
+	      });
+	      // set query and params
+	      this.query = matched.queryParams;
+	      this.params = [].reduce.call(matched, function (prev, cur) {
+	        if (cur.params) {
+	          for (var key in cur.params) {
+	            prev[key] = cur.params[key];
+	          }
+	        }
+	        return prev;
+	      }, {});
+	    }
+	    // expose path and router
+	    this.path = path;
+	    // for internal use
+	    this.matched = matched || router._notFoundHandler;
+	    // internal reference to router
+	    Object.defineProperty(this, 'router', {
+	      enumerable: false,
+	      value: router
+	    });
+	    // Important: freeze self to prevent observation
+	    Object.freeze(this);
+	  };
+
+	  function applyOverride (Vue) {
+	    var _Vue$util = Vue.util;
+	    var extend = _Vue$util.extend;
+	    var isArray = _Vue$util.isArray;
+	    var defineReactive = _Vue$util.defineReactive;
+
+	    // override Vue's init and destroy process to keep track of router instances
+	    var init = Vue.prototype._init;
+	    Vue.prototype._init = function (options) {
+	      options = options || {};
+	      var root = options._parent || options.parent || this;
+	      var router = root.$router;
+	      var route = root.$route;
+	      if (router) {
+	        // expose router
+	        this.$router = router;
+	        router._children.push(this);
+	        /* istanbul ignore if */
+	        if (this._defineMeta) {
+	          // 0.12
+	          this._defineMeta('$route', route);
+	        } else {
+	          // 1.0
+	          defineReactive(this, '$route', route);
+	        }
+	      }
+	      init.call(this, options);
+	    };
+
+	    var destroy = Vue.prototype._destroy;
+	    Vue.prototype._destroy = function () {
+	      if (!this._isBeingDestroyed && this.$router) {
+	        this.$router._children.$remove(this);
+	      }
+	      destroy.apply(this, arguments);
+	    };
+
+	    // 1.0 only: enable route mixins
+	    var strats = Vue.config.optionMergeStrategies;
+	    var hooksToMergeRE = /^(data|activate|deactivate)$/;
+
+	    if (strats) {
+	      strats.route = function (parentVal, childVal) {
+	        if (!childVal) return parentVal;
+	        if (!parentVal) return childVal;
+	        var ret = {};
+	        extend(ret, parentVal);
+	        for (var key in childVal) {
+	          var a = ret[key];
+	          var b = childVal[key];
+	          // for data, activate and deactivate, we need to merge them into
+	          // arrays similar to lifecycle hooks.
+	          if (a && hooksToMergeRE.test(key)) {
+	            ret[key] = (isArray(a) ? a : [a]).concat(b);
+	          } else {
+	            ret[key] = b;
+	          }
+	        }
+	        return ret;
+	      };
+	    }
+	  }
+
+	  function View (Vue) {
+
+	    var _ = Vue.util;
+	    var componentDef =
+	    // 0.12
+	    Vue.directive('_component') ||
+	    // 1.0
+	    Vue.internalDirectives.component;
+	    // <router-view> extends the internal component directive
+	    var viewDef = _.extend({}, componentDef);
+
+	    // with some overrides
+	    _.extend(viewDef, {
+
+	      _isRouterView: true,
+
+	      bind: function bind() {
+	        var route = this.vm.$route;
+	        /* istanbul ignore if */
+	        if (!route) {
+	          warn$1('<router-view> can only be used inside a ' + 'router-enabled app.');
+	          return;
+	        }
+	        // force dynamic directive so v-component doesn't
+	        // attempt to build right now
+	        this._isDynamicLiteral = true;
+	        // finally, init by delegating to v-component
+	        componentDef.bind.call(this);
+
+	        // locate the parent view
+	        var parentView = undefined;
+	        var parent = this.vm;
+	        while (parent) {
+	          if (parent._routerView) {
+	            parentView = parent._routerView;
+	            break;
+	          }
+	          parent = parent.$parent;
+	        }
+	        if (parentView) {
+	          // register self as a child of the parent view,
+	          // instead of activating now. This is so that the
+	          // child's activate hook is called after the
+	          // parent's has resolved.
+	          this.parentView = parentView;
+	          parentView.childView = this;
+	        } else {
+	          // this is the root view!
+	          var router = route.router;
+	          router._rootView = this;
+	        }
+
+	        // handle late-rendered view
+	        // two possibilities:
+	        // 1. root view rendered after transition has been
+	        //    validated;
+	        // 2. child view rendered after parent view has been
+	        //    activated.
+	        var transition = route.router._currentTransition;
+	        if (!parentView && transition.done || parentView && parentView.activated) {
+	          var depth = parentView ? parentView.depth + 1 : 0;
+	          activate(this, transition, depth);
+	        }
+	      },
+
+	      unbind: function unbind() {
+	        if (this.parentView) {
+	          this.parentView.childView = null;
+	        }
+	        componentDef.unbind.call(this);
+	      }
+	    });
+
+	    Vue.elementDirective('router-view', viewDef);
+	  }
+
+	  var trailingSlashRE = /\/$/;
+	  var regexEscapeRE = /[-.*+?^${}()|[\]\/\\]/g;
+	  var queryStringRE = /\?.*$/;
+
+	  // install v-link, which provides navigation support for
+	  // HTML5 history mode
+	  function Link (Vue) {
+	    var _Vue$util = Vue.util;
+	    var _bind = _Vue$util.bind;
+	    var isObject = _Vue$util.isObject;
+	    var addClass = _Vue$util.addClass;
+	    var removeClass = _Vue$util.removeClass;
+
+	    var onPriority = Vue.directive('on').priority;
+	    var LINK_UPDATE = '__vue-router-link-update__';
+
+	    var activeId = 0;
+
+	    Vue.directive('link-active', {
+	      priority: 9999,
+	      bind: function bind() {
+	        var _this = this;
+
+	        var id = String(activeId++);
+	        // collect v-links contained within this element.
+	        // we need do this here before the parent-child relationship
+	        // gets messed up by terminal directives (if, for, components)
+	        var childLinks = this.el.querySelectorAll('[v-link]');
+	        for (var i = 0, l = childLinks.length; i < l; i++) {
+	          var link = childLinks[i];
+	          var existingId = link.getAttribute(LINK_UPDATE);
+	          var value = existingId ? existingId + ',' + id : id;
+	          // leave a mark on the link element which can be persisted
+	          // through fragment clones.
+	          link.setAttribute(LINK_UPDATE, value);
+	        }
+	        this.vm.$on(LINK_UPDATE, this.cb = function (link, path) {
+	          if (link.activeIds.indexOf(id) > -1) {
+	            link.updateClasses(path, _this.el);
+	          }
+	        });
+	      },
+	      unbind: function unbind() {
+	        this.vm.$off(LINK_UPDATE, this.cb);
+	      }
+	    });
+
+	    Vue.directive('link', {
+	      priority: onPriority - 2,
+
+	      bind: function bind() {
+	        var vm = this.vm;
+	        /* istanbul ignore if */
+	        if (!vm.$route) {
+	          warn$1('v-link can only be used inside a router-enabled app.');
+	          return;
+	        }
+	        this.router = vm.$route.router;
+	        // update things when the route changes
+	        this.unwatch = vm.$watch('$route', _bind(this.onRouteUpdate, this));
+	        // check v-link-active ids
+	        var activeIds = this.el.getAttribute(LINK_UPDATE);
+	        if (activeIds) {
+	          this.el.removeAttribute(LINK_UPDATE);
+	          this.activeIds = activeIds.split(',');
+	        }
+	        // no need to handle click if link expects to be opened
+	        // in a new window/tab.
+	        /* istanbul ignore if */
+	        if (this.el.tagName === 'A' && this.el.getAttribute('target') === '_blank') {
+	          return;
+	        }
+	        // handle click
+	        this.handler = _bind(this.onClick, this);
+	        this.el.addEventListener('click', this.handler);
+	      },
+
+	      update: function update(target) {
+	        this.target = target;
+	        if (isObject(target)) {
+	          this.append = target.append;
+	          this.exact = target.exact;
+	          this.prevActiveClass = this.activeClass;
+	          this.activeClass = target.activeClass;
+	        }
+	        this.onRouteUpdate(this.vm.$route);
+	      },
+
+	      onClick: function onClick(e) {
+	        // don't redirect with control keys
+	        /* istanbul ignore if */
+	        if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+	        // don't redirect when preventDefault called
+	        /* istanbul ignore if */
+	        if (e.defaultPrevented) return;
+	        // don't redirect on right click
+	        /* istanbul ignore if */
+	        if (e.button !== 0) return;
+
+	        var target = this.target;
+	        if (target) {
+	          // v-link with expression, just go
+	          e.preventDefault();
+	          this.router.go(target);
+	        } else {
+	          // no expression, delegate for an <a> inside
+	          var el = e.target;
+	          while (el.tagName !== 'A' && el !== this.el) {
+	            el = el.parentNode;
+	          }
+	          if (el.tagName === 'A' && sameOrigin(el)) {
+	            e.preventDefault();
+	            var path = el.pathname;
+	            if (this.router.history.root) {
+	              path = path.replace(this.router.history.rootRE, '');
+	            }
+	            this.router.go({
+	              path: path,
+	              replace: target && target.replace,
+	              append: target && target.append
+	            });
+	          }
+	        }
+	      },
+
+	      onRouteUpdate: function onRouteUpdate(route) {
+	        // router.stringifyPath is dependent on current route
+	        // and needs to be called again whenver route changes.
+	        var newPath = this.router.stringifyPath(this.target);
+	        if (this.path !== newPath) {
+	          this.path = newPath;
+	          this.updateActiveMatch();
+	          this.updateHref();
+	        }
+	        if (this.activeIds) {
+	          this.vm.$emit(LINK_UPDATE, this, route.path);
+	        } else {
+	          this.updateClasses(route.path, this.el);
+	        }
+	      },
+
+	      updateActiveMatch: function updateActiveMatch() {
+	        this.activeRE = this.path && !this.exact ? new RegExp('^' + this.path.replace(/\/$/, '').replace(queryStringRE, '').replace(regexEscapeRE, '\\$&') + '(\\/|$)') : null;
+	      },
+
+	      updateHref: function updateHref() {
+	        if (this.el.tagName !== 'A') {
+	          return;
+	        }
+	        var path = this.path;
+	        var router = this.router;
+	        var isAbsolute = path.charAt(0) === '/';
+	        // do not format non-hash relative paths
+	        var href = path && (router.mode === 'hash' || isAbsolute) ? router.history.formatPath(path, this.append) : path;
+	        if (href) {
+	          this.el.href = href;
+	        } else {
+	          this.el.removeAttribute('href');
+	        }
+	      },
+
+	      updateClasses: function updateClasses(path, el) {
+	        var activeClass = this.activeClass || this.router._linkActiveClass;
+	        // clear old class
+	        if (this.prevActiveClass && this.prevActiveClass !== activeClass) {
+	          toggleClasses(el, this.prevActiveClass, removeClass);
+	        }
+	        // remove query string before matching
+	        var dest = this.path.replace(queryStringRE, '');
+	        path = path.replace(queryStringRE, '');
+	        // add new class
+	        if (this.exact) {
+	          if (dest === path ||
+	          // also allow additional trailing slash
+	          dest.charAt(dest.length - 1) !== '/' && dest === path.replace(trailingSlashRE, '')) {
+	            toggleClasses(el, activeClass, addClass);
+	          } else {
+	            toggleClasses(el, activeClass, removeClass);
+	          }
+	        } else {
+	          if (this.activeRE && this.activeRE.test(path)) {
+	            toggleClasses(el, activeClass, addClass);
+	          } else {
+	            toggleClasses(el, activeClass, removeClass);
+	          }
+	        }
+	      },
+
+	      unbind: function unbind() {
+	        this.el.removeEventListener('click', this.handler);
+	        this.unwatch && this.unwatch();
+	      }
+	    });
+
+	    function sameOrigin(link) {
+	      return link.protocol === location.protocol && link.hostname === location.hostname && link.port === location.port;
+	    }
+
+	    // this function is copied from v-bind:class implementation until
+	    // we properly expose it...
+	    function toggleClasses(el, key, fn) {
+	      key = key.trim();
+	      if (key.indexOf(' ') === -1) {
+	        fn(el, key);
+	        return;
+	      }
+	      var keys = key.split(/\s+/);
+	      for (var i = 0, l = keys.length; i < l; i++) {
+	        fn(el, keys[i]);
+	      }
+	    }
+	  }
+
+	  var historyBackends = {
+	    abstract: AbstractHistory,
+	    hash: HashHistory,
+	    html5: HTML5History
+	  };
+
+	  // late bind during install
+	  var Vue = undefined;
+
+	  /**
+	   * Router constructor
+	   *
+	   * @param {Object} [options]
+	   */
+
+	  var Router = (function () {
+	    function Router() {
+	      var _this = this;
+
+	      var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+
+	      var _ref$hashbang = _ref.hashbang;
+	      var hashbang = _ref$hashbang === undefined ? true : _ref$hashbang;
+	      var _ref$abstract = _ref.abstract;
+	      var abstract = _ref$abstract === undefined ? false : _ref$abstract;
+	      var _ref$history = _ref.history;
+	      var history = _ref$history === undefined ? false : _ref$history;
+	      var _ref$saveScrollPosition = _ref.saveScrollPosition;
+	      var saveScrollPosition = _ref$saveScrollPosition === undefined ? false : _ref$saveScrollPosition;
+	      var _ref$transitionOnLoad = _ref.transitionOnLoad;
+	      var transitionOnLoad = _ref$transitionOnLoad === undefined ? false : _ref$transitionOnLoad;
+	      var _ref$suppressTransitionError = _ref.suppressTransitionError;
+	      var suppressTransitionError = _ref$suppressTransitionError === undefined ? false : _ref$suppressTransitionError;
+	      var _ref$root = _ref.root;
+	      var root = _ref$root === undefined ? null : _ref$root;
+	      var _ref$linkActiveClass = _ref.linkActiveClass;
+	      var linkActiveClass = _ref$linkActiveClass === undefined ? 'v-link-active' : _ref$linkActiveClass;
+	      babelHelpers.classCallCheck(this, Router);
+
+	      /* istanbul ignore if */
+	      if (!Router.installed) {
+	        throw new Error('Please install the Router with Vue.use() before ' + 'creating an instance.');
+	      }
+
+	      // Vue instances
+	      this.app = null;
+	      this._children = [];
+
+	      // route recognizer
+	      this._recognizer = new RouteRecognizer();
+	      this._guardRecognizer = new RouteRecognizer();
+
+	      // state
+	      this._started = false;
+	      this._startCb = null;
+	      this._currentRoute = {};
+	      this._currentTransition = null;
+	      this._previousTransition = null;
+	      this._notFoundHandler = null;
+	      this._notFoundRedirect = null;
+	      this._beforeEachHooks = [];
+	      this._afterEachHooks = [];
+
+	      // trigger transition on initial render?
+	      this._rendered = false;
+	      this._transitionOnLoad = transitionOnLoad;
+
+	      // history mode
+	      this._root = root;
+	      this._abstract = abstract;
+	      this._hashbang = hashbang;
+
+	      // check if HTML5 history is available
+	      var hasPushState = typeof window !== 'undefined' && window.history && window.history.pushState;
+	      this._history = history && hasPushState;
+	      this._historyFallback = history && !hasPushState;
+
+	      // create history object
+	      var inBrowser = Vue.util.inBrowser;
+	      this.mode = !inBrowser || this._abstract ? 'abstract' : this._history ? 'html5' : 'hash';
+
+	      var History = historyBackends[this.mode];
+	      this.history = new History({
+	        root: root,
+	        hashbang: this._hashbang,
+	        onChange: function onChange(path, state, anchor) {
+	          _this._match(path, state, anchor);
+	        }
+	      });
+
+	      // other options
+	      this._saveScrollPosition = saveScrollPosition;
+	      this._linkActiveClass = linkActiveClass;
+	      this._suppress = suppressTransitionError;
+	    }
+
+	    /**
+	     * Allow directly passing components to a route
+	     * definition.
+	     *
+	     * @param {String} path
+	     * @param {Object} handler
+	     */
+
+	    // API ===================================================
+
+	    /**
+	    * Register a map of top-level paths.
+	    *
+	    * @param {Object} map
+	    */
+
+	    Router.prototype.map = function map(_map) {
+	      for (var route in _map) {
+	        this.on(route, _map[route]);
+	      }
+	      return this;
+	    };
+
+	    /**
+	     * Register a single root-level path
+	     *
+	     * @param {String} rootPath
+	     * @param {Object} handler
+	     *                 - {String} component
+	     *                 - {Object} [subRoutes]
+	     *                 - {Boolean} [forceRefresh]
+	     *                 - {Function} [before]
+	     *                 - {Function} [after]
+	     */
+
+	    Router.prototype.on = function on(rootPath, handler) {
+	      if (rootPath === '*') {
+	        this._notFound(handler);
+	      } else {
+	        this._addRoute(rootPath, handler, []);
+	      }
+	      return this;
+	    };
+
+	    /**
+	     * Set redirects.
+	     *
+	     * @param {Object} map
+	     */
+
+	    Router.prototype.redirect = function redirect(map) {
+	      for (var path in map) {
+	        this._addRedirect(path, map[path]);
+	      }
+	      return this;
+	    };
+
+	    /**
+	     * Set aliases.
+	     *
+	     * @param {Object} map
+	     */
+
+	    Router.prototype.alias = function alias(map) {
+	      for (var path in map) {
+	        this._addAlias(path, map[path]);
+	      }
+	      return this;
+	    };
+
+	    /**
+	     * Set global before hook.
+	     *
+	     * @param {Function} fn
+	     */
+
+	    Router.prototype.beforeEach = function beforeEach(fn) {
+	      this._beforeEachHooks.push(fn);
+	      return this;
+	    };
+
+	    /**
+	     * Set global after hook.
+	     *
+	     * @param {Function} fn
+	     */
+
+	    Router.prototype.afterEach = function afterEach(fn) {
+	      this._afterEachHooks.push(fn);
+	      return this;
+	    };
+
+	    /**
+	     * Navigate to a given path.
+	     * The path can be an object describing a named path in
+	     * the format of { name: '...', params: {}, query: {}}
+	     * The path is assumed to be already decoded, and will
+	     * be resolved against root (if provided)
+	     *
+	     * @param {String|Object} path
+	     * @param {Boolean} [replace]
+	     */
+
+	    Router.prototype.go = function go(path) {
+	      var replace = false;
+	      var append = false;
+	      if (Vue.util.isObject(path)) {
+	        replace = path.replace;
+	        append = path.append;
+	      }
+	      path = this.stringifyPath(path);
+	      if (path) {
+	        this.history.go(path, replace, append);
+	      }
+	    };
+
+	    /**
+	     * Short hand for replacing current path
+	     *
+	     * @param {String} path
+	     */
+
+	    Router.prototype.replace = function replace(path) {
+	      if (typeof path === 'string') {
+	        path = { path: path };
+	      }
+	      path.replace = true;
+	      this.go(path);
+	    };
+
+	    /**
+	     * Start the router.
+	     *
+	     * @param {VueConstructor} App
+	     * @param {String|Element} container
+	     * @param {Function} [cb]
+	     */
+
+	    Router.prototype.start = function start(App, container, cb) {
+	      /* istanbul ignore if */
+	      if (this._started) {
+	        warn$1('already started.');
+	        return;
+	      }
+	      this._started = true;
+	      this._startCb = cb;
+	      if (!this.app) {
+	        /* istanbul ignore if */
+	        if (!App || !container) {
+	          throw new Error('Must start vue-router with a component and a ' + 'root container.');
+	        }
+	        /* istanbul ignore if */
+	        if (App instanceof Vue) {
+	          throw new Error('Must start vue-router with a component, not a ' + 'Vue instance.');
+	        }
+	        this._appContainer = container;
+	        var Ctor = this._appConstructor = typeof App === 'function' ? App : Vue.extend(App);
+	        // give it a name for better debugging
+	        Ctor.options.name = Ctor.options.name || 'RouterApp';
+	      }
+
+	      // handle history fallback in browsers that do not
+	      // support HTML5 history API
+	      if (this._historyFallback) {
+	        var _location = window.location;
+	        var _history = new HTML5History({ root: this._root });
+	        var path = _history.root ? _location.pathname.replace(_history.rootRE, '') : _location.pathname;
+	        if (path && path !== '/') {
+	          _location.assign((_history.root || '') + '/' + this.history.formatPath(path) + _location.search);
+	          return;
+	        }
+	      }
+
+	      this.history.start();
+	    };
+
+	    /**
+	     * Stop listening to route changes.
+	     */
+
+	    Router.prototype.stop = function stop() {
+	      this.history.stop();
+	      this._started = false;
+	    };
+
+	    /**
+	     * Normalize named route object / string paths into
+	     * a string.
+	     *
+	     * @param {Object|String|Number} path
+	     * @return {String}
+	     */
+
+	    Router.prototype.stringifyPath = function stringifyPath(path) {
+	      var generatedPath = '';
+	      if (path && typeof path === 'object') {
+	        if (path.name) {
+	          var extend = Vue.util.extend;
+	          var currentParams = this._currentTransition && this._currentTransition.to.params;
+	          var targetParams = path.params || {};
+	          var params = currentParams ? extend(extend({}, currentParams), targetParams) : targetParams;
+	          generatedPath = encodeURI(this._recognizer.generate(path.name, params));
+	        } else if (path.path) {
+	          generatedPath = encodeURI(path.path);
+	        }
+	        if (path.query) {
+	          // note: the generated query string is pre-URL-encoded by the recognizer
+	          var query = this._recognizer.generateQueryString(path.query);
+	          if (generatedPath.indexOf('?') > -1) {
+	            generatedPath += '&' + query.slice(1);
+	          } else {
+	            generatedPath += query;
+	          }
+	        }
+	      } else {
+	        generatedPath = encodeURI(path ? path + '' : '');
+	      }
+	      return generatedPath;
+	    };
+
+	    // Internal methods ======================================
+
+	    /**
+	    * Add a route containing a list of segments to the internal
+	    * route recognizer. Will be called recursively to add all
+	    * possible sub-routes.
+	    *
+	    * @param {String} path
+	    * @param {Object} handler
+	    * @param {Array} segments
+	    */
+
+	    Router.prototype._addRoute = function _addRoute(path, handler, segments) {
+	      guardComponent(path, handler);
+	      handler.path = path;
+	      handler.fullPath = (segments.reduce(function (path, segment) {
+	        return path + segment.path;
+	      }, '') + path).replace('//', '/');
+	      segments.push({
+	        path: path,
+	        handler: handler
+	      });
+	      this._recognizer.add(segments, {
+	        as: handler.name
+	      });
+	      // add sub routes
+	      if (handler.subRoutes) {
+	        for (var subPath in handler.subRoutes) {
+	          // recursively walk all sub routes
+	          this._addRoute(subPath, handler.subRoutes[subPath],
+	          // pass a copy in recursion to avoid mutating
+	          // across branches
+	          segments.slice());
+	        }
+	      }
+	    };
+
+	    /**
+	     * Set the notFound route handler.
+	     *
+	     * @param {Object} handler
+	     */
+
+	    Router.prototype._notFound = function _notFound(handler) {
+	      guardComponent('*', handler);
+	      this._notFoundHandler = [{ handler: handler }];
+	    };
+
+	    /**
+	     * Add a redirect record.
+	     *
+	     * @param {String} path
+	     * @param {String} redirectPath
+	     */
+
+	    Router.prototype._addRedirect = function _addRedirect(path, redirectPath) {
+	      if (path === '*') {
+	        this._notFoundRedirect = redirectPath;
+	      } else {
+	        this._addGuard(path, redirectPath, this.replace);
+	      }
+	    };
+
+	    /**
+	     * Add an alias record.
+	     *
+	     * @param {String} path
+	     * @param {String} aliasPath
+	     */
+
+	    Router.prototype._addAlias = function _addAlias(path, aliasPath) {
+	      this._addGuard(path, aliasPath, this._match);
+	    };
+
+	    /**
+	     * Add a path guard.
+	     *
+	     * @param {String} path
+	     * @param {String} mappedPath
+	     * @param {Function} handler
+	     */
+
+	    Router.prototype._addGuard = function _addGuard(path, mappedPath, _handler) {
+	      var _this2 = this;
+
+	      this._guardRecognizer.add([{
+	        path: path,
+	        handler: function handler(match, query) {
+	          var realPath = mapParams(mappedPath, match.params, query);
+	          _handler.call(_this2, realPath);
+	        }
+	      }]);
+	    };
+
+	    /**
+	     * Check if a path matches any redirect records.
+	     *
+	     * @param {String} path
+	     * @return {Boolean} - if true, will skip normal match.
+	     */
+
+	    Router.prototype._checkGuard = function _checkGuard(path) {
+	      var matched = this._guardRecognizer.recognize(path, true);
+	      if (matched) {
+	        matched[0].handler(matched[0], matched.queryParams);
+	        return true;
+	      } else if (this._notFoundRedirect) {
+	        matched = this._recognizer.recognize(path);
+	        if (!matched) {
+	          this.replace(this._notFoundRedirect);
+	          return true;
+	        }
+	      }
+	    };
+
+	    /**
+	     * Match a URL path and set the route context on vm,
+	     * triggering view updates.
+	     *
+	     * @param {String} path
+	     * @param {Object} [state]
+	     * @param {String} [anchor]
+	     */
+
+	    Router.prototype._match = function _match(path, state, anchor) {
+	      var _this3 = this;
+
+	      if (this._checkGuard(path)) {
+	        return;
+	      }
+
+	      var currentRoute = this._currentRoute;
+	      var currentTransition = this._currentTransition;
+
+	      if (currentTransition) {
+	        if (currentTransition.to.path === path) {
+	          // do nothing if we have an active transition going to the same path
+	          return;
+	        } else if (currentRoute.path === path) {
+	          // We are going to the same path, but we also have an ongoing but
+	          // not-yet-validated transition. Abort that transition and reset to
+	          // prev transition.
+	          currentTransition.aborted = true;
+	          this._currentTransition = this._prevTransition;
+	          return;
+	        } else {
+	          // going to a totally different path. abort ongoing transition.
+	          currentTransition.aborted = true;
+	        }
+	      }
+
+	      // construct new route and transition context
+	      var route = new Route(path, this);
+	      var transition = new RouteTransition(this, route, currentRoute);
+
+	      // current transition is updated right now.
+	      // however, current route will only be updated after the transition has
+	      // been validated.
+	      this._prevTransition = currentTransition;
+	      this._currentTransition = transition;
+
+	      if (!this.app) {
+	        (function () {
+	          // initial render
+	          var router = _this3;
+	          _this3.app = new _this3._appConstructor({
+	            el: _this3._appContainer,
+	            created: function created() {
+	              this.$router = router;
+	            },
+	            _meta: {
+	              $route: route
+	            }
+	          });
+	        })();
+	      }
+
+	      // check global before hook
+	      var beforeHooks = this._beforeEachHooks;
+	      var startTransition = function startTransition() {
+	        transition.start(function () {
+	          _this3._postTransition(route, state, anchor);
+	        });
+	      };
+
+	      if (beforeHooks.length) {
+	        transition.runQueue(beforeHooks, function (hook, _, next) {
+	          if (transition === _this3._currentTransition) {
+	            transition.callHook(hook, null, next, {
+	              expectBoolean: true
+	            });
+	          }
+	        }, startTransition);
+	      } else {
+	        startTransition();
+	      }
+
+	      if (!this._rendered && this._startCb) {
+	        this._startCb.call(null);
+	      }
+
+	      // HACK:
+	      // set rendered to true after the transition start, so
+	      // that components that are acitvated synchronously know
+	      // whether it is the initial render.
+	      this._rendered = true;
+	    };
+
+	    /**
+	     * Set current to the new transition.
+	     * This is called by the transition object when the
+	     * validation of a route has succeeded.
+	     *
+	     * @param {Transition} transition
+	     */
+
+	    Router.prototype._onTransitionValidated = function _onTransitionValidated(transition) {
+	      // set current route
+	      var route = this._currentRoute = transition.to;
+	      // update route context for all children
+	      if (this.app.$route !== route) {
+	        this.app.$route = route;
+	        this._children.forEach(function (child) {
+	          child.$route = route;
+	        });
+	      }
+	      // call global after hook
+	      if (this._afterEachHooks.length) {
+	        this._afterEachHooks.forEach(function (hook) {
+	          return hook.call(null, {
+	            to: transition.to,
+	            from: transition.from
+	          });
+	        });
+	      }
+	      this._currentTransition.done = true;
+	    };
+
+	    /**
+	     * Handle stuff after the transition.
+	     *
+	     * @param {Route} route
+	     * @param {Object} [state]
+	     * @param {String} [anchor]
+	     */
+
+	    Router.prototype._postTransition = function _postTransition(route, state, anchor) {
+	      // handle scroll positions
+	      // saved scroll positions take priority
+	      // then we check if the path has an anchor
+	      var pos = state && state.pos;
+	      if (pos && this._saveScrollPosition) {
+	        Vue.nextTick(function () {
+	          window.scrollTo(pos.x, pos.y);
+	        });
+	      } else if (anchor) {
+	        Vue.nextTick(function () {
+	          var el = document.getElementById(anchor.slice(1));
+	          if (el) {
+	            window.scrollTo(window.scrollX, el.offsetTop);
+	          }
+	        });
+	      }
+	    };
+
+	    return Router;
+	  })();
+
+	  function guardComponent(path, handler) {
+	    var comp = handler.component;
+	    if (Vue.util.isPlainObject(comp)) {
+	      comp = handler.component = Vue.extend(comp);
+	    }
+	    /* istanbul ignore if */
+	    if (typeof comp !== 'function') {
+	      handler.component = null;
+	      warn$1('invalid component for route "' + path + '".');
+	    }
+	  }
+
+	  /* Installation */
+
+	  Router.installed = false;
+
+	  /**
+	   * Installation interface.
+	   * Install the necessary directives.
+	   */
+
+	  Router.install = function (externalVue) {
+	    /* istanbul ignore if */
+	    if (Router.installed) {
+	      warn$1('already installed.');
+	      return;
+	    }
+	    Vue = externalVue;
+	    applyOverride(Vue);
+	    View(Vue);
+	    Link(Vue);
+	    exports$1.Vue = Vue;
+	    Router.installed = true;
+	  };
+
+	  // auto install
+	  /* istanbul ignore if */
+	  if (typeof window !== 'undefined' && window.Vue) {
+	    window.Vue.use(Router);
+	  }
+
+	  return Router;
+
+	}));
 
 /***/ },
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _header = __webpack_require__(6);
-
-	var _header2 = _interopRequireDefault(_header);
-
-	var _footer = __webpack_require__(17);
-
-	var _footer2 = _interopRequireDefault(_footer);
-
-	var _indexContent = __webpack_require__(25);
-
-	var _indexContent2 = _interopRequireDefault(_indexContent);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = {
-	    components: {
-	        VHeader: _header2.default, VFooter: _footer2.default, VContent: _indexContent2.default
-	    },
-	    ready: function ready() {}
-	};
-	// </script>
-	// <template>
-	//     <v-header></v-header>
-	//     <v-content></v-content>
-	//     <v-footer></v-footer>
-	// </template>
-	// <script>
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var __vue_script__, __vue_template__
-	__webpack_require__(7)
-	__vue_script__ = __webpack_require__(11)
+	__webpack_require__(6)
+	__vue_script__ = __webpack_require__(10)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\components\\common\\header.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(12)
+	  console.warn("[vue-loader] src\\components\\details.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(28)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
 	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
 	}
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), false)
-	  if (!hotAPI.compatible) return
-	  var id = "./header.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
+
 
 /***/ },
-/* 7 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(8);
+	var content = __webpack_require__(7);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(10)(content, {});
+	var update = __webpack_require__(9)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./header.vue", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./header.vue");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./details.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./details.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -10456,21 +13124,21 @@
 	}
 
 /***/ },
-/* 8 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(9)();
+	exports = module.exports = __webpack_require__(8)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 9 */
+/* 8 */
 /***/ function(module, exports) {
 
 	/*
@@ -10526,7 +13194,7 @@
 
 
 /***/ },
-/* 10 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -10748,7 +13416,104 @@
 
 
 /***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _header = __webpack_require__(11);
+
+	var _header2 = _interopRequireDefault(_header);
+
+	var _footer = __webpack_require__(20);
+
+	var _footer2 = _interopRequireDefault(_footer);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// <template>
+	//     <div>
+	//         <v-header></v-header>
+	//         <router-view></router-view>
+	//         <v-footer></v-footer>
+	//     </div>
+	// </template>
+	// <script>
+	exports.default = {
+	    components: {
+	        VHeader: _header2.default, VFooter: _footer2.default
+	    },
+	    ready: function ready() {}
+	};
+	// </script>
+	// <style>
+	// </style>
+
+/***/ },
 /* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__webpack_require__(12)
+	__vue_script__ = __webpack_require__(14)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\common\\header.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(15)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(13);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(9)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./header.vue", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/vue-loader/lib/style-rewriter.js!./../../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./header.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(8)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 14 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -10777,7 +13542,7 @@
 	// 							<li><a href="details.html#!/pdf2xls">PDF转Excel</a></li>
 	// 							<li><a href="details.html#!/pdf2ppt">PDF转PPT</a></li>
 	// 							<li><a href="details.html#!/pdf2html">PDF转HTML</a></li>
-	// 							<li><a href="details.html#!/pdf2pic">PDF转图片</a></li>
+	// 							<li><a href="details.html#!/pdf2img">PDF转图片</a></li>
 	// 							<li><a href="details.html#!/pdf2txt">PDF转换文本</a></li>
 	// 							<li><a href="details.html#!/pdf2xml">PDF转换XML</a></li>
 	// 							<li><a href="details.html#!/pdf2rtf">PDF转换RTF</a></li>
@@ -10787,29 +13552,45 @@
 	// 				<li class="ding"><a href="#">文档转换处理</a>
 	// 					<div class="kuang">
 	// 						<ul>
-	// 							<li><a href="details.html#!/doc2pdf">Word转PDF</a></li>
-	// 							<li><a href="details.html#!/xls2pdf">Excel转PDF</a></li>
-	// 							<li><a href="details.html#!/ppt2pdf">PPT转PDF</a></li>
-	// 							<li><a href="details.html#!/html2pdf">HTML转PDF</a></li>
-	// 							<li style="border: none"><a href="details.html#!/txt2pdf">TXT转PDF</a></li>
+	// 							<li><a href="#">PDF转Word</a></li>
+	// 							<li><a href="#">PDF转Excel</a></li>
+	// 							<li><a href="#">PDF转PPT</a></li>
+	// 							<li><a href="#">PDF转HTML</a></li>
+	// 							<li><a href="#">PDF转图片</a></li>
+	// 							<li><a href="#">PDF转换文本</a></li>
+	// 							<li><a href="#">PDF转换XML</a></li>
+	// 							<li style="border: none"><a href="#">PDF转换RTF</a></li>
 	// 						</ul>
 	// 					</div>
 	// 				</li>
 	// 				<li class="ding"><a href="#">PDF页面处理</a>
 	// 					<div class="kuang">
 	// 						<ul>
-	// 							<li><a href="details.html#!/pdfjiemi">PDF解密</a></li>
-	// 							<li><a href="details.html#!/pdfjiami">PDF加密</a></li>
-	// 							<li><a href="details.html#!/pdffenge">PDF页面分割</a></li>
-	// 							<li><a href="details.html#!/pdfhebing">PDF合并</a></li>
-	// 							<li><a href="details.html#!/pdftiqu">PDF图片提取</a></li>
-	// 							<li><a href="details.html#!/pdfdelate">PDF删除页面</a></li>
-	// 							<li><a href="details.html#!/pdfyasuo">PDF压缩</a></li>
-	// 							<li style="border: none"><a href="details.html#!/pdfshuiying">PDF添加水印</a></li>
+	// 							<li><a href="#">PDF转Word</a></li>
+	// 							<li><a href="#">PDF转Excel</a></li>
+	// 							<li><a href="#">PDF转PPT</a></li>
+	// 							<li><a href="#">PDF转HTML</a></li>
+	// 							<li><a href="#">PDF转图片</a></li>
+	// 							<li><a href="#">PDF转换文本</a></li>
+	// 							<li><a href="#">PDF转换XML</a></li>
+	// 							<li style="border: none"><a href="#">PDF转换RTF</a></li>
 	// 						</ul>
 	// 					</div>
 	// 				</li>
-	// 				<li class="ding"><a href="#">联系我们</a></li>
+	// 				<li class="ding"><a href="#">联系我们</a>
+	// 					<div class="kuang">
+	// 						<ul>
+	// 							<li><a href="#">PDF转Word</a></li>
+	// 							<li><a href="#">PDF转Excel</a></li>
+	// 							<li><a href="#">PDF转PPT</a></li>
+	// 							<li><a href="#">PDF转HTML</a></li>
+	// 							<li><a href="#">PDF转图片</a></li>
+	// 							<li><a href="#">PDF转换文本</a></li>
+	// 							<li><a href="#">PDF转换XML</a></li>
+	// 							<li style="border: none"><a href="#">PDF转换RTF</a></li>
+	// 						</ul>
+	// 					</div>
+	// 				</li>
 	// 			</ul>
 	// 			<form>
 	// 				<input type="text" placeholder="请输入关键词" value="请输入关键词">
@@ -10828,75 +13609,65 @@
 	// </script>
 
 /***/ },
-/* 12 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "\n<div class=\"header\">\n\t<div class=\"header-in1\">\n\t\t<div class=\"header-in11\">\n\t\t\t<ul>\n\t\t\t\t<li><a href=\"#\"><img src=\"" + __webpack_require__(13) + "\"><span>在线咨询</span></a></li>\n\t\t\t\t<li><a href=\"#\"><img src=\"" + __webpack_require__(14) + "\"><span>400-086-6899</span></a></li>\n\t\t\t\t<li><img src=\"" + __webpack_require__(15) + "\"><a href=\"#\"><span>登录</span></a><a href=\"#\"><span>&nbsp;|&nbsp;</span></a><a href=\"#\"><span>我要注册</span></a></li>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n\t<div class=\"header-in\">\n\t\t<img src=\"" + __webpack_require__(16) + "\">\n\t\t<ul>\n\t\t\t<li class=\"ding\"><a href=\"#\">PDF转换处理</a>\n\t\t\t\t<div class=\"kuang\">\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2doc\">PDF转Word</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2xls\">PDF转Excel</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2ppt\">PDF转PPT</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2html\">PDF转HTML</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2pic\">PDF转图片</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2txt\">PDF转换文本</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2xml\">PDF转换XML</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2rtf\">PDF转换RTF</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</li>\n\t\t\t<li class=\"ding\"><a href=\"#\">文档转换处理</a>\n\t\t\t\t<div class=\"kuang\">\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"details.html#!/doc2pdf\">Word转PDF</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/xls2pdf\">Excel转PDF</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/ppt2pdf\">PPT转PDF</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/html2pdf\">HTML转PDF</a></li>\n\t\t\t\t\t\t<li style=\"border: none\"><a href=\"details.html#!/txt2pdf\">TXT转PDF</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</li>\n\t\t\t<li class=\"ding\"><a href=\"#\">PDF页面处理</a>\n\t\t\t\t<div class=\"kuang\">\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdfjiemi\">PDF解密</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdfjiami\">PDF加密</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdffenge\">PDF页面分割</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdfhebing\">PDF合并</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdftiqu\">PDF图片提取</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdfdelate\">PDF删除页面</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdfyasuo\">PDF压缩</a></li>\n\t\t\t\t\t\t<li style=\"border: none\"><a href=\"details.html#!/pdfshuiying\">PDF添加水印</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</li>\n\t\t\t<li class=\"ding\"><a href=\"#\">联系我们</a></li>\n\t\t</ul>\n\t\t<form>\n\t\t\t<input type=\"text\" placeholder=\"请输入关键词\" value=\"请输入关键词\">\n\t\t</form>\n\t</div>\n</div>\n";
-
-/***/ },
-/* 13 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAE7SURBVHja7JaxSgNREEXPBFlFELUTG4PaWAnR1sLOLnbpJH6BIASEfIngp2hhJWqxFnbpFCsLFQtR0GvzGskm2XkvEIu98Jplh8N9O3NnTRKTUI0JqQL/kZn1HWAaOAKugU9AwAdwBRwDswU1/ZI08BS8Oy/pVsPVk7Q+ilEaLMkknauc7iVl4wK35NPBMLCnuQ6d/dNM7mpJNWDTCd4axzg1gCUneEXSXiq4GTmua9HgMBqtSPDGwIwYsSQWgByoR4IVvnXuddxNgAIY0Ilx/AQsJ8byK7DoBQt4KSosqZ9wq+a96htgH7iLgD6HpZFHLwlJDUlvzshsh9osJTLrwKPD7TewLWnOzL5SHPcUp+4gxlRJBx3gJOT1THj2AJwBF8AOsAusAhnwDlwCp7EBUv3sVeAK/P/BvwMAmTXvlj5as04AAAAASUVORK5CYII="
-
-/***/ },
-/* 14 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAF2SURBVHja7JdBR0RRFMf/Uwwx9AFiaJEYZjWraDVEDCUiWpUYYlZ9hr5BtIoYZpEYZtEmItpGzKJNiSgRQ8RkYvza3NG43fua8e5ryPw5PO/d53eO8z/neSlAo9CERqQxOEqHksqhwKkIc+UlbUoqSTqTdCtpX9KcpM/YZMAVO0CHb3WAWeAG2PW8M1T4HrzyUzWgBDwB6bjgYXq8IelZ0n2QXnsyquLWBVAIUbWv4hPP/aKkrqTV2AbzZDQJXDkqLocwVlTFXUnbkj6s+wvBNsgvme1ZFXeAbJLj1B91C376V+ApoBm614MezJoR6qkNFD1n04OM2jBZzgMvFnzLcW4NeDO7YDkEWEDesU5rluEyZrVWgXdz/gBYjAMWkAMeLXgbOAZWjPPr5noaWAcawHVcsIAZh+FcagFHLj/EcWbGjNagyoUC96JifbtdugtZcX8UgIcIcCUpsIyRGg5o07QlMXAvloBzA7307fbU+E/i34O/BgDRG3yHHEuWtQAAAABJRU5ErkJggg=="
-
-/***/ },
-/* 15 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAIMSURBVHja7Jexa1NRFMZ/0TaboMVAtXSxmoCTpRUrRQpFwanQVfE/iGgruEo3cVVwc3GVdHQqWERw6OAkSFEUKUaxInaQYuHn4AnEcPPynhEL0g8u991zvntO7n3fveelpLIb2McuYS/xP8NAAe4p4AowDYwCh4HPwHvgGfAQePE3V3wMaADLwDfgBnAaOBD9TeBH+BvB7w01q11Um+qCOtiDOxi8DzEvM3aWcy6CjHfYZ9V1f2E9xu3+8Zg39yeJT6ib6lSHfUTd8ndshb2dNxXzq0UTP45t67TXTaOe4C5EnGSOlLgmgJPAvYTvexeppOx3I85EXlVfBh6EUjuxDGx02DaARwnuTsS5lFfVz9XpDGHUYgvfRV/L4J5V11K+1AUyCrzJOIFN4D4wHM/NDO6rruc68Wt21HLCXlbvqNsdwtoOe7nLqs2r6i/qkUTSFbPxJJF8KOLlUvXrxPYsAbM9LsGZ4LWj1u21pRI/Bc63jYeAxZx3/2LwW7gArOZ9x5Oh2IG2q7MI5mPeQMSZzLvVa8BL4GqMhwuW2kr09YizVqQ6Vdvu6uPqp5yr3Qz+mRBVtd/qVFGXQtmp47QS/kq/1anV5tWP6vVEPR5J1ONrwZ/vpx632pjaUN+qt+IaPKTuV4+q59Tb4W8Ev2fcUoEP+tY31wwwBhwEvsa5Xy36zVXa+yfx3yf+OQDI8MdCA3srYQAAAABJRU5ErkJggg=="
+	module.exports = "\n<div class=\"header\">\n\t<div class=\"header-in1\">\n\t\t<div class=\"header-in11\">\n\t\t\t<ul>\n\t\t\t\t<li><a href=\"#\"><img src=\"" + __webpack_require__(16) + "\"><span>在线咨询</span></a></li>\n\t\t\t\t<li><a href=\"#\"><img src=\"" + __webpack_require__(17) + "\"><span>400-086-6899</span></a></li>\n\t\t\t\t<li><img src=\"" + __webpack_require__(18) + "\"><a href=\"#\"><span>登录</span></a><a href=\"#\"><span>&nbsp;|&nbsp;</span></a><a href=\"#\"><span>我要注册</span></a></li>\n\t\t\t</ul>\n\t\t</div>\n\t</div>\n\t<div class=\"header-in\">\n\t\t<img src=\"" + __webpack_require__(19) + "\">\n\t\t<ul>\n\t\t\t<li class=\"ding\"><a href=\"#\">PDF转换处理</a>\n\t\t\t\t<div class=\"kuang\">\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2doc\">PDF转Word</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2xls\">PDF转Excel</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2ppt\">PDF转PPT</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2html\">PDF转HTML</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2img\">PDF转图片</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2txt\">PDF转换文本</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2xml\">PDF转换XML</a></li>\n\t\t\t\t\t\t<li><a href=\"details.html#!/pdf2rtf\">PDF转换RTF</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</li>\n\t\t\t<li class=\"ding\"><a href=\"#\">文档转换处理</a>\n\t\t\t\t<div class=\"kuang\">\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转Word</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转Excel</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转PPT</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转HTML</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转图片</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换文本</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换XML</a></li>\n\t\t\t\t\t\t<li style=\"border: none\"><a href=\"#\">PDF转换RTF</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</li>\n\t\t\t<li class=\"ding\"><a href=\"#\">PDF页面处理</a>\n\t\t\t\t<div class=\"kuang\">\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转Word</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转Excel</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转PPT</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转HTML</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转图片</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换文本</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换XML</a></li>\n\t\t\t\t\t\t<li style=\"border: none\"><a href=\"#\">PDF转换RTF</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</li>\n\t\t\t<li class=\"ding\"><a href=\"#\">联系我们</a>\n\t\t\t\t<div class=\"kuang\">\n\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转Word</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转Excel</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转PPT</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转HTML</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转图片</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换文本</a></li>\n\t\t\t\t\t\t<li><a href=\"#\">PDF转换XML</a></li>\n\t\t\t\t\t\t<li style=\"border: none\"><a href=\"#\">PDF转换RTF</a></li>\n\t\t\t\t\t</ul>\n\t\t\t\t</div>\n\t\t\t</li>\n\t\t</ul>\n\t\t<form>\n\t\t\t<input type=\"text\" placeholder=\"请输入关键词\" value=\"请输入关键词\">\n\t\t</form>\n\t</div>\n</div>\n";
 
 /***/ },
 /* 16 */
 /***/ function(module, exports) {
 
-	module.exports = "data:image/png;base64,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"
+	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAE7SURBVHja7JaxSgNREEXPBFlFELUTG4PaWAnR1sLOLnbpJH6BIASEfIngp2hhJWqxFnbpFCsLFQtR0GvzGskm2XkvEIu98Jplh8N9O3NnTRKTUI0JqQL/kZn1HWAaOAKugU9AwAdwBRwDswU1/ZI08BS8Oy/pVsPVk7Q+ilEaLMkknauc7iVl4wK35NPBMLCnuQ6d/dNM7mpJNWDTCd4axzg1gCUneEXSXiq4GTmua9HgMBqtSPDGwIwYsSQWgByoR4IVvnXuddxNgAIY0Ilx/AQsJ8byK7DoBQt4KSosqZ9wq+a96htgH7iLgD6HpZFHLwlJDUlvzshsh9osJTLrwKPD7TewLWnOzL5SHPcUp+4gxlRJBx3gJOT1THj2AJwBF8AOsAusAhnwDlwCp7EBUv3sVeAK/P/BvwMAmTXvlj5as04AAAAASUVORK5CYII="
 
 /***/ },
 /* 17 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAF2SURBVHja7JdBR0RRFMf/Uwwx9AFiaJEYZjWraDVEDCUiWpUYYlZ9hr5BtIoYZpEYZtEmItpGzKJNiSgRQ8RkYvza3NG43fua8e5ryPw5PO/d53eO8z/neSlAo9CERqQxOEqHksqhwKkIc+UlbUoqSTqTdCtpX9KcpM/YZMAVO0CHb3WAWeAG2PW8M1T4HrzyUzWgBDwB6bjgYXq8IelZ0n2QXnsyquLWBVAIUbWv4hPP/aKkrqTV2AbzZDQJXDkqLocwVlTFXUnbkj6s+wvBNsgvme1ZFXeAbJLj1B91C376V+ApoBm614MezJoR6qkNFD1n04OM2jBZzgMvFnzLcW4NeDO7YDkEWEDesU5rluEyZrVWgXdz/gBYjAMWkAMeLXgbOAZWjPPr5noaWAcawHVcsIAZh+FcagFHLj/EcWbGjNagyoUC96JifbtdugtZcX8UgIcIcCUpsIyRGg5o07QlMXAvloBzA7307fbU+E/i34O/BgDRG3yHHEuWtQAAAABJRU5ErkJggg=="
+
+/***/ },
+/* 18 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAIMSURBVHja7Jexa1NRFMZ/0TaboMVAtXSxmoCTpRUrRQpFwanQVfE/iGgruEo3cVVwc3GVdHQqWERw6OAkSFEUKUaxInaQYuHn4AnEcPPynhEL0g8u991zvntO7n3fveelpLIb2McuYS/xP8NAAe4p4AowDYwCh4HPwHvgGfAQePE3V3wMaADLwDfgBnAaOBD9TeBH+BvB7w01q11Um+qCOtiDOxi8DzEvM3aWcy6CjHfYZ9V1f2E9xu3+8Zg39yeJT6ib6lSHfUTd8ndshb2dNxXzq0UTP45t67TXTaOe4C5EnGSOlLgmgJPAvYTvexeppOx3I85EXlVfBh6EUjuxDGx02DaARwnuTsS5lFfVz9XpDGHUYgvfRV/L4J5V11K+1AUyCrzJOIFN4D4wHM/NDO6rruc68Wt21HLCXlbvqNsdwtoOe7nLqs2r6i/qkUTSFbPxJJF8KOLlUvXrxPYsAbM9LsGZ4LWj1u21pRI/Bc63jYeAxZx3/2LwW7gArOZ9x5Oh2IG2q7MI5mPeQMSZzLvVa8BL4GqMhwuW2kr09YizVqQ6Vdvu6uPqp5yr3Qz+mRBVtd/qVFGXQtmp47QS/kq/1anV5tWP6vVEPR5J1ONrwZ/vpx632pjaUN+qt+IaPKTuV4+q59Tb4W8Ev2fcUoEP+tY31wwwBhwEvsa5Xy36zVXa+yfx3yf+OQDI8MdCA3srYQAAAABJRU5ErkJggg=="
+
+/***/ },
+/* 19 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/png;base64,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"
+
+/***/ },
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_script__, __vue_template__
-	__webpack_require__(18)
-	__vue_script__ = __webpack_require__(20)
+	__webpack_require__(21)
+	__vue_script__ = __webpack_require__(23)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
 	  console.warn("[vue-loader] src\\components\\common\\footer.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(21)
+	__vue_template__ = __webpack_require__(24)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
 	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
 	}
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), false)
-	  if (!hotAPI.compatible) return
-	  var id = "./footer.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
+
 
 /***/ },
-/* 18 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(19);
+	var content = __webpack_require__(22);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(10)(content, {});
+	var update = __webpack_require__(9)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -10913,10 +13684,10 @@
 	}
 
 /***/ },
-/* 19 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(9)();
+	exports = module.exports = __webpack_require__(8)();
 	// imports
 
 
@@ -10927,7 +13698,7 @@
 
 
 /***/ },
-/* 20 */
+/* 23 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -10972,76 +13743,72 @@
 	// </script>
 
 /***/ },
-/* 21 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = "\n <div class=\"footer\">\n    <div class=\"footer-in\">\n        <div class=\"left\"><img src=\"" + __webpack_require__(22) + "\"></div>\n        <div class=\"center\">\n            <img src=\"" + __webpack_require__(23) + "\">\n            <ul>\n                <li><a href=\"javascript:;\">诚聘英才</a></li>\n                <li><a href=\"javascript:;\">产品与服务</a></li>\n                <li><a href=\"javascript:;\">在线咨询</a></li>\n            </ul>\n        </div>\n        <div class=\"right\">\n            <img src=\"" + __webpack_require__(24) + "\">\n            <ul>\n                <li><a href=\"javascript:;\">关于我们</a></li>\n                <li><a href=\"javascript:;\">新闻与活动</a></li>\n                <li><a href=\"javascript:;\">最新公告</a></li>\n            </ul>\n            <a href=\"#\" class=\"er\"></a>\n        </div>\n        <div class=\"bottom\">\n            <p>© 2011-2016 北京英富森软件股份有限公司 版权所有</p>\n            <p>京ICP备14019076号 京公网安备11010802016118号</p>\n        </div>\n    </div>\n</div>\n";
-
-/***/ },
-/* 22 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "images/infcn.png?e38156e191";
-
-/***/ },
-/* 23 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAxCAYAAABznEEcAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAUFSURBVHjazNpriFVVFAfw3z1Z9MCCscbJSqK3jTXhFJlEJhFU5oesrChLInqQlIRIVBAWFD2t6YHRg8JM7UkvKqiwCCnRNMymwMAeWg45JaaZ2tiHsy4Mt3vPvXfm3mMLhhnOmX32+q+99trrv9YuXDZligbJ/mjHGJyK0TgQh+En/Iav8QVW4Bv80YiJhwxyfAum4DZ8hoV4H89jG/qwCwUk2BttAfZJnI578DJ68wZxBLqwCQ/g8FC4kuzCP9iC7+PnrQB2Ih7DAbg53jUVxAFh5XW4cjDWC+nDSlweq3oXDsG0MFDDQVyKGZiM9RovvZiOEfgAj2JBLQOTGoEuDAud1iQA/WV9zNMW8w4Z7ErsjSW4FsvkJ7swBydjKcZFoKh7JfbB8nCfPAH0l2Ux//IwaF0g9owPTMRau1fWhh6LK3lOJRAvRfTZ3QD6A7mh0kYvB+KKOFWX+3/JCnwe+mWCaMFNeKjOCRLciaOaDOTh0K8lC8Q8XBjRoZbI1o4L4tAahbk5RK3JoWdZEMdiTSRrWXIo3sOOSOheR2tY6KwcVuPn0PO4ciCewOwqHzgmQJ5T8rwLPfH72Rz2x2w8XgqiBRtqyIXerPD8kgB4G86Iv5spvWG0Yf1BXIx7a8xeZYTlrZiJp3NYjftwUX8QtwdJqSbPZLzrjPSgC2NzWI1VobcEQ/FhFT5QlCervH8teMNVeKHJIPqCiA1NcEJEmFqkG9sz3g/H+cHUzszBpRZgdIKOGl2piP6WjPdnB2Prw985gFiNk5Lw4546Bs7NoJDbc05FNmBcEtWJrXUM/KfMOVGUmTmD2IZRSQ0kv5ysqaDwJIzMEUQf2hLsO4hk7KMyz5/LmQEektTpSqUfOL/MKX9WkJg8pIBfkiAcySB8sr3Mhn4niH6zJcH6BF9m8dca5FecVOb5UuzXZBB7oTsJttQ6yI914/iSZ4dFKM769v79uPxA9uZBWJIE7WtvgFW6cXSJaw2PWD4hY9zicL8tkf5MiEJFLdKBr5JIpCY3aHnXBLkq3SMfh4IjSzblHhGq94ga04/xv9ulhbPOKvNdilUJNkdESRoEZC2OxJ9lotYP+CSy3I6IbMtwbqQ+V4efj5e2Ba6usqnHY3Mh+hPXRUa4uoGbrjVcrKWOMW8HT/g8MoNCBt/vkJY75xat/ypubXDk6Am+XU+pflIYcycerFKwmIVX+pOijTi4TqvVIr8HoV80gLH7ZLxriaCxsbRQcGPUjhotO2MDXl/nuHkZ7+6UtgH+U+34Lpb/0CYdTE9J+3h/1lgIWJpRMjoK31Yqnk0NlldoIolpk/b1suSaCpl1IfSbWql4VrTAHGlHqFmyBefhsgqr0oU3KoydIe0g9WaBKPLWUyKENTOFXijtAZ6DT8M9pmUYsCP0ml/6olKn6KpIDCdpbnm/T9qf+6DK/x0etPiMSqdeOdkhbai/mzNTKycjQ48JoVfNIARZ6oyNNGY3ARgT83fK6NlVazxuizznRWnj5RG1lf0bwdhmhDeMjbMmM4mq9bDqkXZSRzQZwIhIPXpi3p3VBtTTjJ8fef/zkTLPNvgbBaWpxB3SovVEdVxeqfdaxCZpZ+jISAv+wP3BSfoGoHixjDorQEyXw92Oonwf1homvWXzbvCERdLu0Qb8FfuneMumEEnd8Eg/LomIc7e0y7RxwBuoyfedWqXXKdaFjxfvO60MrtEQd/x3AM7dJnRzIJP3AAAAAElFTkSuQmCC"
-
-/***/ },
 /* 24 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAxCAYAAABznEEcAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAATMSURBVHja1NprqFRVFAfw371MpoUK10emJmKSiS/QSrOgosAPBZGlKWn2qQyl/BDSW8pKeqqFolAgqGkWBZWREPTUTDQtK02ypNJUujdFNDHTPpw1crjdmTkzd+7DPxx07sw5a/333mvt/1r71EyeOFGV0AVDMBKjMRTdcRF+w5/4Dl9hK37AoWoYzjXz/jpMxMP4AqvxIZbhOE7hNGpQi47oFWQX42o8gzVoaG0SA/AyDuN59A+HC+E0/sVR7I7r3SA2HK+gK+6P71qURNcY5b24szmjFziFbbgjZvVJ9MFdMUBVJzEJszAe+1QfDZiJ3liHhViV5cbajERXxwhd2UIE0tgXdnqF3VxzZ6IjNuBubNZ6OI35uAybMDYSRdkz0QlbYvm0JoE0Nof9LTGgZZE4Jx5wI/ZoW+wJPz4ptHIKkXg9sk9bE0gTubdQoDdFYkrsqlu0L2zFxvCvaGDX4b6QDe0RL8UAf5DeoxrPxHLcGtlBkXh5IX5TjWtKmVlrfPjZ5EwMwk8h1ophURCdHjKiUgzC5HDoAryY8b7fw89LsbMxiUUh5kphGmZjaTOXRs8QjV1CAHbE0xnvfSLuuSFNog4HMmqhDjhZxXX+ZgzemvichUgDDqIb6vMxMQHzKnBgQpG1fkkq7s5LXR0KELkZT2FuRtvP4rb0TDwScrpcXBsz+EDqb+fi1SiOdkVxNDz1/VG8EwXRmBB7QprfhPejgFpYwvZ2vIelOXTGRyXqgWL4BStSn2uCRB7fxtUYJ/BxxOKXqb/vxnMZSJyKmOqcwzC83YK5fVyjNLoHj8X/P8PnodPSWevRjM9ehaE5jEhNaSXIr/V04KexrsTzT+NY6vP+Mmx/j3G5kLnLKyTwd6z3pvaLvGPd0SPDs/bjrzLtH8DYXATgsQpJPITXCny3M/7Nmo4rSdvHMTiXocgvhn+wo8RvDlWrNVMguHvlGq3ncnFVyI9qYAnWV1AB9sk1YykJo+u1HWrwRy5SXm2FS2pgbFjVwMYQduWgFvty+DrEVyUz8nMVux/HK7inA3bUxgj0dHaiBzbkouwbUmE9PRBXVMmhTaG1ysEIfJMLIbUAayswvKsCw9XEJEzP4QiurzC42zLF1uIaHMlL8XkYHFrkbEmxw6L+ONMoeAsPZrz5hOafaxRDLmyUwuwops44U48Lo0wtVaKuxOOREo9WmcD58eyVJX5XF82F+saNghmYIznoKIZ7Qr0uaaGZWCw5QiiGOZJjgP/1nX6MlNk3g+ibEVt+S1wzwkYh9A0/dxZqnk2NKq+mnW5uNeHf1MZpqnErZH6G6WwrzIrau6EYiXzdennshu0JI8KvlU1tGE1hWnQw+rcTAv0jkUwrtOsVCt7RIUX6tTGBfuHHdYUCvthx1zGMikAa2UYERob9UcWkeqmd93gUPSsk5wILFG/7VzMLzYrVMKZUEyHLEfDJUIsHJSepvVuYQG9JZ+9g2C3ZBSlHA62U9EmX4VdJe72his7XSTp/AyQHjZk7JOUKucO4BRdLGm6HJH3T7RXW6LWhRmcHiZla4d2OPHbHaHWTnC2sxad4Q/I60IHQV/k2f15SdArhNhS3R8aZKzknrK84gFr4faeektcp9sYaz7/vtE3SdKvKcvxvAAI8MWO2po4/AAAAAElFTkSuQmCC"
+	module.exports = "\n <div class=\"footer\">\n    <div class=\"footer-in\">\n        <div class=\"left\"><img src=\"" + __webpack_require__(25) + "\"></div>\n        <div class=\"center\">\n            <img src=\"" + __webpack_require__(26) + "\">\n            <ul>\n                <li><a href=\"javascript:;\">诚聘英才</a></li>\n                <li><a href=\"javascript:;\">产品与服务</a></li>\n                <li><a href=\"javascript:;\">在线咨询</a></li>\n            </ul>\n        </div>\n        <div class=\"right\">\n            <img src=\"" + __webpack_require__(27) + "\">\n            <ul>\n                <li><a href=\"javascript:;\">关于我们</a></li>\n                <li><a href=\"javascript:;\">新闻与活动</a></li>\n                <li><a href=\"javascript:;\">最新公告</a></li>\n            </ul>\n            <a href=\"#\" class=\"er\"></a>\n        </div>\n        <div class=\"bottom\">\n            <p>© 2011-2016 北京英富森软件股份有限公司 版权所有</p>\n            <p>京ICP备14019076号 京公网安备11010802016118号</p>\n        </div>\n    </div>\n</div>\n";
 
 /***/ },
 /* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = __webpack_require__.p + "images/infcn.png?e38156e191";
+
+/***/ },
+/* 26 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAxCAYAAABznEEcAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAUFSURBVHjazNpriFVVFAfw3z1Z9MCCscbJSqK3jTXhFJlEJhFU5oesrChLInqQlIRIVBAWFD2t6YHRg8JM7UkvKqiwCCnRNMymwMAeWg45JaaZ2tiHsy4Mt3vPvXfm3mMLhhnOmX32+q+99trrv9YuXDZligbJ/mjHGJyK0TgQh+En/Iav8QVW4Bv80YiJhwxyfAum4DZ8hoV4H89jG/qwCwUk2BttAfZJnI578DJ68wZxBLqwCQ/g8FC4kuzCP9iC7+PnrQB2Ih7DAbg53jUVxAFh5XW4cjDWC+nDSlweq3oXDsG0MFDDQVyKGZiM9RovvZiOEfgAj2JBLQOTGoEuDAud1iQA/WV9zNMW8w4Z7ErsjSW4FsvkJ7swBydjKcZFoKh7JfbB8nCfPAH0l2Ux//IwaF0g9owPTMRau1fWhh6LK3lOJRAvRfTZ3QD6A7mh0kYvB+KKOFWX+3/JCnwe+mWCaMFNeKjOCRLciaOaDOTh0K8lC8Q8XBjRoZbI1o4L4tAahbk5RK3JoWdZEMdiTSRrWXIo3sOOSOheR2tY6KwcVuPn0PO4ciCewOwqHzgmQJ5T8rwLPfH72Rz2x2w8XgqiBRtqyIXerPD8kgB4G86Iv5spvWG0Yf1BXIx7a8xeZYTlrZiJp3NYjftwUX8QtwdJqSbPZLzrjPSgC2NzWI1VobcEQ/FhFT5QlCervH8teMNVeKHJIPqCiA1NcEJEmFqkG9sz3g/H+cHUzszBpRZgdIKOGl2piP6WjPdnB2Prw985gFiNk5Lw4546Bs7NoJDbc05FNmBcEtWJrXUM/KfMOVGUmTmD2IZRSQ0kv5ysqaDwJIzMEUQf2hLsO4hk7KMyz5/LmQEektTpSqUfOL/MKX9WkJg8pIBfkiAcySB8sr3Mhn4niH6zJcH6BF9m8dca5FecVOb5UuzXZBB7oTsJttQ6yI914/iSZ4dFKM769v79uPxA9uZBWJIE7WtvgFW6cXSJaw2PWD4hY9zicL8tkf5MiEJFLdKBr5JIpCY3aHnXBLkq3SMfh4IjSzblHhGq94ga04/xv9ulhbPOKvNdilUJNkdESRoEZC2OxJ9lotYP+CSy3I6IbMtwbqQ+V4efj5e2Ba6usqnHY3Mh+hPXRUa4uoGbrjVcrKWOMW8HT/g8MoNCBt/vkJY75xat/ypubXDk6Am+XU+pflIYcycerFKwmIVX+pOijTi4TqvVIr8HoV80gLH7ZLxriaCxsbRQcGPUjhotO2MDXl/nuHkZ7+6UtgH+U+34Lpb/0CYdTE9J+3h/1lgIWJpRMjoK31Yqnk0NlldoIolpk/b1suSaCpl1IfSbWql4VrTAHGlHqFmyBefhsgqr0oU3KoydIe0g9WaBKPLWUyKENTOFXijtAZ6DT8M9pmUYsCP0ml/6olKn6KpIDCdpbnm/T9qf+6DK/x0etPiMSqdeOdkhbai/mzNTKycjQ48JoVfNIARZ6oyNNGY3ARgT83fK6NlVazxuizznRWnj5RG1lf0bwdhmhDeMjbMmM4mq9bDqkXZSRzQZwIhIPXpi3p3VBtTTjJ8fef/zkTLPNvgbBaWpxB3SovVEdVxeqfdaxCZpZ+jISAv+wP3BSfoGoHixjDorQEyXw92Oonwf1homvWXzbvCERdLu0Qb8FfuneMumEEnd8Eg/LomIc7e0y7RxwBuoyfedWqXXKdaFjxfvO60MrtEQd/x3AM7dJnRzIJP3AAAAAElFTkSuQmCC"
+
+/***/ },
+/* 27 */
+/***/ function(module, exports) {
+
+	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAxCAYAAABznEEcAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAATMSURBVHja1NprqFRVFAfw371MpoUK10emJmKSiS/QSrOgosAPBZGlKWn2qQyl/BDSW8pKeqqFolAgqGkWBZWREPTUTDQtK02ypNJUujdFNDHTPpw1crjdmTkzd+7DPxx07sw5a/333mvt/1r71EyeOFGV0AVDMBKjMRTdcRF+w5/4Dl9hK37AoWoYzjXz/jpMxMP4AqvxIZbhOE7hNGpQi47oFWQX42o8gzVoaG0SA/AyDuN59A+HC+E0/sVR7I7r3SA2HK+gK+6P71qURNcY5b24szmjFziFbbgjZvVJ9MFdMUBVJzEJszAe+1QfDZiJ3liHhViV5cbajERXxwhd2UIE0tgXdnqF3VxzZ6IjNuBubNZ6OI35uAybMDYSRdkz0QlbYvm0JoE0Nof9LTGgZZE4Jx5wI/ZoW+wJPz4ptHIKkXg9sk9bE0gTubdQoDdFYkrsqlu0L2zFxvCvaGDX4b6QDe0RL8UAf5DeoxrPxHLcGtlBkXh5IX5TjWtKmVlrfPjZ5EwMwk8h1ophURCdHjKiUgzC5HDoAryY8b7fw89LsbMxiUUh5kphGmZjaTOXRs8QjV1CAHbE0xnvfSLuuSFNog4HMmqhDjhZxXX+ZgzemvichUgDDqIb6vMxMQHzKnBgQpG1fkkq7s5LXR0KELkZT2FuRtvP4rb0TDwScrpcXBsz+EDqb+fi1SiOdkVxNDz1/VG8EwXRmBB7QprfhPejgFpYwvZ2vIelOXTGRyXqgWL4BStSn2uCRB7fxtUYJ/BxxOKXqb/vxnMZSJyKmOqcwzC83YK5fVyjNLoHj8X/P8PnodPSWevRjM9ehaE5jEhNaSXIr/V04KexrsTzT+NY6vP+Mmx/j3G5kLnLKyTwd6z3pvaLvGPd0SPDs/bjrzLtH8DYXATgsQpJPITXCny3M/7Nmo4rSdvHMTiXocgvhn+wo8RvDlWrNVMguHvlGq3ncnFVyI9qYAnWV1AB9sk1YykJo+u1HWrwRy5SXm2FS2pgbFjVwMYQduWgFvty+DrEVyUz8nMVux/HK7inA3bUxgj0dHaiBzbkouwbUmE9PRBXVMmhTaG1ysEIfJMLIbUAayswvKsCw9XEJEzP4QiurzC42zLF1uIaHMlL8XkYHFrkbEmxw6L+ONMoeAsPZrz5hOafaxRDLmyUwuwops44U48Lo0wtVaKuxOOREo9WmcD58eyVJX5XF82F+saNghmYIznoKIZ7Qr0uaaGZWCw5QiiGOZJjgP/1nX6MlNk3g+ibEVt+S1wzwkYh9A0/dxZqnk2NKq+mnW5uNeHf1MZpqnErZH6G6WwrzIrau6EYiXzdennshu0JI8KvlU1tGE1hWnQw+rcTAv0jkUwrtOsVCt7RIUX6tTGBfuHHdYUCvthx1zGMikAa2UYERob9UcWkeqmd93gUPSsk5wILFG/7VzMLzYrVMKZUEyHLEfDJUIsHJSepvVuYQG9JZ+9g2C3ZBSlHA62U9EmX4VdJe72his7XSTp/AyQHjZk7JOUKucO4BRdLGm6HJH3T7RXW6LWhRmcHiZla4d2OPHbHaHWTnC2sxad4Q/I60IHQV/k2f15SdArhNhS3R8aZKzknrK84gFr4faeektcp9sYaz7/vtE3SdKvKcvxvAAI8MWO2po4/AAAAAElFTkSuQmCC"
+
+/***/ },
+/* 28 */
+/***/ function(module, exports) {
+
+	module.exports = "\n<div>\n    <v-header></v-header>\n    <router-view></router-view>\n    <v-footer></v-footer>\n</div>\n";
+
+/***/ },
+/* 29 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var __vue_script__, __vue_template__
-	__webpack_require__(26)
-	__vue_script__ = __webpack_require__(28)
+	__webpack_require__(30)
+	__vue_script__ = __webpack_require__(32)
 	if (__vue_script__ &&
 	    __vue_script__.__esModule &&
 	    Object.keys(__vue_script__).length > 1) {
-	  console.warn("[vue-loader] src\\components\\index-content.vue: named exports in *.vue files are ignored.")}
-	__vue_template__ = __webpack_require__(29)
+	  console.warn("[vue-loader] src\\components\\details-pdf2doc.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(41)
 	module.exports = __vue_script__ || {}
 	if (module.exports.__esModule) module.exports = module.exports.default
 	if (__vue_template__) {
 	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
 	}
-	if (false) {(function () {  module.hot.accept()
-	  var hotAPI = require("vue-hot-reload-api")
-	  hotAPI.install(require("vue"), false)
-	  if (!hotAPI.compatible) return
-	  var id = "./index-content.vue"
-	  if (!module.hot.data) {
-	    hotAPI.createRecord(id, module.exports)
-	  } else {
-	    hotAPI.update(id, module.exports, __vue_template__)
-	  }
-	})()}
+
 
 /***/ },
-/* 26 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(27);
+	var content = __webpack_require__(31);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(10)(content, {});
+	var update = __webpack_require__(9)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./index-content.vue", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./index-content.vue");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-597b7bdd&scoped=true!./../../node_modules/sass-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./details-pdf2doc.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js?id=_v-597b7bdd&scoped=true!./../../node_modules/sass-loader/index.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./details-pdf2doc.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -11051,51 +13818,233 @@
 	}
 
 /***/ },
-/* 27 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(9)();
+	exports = module.exports = __webpack_require__(8)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 28 */
-/***/ function(module, exports) {
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
+	});
+
+	var _detailsContent = __webpack_require__(33);
+
+	var _detailsContent2 = _interopRequireDefault(_detailsContent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        VContent: _detailsContent2.default
+	    },
+	    ready: function ready() {
+	        console.log('PdfToDoc.vue');
+	    }
+	};
+	// </script>
+	// <template>
+	//     <v-content>
+	//         <h3>选择页码</h3>
+	//         <div class="inpp">
+	//             <form>
+	//                 <input type="text">
+	//             </form>
+	//             <p>请输入待转换页面的页码以逗号分开 （例如: 1,3,5-8,10-20）　(全部转换请留空)</p>
+	//         </div>
+	//     </v-content>
+	// </template>
+	// <style scoped rel="stylesheet/scss" lang="sass">
+	// </style>
+	// <script>
+
+/***/ },
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __vue_script__, __vue_template__
+	__webpack_require__(34)
+	__vue_script__ = __webpack_require__(36)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\details-content.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(37)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+
+
+/***/ },
+/* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(35);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(9)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./details-content.vue", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/vue-loader/lib/style-rewriter.js!./../../node_modules/vue-loader/lib/selector.js?type=style&index=0!./details-content.vue");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 35 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(8)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 36 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
 	// <template>
 	//     <div class="banner">
-	//         <div class="body">
-	//             <div class="line">
-	//                 <div @click="click" class="blue"><a href="details.html#!/pdf2doc"><img src="../static/img/wo.png"></a></div>
-	//                 <div  @click="click" class="blue"><a href="details.html#!/pdf2ppt"><img src="../static/img/ppt.png"></a></div>
-	//                 <div class="blue"><a href="details.html#!/pdf2xls"><img src="../static/img/exl.png"></a></div>
-	//                 <div class="blue"><a href="details.html#!/pdf2html"><img src="../static/img/html.png"></a></div>
-	//                 <div class="blue"><a href="details.html#!/pdf2txt"><img src="../static/img/txt.png"></a></div>
-	//                 <div class="blue"><a href="details.html#!/pdf2pic"><img src="../static/img/img.png"></a></div>
-	//                 <div class="blue"><a href="details.html#!/doc2pdf"><img src="../static/img/world2.png"></a></div>
-	//                 <div class="blue"><a href="details.html#!/txt2pdf"><img src="../static/img/txt2.png"></a></div>
-	//                 <div class="blue"><a href="details.html#!/ppt2pdf"><img src="../static/img/ppt2.png"></a></div>
-	//                 <div class="blue"><a href="details.html#!/html2pdf"><img src="../static/img/html2.png"></a></div>
-	//                 <div class="blue"><a href="details.html#!/pdf2rtf"><img src="../static/img/rxt.png"></a></div>
-	//                 <div class="blue"><a href="details.html#!/pdf2xml"><img src="../static/img/xml.png"></a></div>
-	//                 <div class="blue"><a href="details.html#!/pdfjiemi"><img src="../static/img/yaoshi.png"></a></div>
-	//                 <div class="blue"><a href="details.html#!/pdfjiami"><img src="../static/img/suo.png"></a></div>
-	//                 <div class="blue"><a href="details.html#!/pdfhebing"><img src="../static/img/hebing.png"></a></div>
-	//                 <div class="blue"><a href="details.html#!/pdffenge"><img src="../static/img/fenge.png"></a></div>
-	//                 <div class="blue"><a href="details.html#!/pdftiqu"><img src="../static/img/huoqu.png"></a></div>
-	//                 <div class="blue"><a href="details.html#!/pdfshuiying"><img src="../static/img/shibie.png"></a></div>
+	//         <div class="body-in">
+	//             <h1><span>PDF</span>文档转换为<span>Word</span></h1>
+	//             <ul class="ul">
+	//                 <li class="change"><a href="#">1</a><span></span><b>上传文件</b></li>
+	//                 <li><a href="#">2</a><span></span><b>上传完毕</b></li>
+	//                 <li><a href="#">3</a><span></span><b>开始转换</b></li>
+	//                 <li><a href="#">4</a><span></span><b>完成</b></li>
+	//             </ul>
+	//             <div class="botton">
+	//                 <h3>选择文件</h3>
+	//                 <a class="a1" href="javascript:;">选择本地文件</a>
+	//                 <a class="a2" href="javascript:;">开始转换</a>
+	//                 <div style="clear: both"></div>
 	//             </div>
+	//             <div class="file">
+	//                 <h3>未选择文件</h3>
+	//             </div>
+	//             <div class="file2" style="display: none">
+	//                 <div class="pdf">
+	//                     <img src="../static/img/pdfff.png">
+	//                     <a href="javascript:;" class="aa1">信息化建设简述.pdf</a>
+	//                     <img src="../static/img/x.png" class="ii1">
+	//                     <a href="javascript:;" class="aa2">移除</a>
+	//                     <img src="../static/img/download.png" class="ii2">
+	//                     <a href="javascript:;">下载</a>
+	//                 </div>
+	//                 <div class="pdf">
+	//                     <img src="../static/img/pdfff.png">
+	//                     <a href="javascript:;" class="aa1">信息化建设简述.pdf</a>
+	//                     <img src="../static/img/x.png" class="ii1">
+	//                     <a href="javascript:;" class="aa2">移除</a>
+	//                     <img src="../static/img/download.png" class="ii2">
+	//                     <a href="javascript:;">下载</a>
+	//                 </div>
+	//                 <div class="pdf">
+	//                     <img src="../static/img/pdfff.png">
+	//                     <a href="javascript:;" class="aa1">信息化建设简述.pdf</a>
+	//                     <img src="../static/img/x.png" class="ii1">
+	//                     <a href="javascript:;" class="aa2">移除</a>
+	//                     <img src="../static/img/download.png" class="ii2">
+	//                     <a href="javascript:;">下载</a>
+	//                 </div>
+	//             </div>
+	//             <div class="file2" style="display: none">
+	//                 <div class="pdf">
+	//                     <img src="../static/img/pdfff.png">
+	//                     <a href="javascript:;" class="aa1">信息化建设简述.pdf</a>
+	//                     <img src="../static/img/x.png" class="ii1">
+	//                     <a href="javascript:;" class="aa2">移除</a>
+	//                     <img src="../static/img/download.png" class="ii2">
+	//                     <a href="javascript:;">下载</a>
+	//                 </div>
+	//                 <div class="pdf">
+	//                     <img src="../static/img/pdfff.png">
+	//                     <a href="javascript:;" class="aa1">信息化建设简述.pdf</a>
+	//                     <img src="../static/img/x.png" class="ii1">
+	//                     <a href="javascript:;" class="aa2">移除</a>
+	//                     <img src="../static/img/download.png" class="ii2">
+	//                     <a href="javascript:;">下载</a>
+	//                 </div>
+	//                 <div class="pdf">
+	//                     <img src="../static/img/pdfff.png">
+	//                     <a href="javascript:;" class="aa1">信息化建设简述.pdf</a>
+	//                     <img src="../static/img/x.png" class="ii1">
+	//                     <a href="javascript:;" class="aa2">移除</a>
+	//                     <img src="../static/img/download.png" class="ii2">
+	//                     <a href="javascript:;">下载</a>
+	//                 </div>
+	//             </div>
+	//             <div class="file2" style="display: none">
+	//                 <div class="pdf">
+	//                     <img src="../static/img/pdfff.png">
+	//                     <a href="javascript:;" class="aa1">信息化建设简述.pdf</a>
+	//                     <img src="../static/img/x.png" class="ii1">
+	//                     <a href="javascript:;" class="aa2">移除</a>
+	//                     <img src="../static/img/download.png" class="ii2">
+	//                     <a href="javascript:;">下载</a>
+	//                 </div>
+	//                 <div class="pdf">
+	//                     <img src="../static/img/pdfff.png">
+	//                     <a href="javascript:;" class="aa1">信息化建设简述.pdf</a>
+	//                     <img src="../static/img/x.png" class="ii1">
+	//                     <a href="javascript:;" class="aa2">移除</a>
+	//                     <img src="../static/img/download.png" class="ii2">
+	//                     <a href="javascript:;">下载</a>
+	//                 </div>
+	//                 <div class="pdf">
+	//                     <img src="../static/img/pdfff.png">
+	//                     <a href="javascript:;" class="aa1">信息化建设简述.pdf</a>
+	//                     <img src="../static/img/x.png" class="ii1">
+	//                     <a href="javascript:;" class="aa2">移除</a>
+	//                     <img src="../static/img/download.png" class="ii2">
+	//                     <a href="javascript:;">下载</a>
+	//                 </div>
+	//             </div>
+	//             <div class="file3">
+	//                 <slot></slot>
+	//             </div>
+	//             <div class="file4" style="display: none">
+	//                 <h3>转换结果</h3>
+	//                 <p>pdf转换word.doc</p>
+	//                 <a href="javascript:;">下载</a>
+	//             </div>
+	//             <div style="clear: both"></div>
 	//         </div>
 	//     </div>
 	// </template>
@@ -11104,134 +14053,153 @@
 	// </style>
 	// <script>
 	exports.default = {
-	  ready: function ready() {},
-
-	  methods: {
-	    click: function click() {}
-	  }
-
+	    ready: function ready() {
+	        console.log('content,测试所有home业务模块下的js都会被编译');
+	    }
 	};
 	// </script>
 
 /***/ },
-/* 29 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "\n<div class=\"banner\">\n    <div class=\"body\">\n        <div class=\"line\">\n            <div @click=\"click\" class=\"blue\"><a href=\"details.html#!/pdf2doc\"><img src=\"" + __webpack_require__(30) + "\"></a></div>\n            <div  @click=\"click\" class=\"blue\"><a href=\"details.html#!/pdf2ppt\"><img src=\"" + __webpack_require__(31) + "\"></a></div>\n            <div class=\"blue\"><a href=\"details.html#!/pdf2xls\"><img src=\"" + __webpack_require__(32) + "\"></a></div>\n            <div class=\"blue\"><a href=\"details.html#!/pdf2html\"><img src=\"" + __webpack_require__(33) + "\"></a></div>\n            <div class=\"blue\"><a href=\"details.html#!/pdf2txt\"><img src=\"" + __webpack_require__(34) + "\"></a></div>\n            <div class=\"blue\"><a href=\"details.html#!/pdf2pic\"><img src=\"" + __webpack_require__(35) + "\"></a></div>\n            <div class=\"blue\"><a href=\"details.html#!/doc2pdf\"><img src=\"" + __webpack_require__(36) + "\"></a></div>\n            <div class=\"blue\"><a href=\"details.html#!/txt2pdf\"><img src=\"" + __webpack_require__(37) + "\"></a></div>\n            <div class=\"blue\"><a href=\"details.html#!/ppt2pdf\"><img src=\"" + __webpack_require__(38) + "\"></a></div>\n            <div class=\"blue\"><a href=\"details.html#!/html2pdf\"><img src=\"" + __webpack_require__(39) + "\"></a></div>\n            <div class=\"blue\"><a href=\"details.html#!/pdf2rtf\"><img src=\"" + __webpack_require__(40) + "\"></a></div>\n            <div class=\"blue\"><a href=\"details.html#!/pdf2xml\"><img src=\"" + __webpack_require__(41) + "\"></a></div>\n            <div class=\"blue\"><a href=\"details.html#!/pdfjiemi\"><img src=\"" + __webpack_require__(42) + "\"></a></div>\n            <div class=\"blue\"><a href=\"details.html#!/pdfjiami\"><img src=\"" + __webpack_require__(43) + "\"></a></div>\n            <div class=\"blue\"><a href=\"details.html#!/pdfhebing\"><img src=\"" + __webpack_require__(44) + "\"></a></div>\n            <div class=\"blue\"><a href=\"details.html#!/pdffenge\"><img src=\"" + __webpack_require__(45) + "\"></a></div>\n            <div class=\"blue\"><a href=\"details.html#!/pdftiqu\"><img src=\"" + __webpack_require__(46) + "\"></a></div>\n            <div class=\"blue\"><a href=\"details.html#!/pdfshuiying\"><img src=\"" + __webpack_require__(47) + "\"></a></div>\n        </div>\n    </div>\n</div>\n";
-
-/***/ },
-/* 30 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/png;base64,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"
-
-/***/ },
-/* 31 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/png;base64,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"
-
-/***/ },
-/* 32 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/png;base64,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"
-
-/***/ },
-/* 33 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/png;base64,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"
-
-/***/ },
-/* 34 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/png;base64,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"
-
-/***/ },
-/* 35 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/png;base64,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"
-
-/***/ },
-/* 36 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/png;base64,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"
-
-/***/ },
-/* 37 */
-/***/ function(module, exports) {
-
-	module.exports = "data:image/png;base64,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"
+	module.exports = "\n<div class=\"banner\">\n    <div class=\"body-in\">\n        <h1><span>PDF</span>文档转换为<span>Word</span></h1>\n        <ul class=\"ul\">\n            <li class=\"change\"><a href=\"#\">1</a><span></span><b>上传文件</b></li>\n            <li><a href=\"#\">2</a><span></span><b>上传完毕</b></li>\n            <li><a href=\"#\">3</a><span></span><b>开始转换</b></li>\n            <li><a href=\"#\">4</a><span></span><b>完成</b></li>\n        </ul>\n        <div class=\"botton\">\n            <h3>选择文件</h3>\n            <a class=\"a1\" href=\"javascript:;\">选择本地文件</a>\n            <a class=\"a2\" href=\"javascript:;\">开始转换</a>\n            <div style=\"clear: both\"></div>\n        </div>\n        <div class=\"file\">\n            <h3>未选择文件</h3>\n        </div>\n        <div class=\"file2\" style=\"display: none\">\n            <div class=\"pdf\">\n                <img src=\"" + __webpack_require__(38) + "\">\n                <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n                <img src=\"" + __webpack_require__(39) + "\" class=\"ii1\">\n                <a href=\"javascript:;\" class=\"aa2\">移除</a>\n                <img src=\"" + __webpack_require__(40) + "\" class=\"ii2\">\n                <a href=\"javascript:;\">下载</a>\n            </div>\n            <div class=\"pdf\">\n                <img src=\"" + __webpack_require__(38) + "\">\n                <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n                <img src=\"" + __webpack_require__(39) + "\" class=\"ii1\">\n                <a href=\"javascript:;\" class=\"aa2\">移除</a>\n                <img src=\"" + __webpack_require__(40) + "\" class=\"ii2\">\n                <a href=\"javascript:;\">下载</a>\n            </div>\n            <div class=\"pdf\">\n                <img src=\"" + __webpack_require__(38) + "\">\n                <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n                <img src=\"" + __webpack_require__(39) + "\" class=\"ii1\">\n                <a href=\"javascript:;\" class=\"aa2\">移除</a>\n                <img src=\"" + __webpack_require__(40) + "\" class=\"ii2\">\n                <a href=\"javascript:;\">下载</a>\n            </div>\n        </div>\n        <div class=\"file2\" style=\"display: none\">\n            <div class=\"pdf\">\n                <img src=\"" + __webpack_require__(38) + "\">\n                <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n                <img src=\"" + __webpack_require__(39) + "\" class=\"ii1\">\n                <a href=\"javascript:;\" class=\"aa2\">移除</a>\n                <img src=\"" + __webpack_require__(40) + "\" class=\"ii2\">\n                <a href=\"javascript:;\">下载</a>\n            </div>\n            <div class=\"pdf\">\n                <img src=\"" + __webpack_require__(38) + "\">\n                <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n                <img src=\"" + __webpack_require__(39) + "\" class=\"ii1\">\n                <a href=\"javascript:;\" class=\"aa2\">移除</a>\n                <img src=\"" + __webpack_require__(40) + "\" class=\"ii2\">\n                <a href=\"javascript:;\">下载</a>\n            </div>\n            <div class=\"pdf\">\n                <img src=\"" + __webpack_require__(38) + "\">\n                <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n                <img src=\"" + __webpack_require__(39) + "\" class=\"ii1\">\n                <a href=\"javascript:;\" class=\"aa2\">移除</a>\n                <img src=\"" + __webpack_require__(40) + "\" class=\"ii2\">\n                <a href=\"javascript:;\">下载</a>\n            </div>\n        </div>\n        <div class=\"file2\" style=\"display: none\">\n            <div class=\"pdf\">\n                <img src=\"" + __webpack_require__(38) + "\">\n                <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n                <img src=\"" + __webpack_require__(39) + "\" class=\"ii1\">\n                <a href=\"javascript:;\" class=\"aa2\">移除</a>\n                <img src=\"" + __webpack_require__(40) + "\" class=\"ii2\">\n                <a href=\"javascript:;\">下载</a>\n            </div>\n            <div class=\"pdf\">\n                <img src=\"" + __webpack_require__(38) + "\">\n                <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n                <img src=\"" + __webpack_require__(39) + "\" class=\"ii1\">\n                <a href=\"javascript:;\" class=\"aa2\">移除</a>\n                <img src=\"" + __webpack_require__(40) + "\" class=\"ii2\">\n                <a href=\"javascript:;\">下载</a>\n            </div>\n            <div class=\"pdf\">\n                <img src=\"" + __webpack_require__(38) + "\">\n                <a href=\"javascript:;\" class=\"aa1\">信息化建设简述.pdf</a>\n                <img src=\"" + __webpack_require__(39) + "\" class=\"ii1\">\n                <a href=\"javascript:;\" class=\"aa2\">移除</a>\n                <img src=\"" + __webpack_require__(40) + "\" class=\"ii2\">\n                <a href=\"javascript:;\">下载</a>\n            </div>\n        </div>\n        <div class=\"file3\">\n            <slot></slot>\n        </div>\n        <div class=\"file4\" style=\"display: none\">\n            <h3>转换结果</h3>\n            <p>pdf转换word.doc</p>\n            <a href=\"javascript:;\">下载</a>\n        </div>\n        <div style=\"clear: both\"></div>\n    </div>\n</div>\n";
 
 /***/ },
 /* 38 */
 /***/ function(module, exports) {
 
-	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAWqSURBVHja7J1faFtVHMc/0fmPUqmKipOx6mATnBpQLIqyZPgiDLe5B9EEm03FP6DdhIE+dX1RQcTNB19Eu0o7JwqtDyIOcZ04cKAu1Qef1AwFRZHe6WT4Nz6c38Wz25s0ado0uff7gcttc257bu755Hd+J/ecJFOtVhHp5SxdAgkgJICQAEICCAkgJICQAEICCAkgJICQAEICCAkgJICQAEICCAkgJICQAEICCAkgJICQAEICiO5kxXJWPjE+0enLkmaA7FJWUCgWFAFESiOAx3PAsQ66Lg8AmyRA+zgGTHXQdckpCRQSQEgAIQGEBBASQEgAIQFE0ljRxedeAC6NPHYS+B73xtKvat5kC7AbuKFG2T/AQWAI+EXNnEwBQu4FfgTOA3qB64HtFiGuA24G/lBTJ1eAT4CK9/vbwAvA5ybDNuCAmjpdSeBJE4E63YRI+Cigx/an1MzpE2AtULSfP1QzJzsHuBW4GLgQuAK4HbjfIsAYcLSF63I20LeUJz8xPnHm2LZYCCRAk9cw5rGfgGHgxQX+z79tvx6YbfPzyUiA5ngG+As4DfwMfAl8BvyrAJ8OAV6JDAMXkwqwqw3PYQB4SgJ05nByaikrKBQLc/IAjQKEBBASQCgHmHf4N41u+6ZWgOfVfOoClpNeCZBe7gHGgbvUBaSTbbg3iHoVAdLJKtyNohkJkE6qwDW4GUcSIIX8YP3/VRIgnRwHHgQ+lQDp5H3bn69RwOIw0GHXZc085efafgh4QgK0TrvuhX/dQOM2wmPAS8AjwF7gGwmQHlZbxFoLXAmMAhtxq5GUAzRDoVjI4ObAtWsLp4jva/D4bMxp7wZex005KwEXAC/T5rl8igDLwyrgPmCd/X4KuAN4A3gLeBQ4BzcjuQf404aMsxIgGQwDb+Imn14C5IFbcJNSVwJfAJcBHwFfAZfj1id+DOxQF9DdrAcGgd+Ady35uwh4Fbgbtz7hauAh3GLUPPCdJYs3KgJ0N9cC+4FDuJVGT9dI+k4Dr9nWY9FhHfC4BOhOVgLPArdZtMzR+FrD34EPbNMooAvZiFtzcAC39GwHCVxoqggQz03Ak5bxH7Is/3ASn6giQDy7cG/wHMRNOt2Z1CcqAeJ5D3jY9nfaeD6RqAuIZ9y2xKMIkHIkgAQQEkBIACEBRApJ6zBwDbClE07EPh1kQAK0l02k5HsB1QWIumSq1aqugiKAkABCAggJICSAkABCAggJICSASDodcS+gTR+X3o+b6TuGW+UTksOt+dvO0n3vQCyFYkERwGuEqrd9a43V32B5tc6W8/5HDihH6t6MWwZeafKcovXO4tYO7GTu9wzFndewIsBcpm3L4tbe5zjzk7hqle/xXuUl77jwMf+Gx/EadfvHZJo4p4oXUbbgvqdoCLc4tFLjOIAjEiBegBH7edIuaK6B8hHvVVuKHNcHBHZ82JhHvLJJa5ixJs9p2mvYsHzE6h+1LR8RYEQ5QONUWiwPCbyQHFi0yFgI9sP5hkU4J0ymQZMkG9PlSIAGc4KSNViZuR/VEi2fj0E7rsz/M4HCBgpMBF+GEzVygkbrnLbj+yJJqN/vj7U76ewGAfZ4/XmAW6MXNFFeT6iKNSCWrI1Zo5SBrTX+ppU6o/RFurN3FAFqJ4Eztg+aLK9F3osEJeuLK15WH50Vk2mxzpwnTEg5khOoC5gn4VpIeb2/CwUI+/v+SINssFf6/hbrLHlJYkf3/52eBC4W2ZihX/h+wKg11D4bv5dp/osi+7x8YrP9HNgbS0iAzhhN5COv8rw3Fh+14V1gjwcLEOywV9deixiBBGguRGdaKK93XOB1AdGh3pSVjdroYNKTo5E6G/1wyIwE6AxOeDL4gmy1LmB1yq6HpoWnHd0OlgBCAggJICSAkABCAggJICSAkABCAggJICSAkABCAggJICSAkAAiSfw3ALVxPzCPgxifAAAAAElFTkSuQmCC"
+	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACUAAAAVCAYAAADB5CeuAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAGNSURBVHja7Ja/S0JhFIYfLzm49A1NiVo6uHiNiLaIoCVpaY2GHCWhKRDFVkmiMS45FhT9ASFOgoi0RFBaQ9A1vQ4uDdfFQbAWi/Qa3MLqDj3j4Xzneznn/X7YAHIu3yRwAKwDEr9PFzgHdkINtWnLuXxTwBPWYVoCjrEWxxKwZDFRSxIWxJKixoYF/YkY3mjEEH8ulriLJ2nXNexCsFy5NuS06xqqckTj9Pw9tly5xi6EIbej6+TlOXOi3qgqGR729gHwRiP4EzFmjw65XF37tPD82QmBdAq7EFSVTF+9vDxHR9dHN76qkqFd1xgPyowH5U/zrjY2ade1oZ3+U0/pt2XsQjCxuPCzorzRCA6Pm1a5QqtcMbXG4XGPzugfhXwcQ/Miy31813TxQXMPHoybrW2aF9nvG/07DHZ05Eb/CmImSEfXeS6WrGH0QDqFw+M2XAcj85RZ36xoj30ju4sn+y7Pr2LLuXwv/2+fSVEFi2kqSEDYYqLCUqih1gAncNb7K/8F3d7+zlBDrb0OAMz0g2jEO4Q6AAAAAElFTkSuQmCC"
 
 /***/ },
 /* 39 */
 /***/ function(module, exports) {
 
-	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAWuSURBVHja7J1PaBxVHMc/0eJ/JSooVEoXC1aw0hSFVBGzKR4qFAl6EXchW/+gPWiygqCnJKd6S+JBD6JJJLGIl3iQVhGTiocWhEQ9eFK3eLDgwa0GiqKuh/kNvr7Ozs4m7mR35vuBIZvZtzPvz2d+783sm9m+RqOByC9XqAokgJAAQgIICSAkgJAAQgIICSAkgJAAQgIICSAkgJAAQgIICSAkgJAAQgIICSAkgJAAQgIICSB6kx3bufOlxaVuvy3pa2CgkzsolUuKACKnEcDhdeBsF9XLM8ARCZAeZ4HlLqqXogaBQgIICSAkgJAAQgIICSAkgJAA3cExYBy4ukW6g5buoJo6WwIcB6aBa1ukO2zpDqup1QUICSAkgJAAQgIIY0eP5/848EeL08Ct1MuVQH8nC7C0uHTJ/6VyqS4BkvNCh7b7l/3dB/yacpn6JEByHgZ+byHI8wr02RXgWyAuZJ7f4vZrQDWFcgwCr0qA7uMCHZ6rWCqXLhsH6CxASAAhAYQEEBoERvMawVyAiy3SnbKzhDNq6mwJ8FbCdGc62Pg3En8NQl1AhnkSWAQeUwTIJ48TXCC6SREgn+wi+KJoXQLkkwZwN7BfAuST89b/FyRAPlkDngW+kgD55JT9vUZnAf8Pg11WL3tavB/ekDIGvCQBtk5a34V/n6Bxk3AMeINgwskM8IMEyA+7LWLdBdwBzAGHgL81BmiTUrnURzAHLq1lw3Y9mzD9QES2XwHeA/4BKgS3p71JynP5FAG2h13AU8Be+38DeAQ4AXxoXcNVwHXA9cCfwM+kP7FUAnSICeAD4BfgVmAYeMAaeifwDXAb8AXwHXA7cC/wJfC0uoDeZh8wSvAN4Mc2+LsZeAd4AngQuBN4juBehWHgJxss3qcI0NvcA8wDnwKfE8xHiBr0XQTeteUGghtT9gIvSoDeZCfB3UcPWbQsOgPJVmwAn9mis4Ae5BDwNvA+cIv14RtZK6QiQDT3Ay8DJeATG+WvZLGgigDRVK0fPwH8RvCcISRAfjhJcJn3JPConeZlEnUB0SzaknkUAXKOBJAAQgIICSAkgMgheT0N3AOMdENG7OkggxIgXY6Qk98FVBcgYulrNBqqBUUAIQGEBBASQEgAIQGEBBASQEgAkXVS/S5gOx+LnoAJghs/hr31cwS/GzCVZmZK5VImI8AEwRO2ijHri/a62eKm/7HJfipeegjm9cdd965w+Y9P9Nv6CxHpV7x8rVhav0zhsmYyNSt7VDmzFQESUgMm7XUoxLyt9ynY+6ve+tE29rfiNEqhSeVP24LlzY0GYV7Hne3MO++HeS8QfAVdidgGMWXMpQBu5RSBhYhGDhnz3huIOMriqNpROGINc85piDFbP+zlzyXM60d2lI96Arh5r5pwk8BpL99xZdQgsAl1a6CCJwRtHE3rJs2yNcxuWz9k62v2OlxGY8RNkt+ql8/8DAK9kFr3QvlmmLFGmwCO2nYq1pj9CbdbtHRV/pslVHDEWo+IKFMRY4Wwi2h1FK86n/G7rSF7fc6LIrnqAtrhtB15I9aA4dE5a1IkYcg7Iiu2zVkbtB0l/pnADa9xZzdZlgFH2PWsdwFV61fDZSu2Tzmj9XFrvHb60gXLw5TTiFNOV7Dmjc59sSatPAdsO/UEEYeIdG6dVNNqiCzMCVz2RuntVl7NGaWH4X/Iosuwdz2g3wZ7cd1BHG5XMdsNlZcFAerOWKBO69/5K3qfneDSGcIF50xiwBp4v61v1R00C+39JlXFXs9sx4g/qwKEYXzSKrZVCF7x+uyqHY01u7A073Qrc975/2a6qmkvWi3Q4R+jbIdUJ4V2+aXgcEDnX6QZMRGwCJBK42X1UnC3s2qnYP4Y44C9V8tagTUtPOcoAkgAIQGEBBASQEgAIQGEBBASQEgAIQGEBBASQEgAIQGEBBASQEgAkSX+HQCaVCa8WSSWZgAAAABJRU5ErkJggg=="
+	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAACYSURBVHjadM/BCcIwFAbgr1WcQbCnDuESil4suITgLs5QKCiCnrqNIE5RKHh5gbZo4EGS9yX5k7VFucYDJ9yMxwEXbOe4Y4k6mrcBqrHAdY4zmtioB7cl1OGctUWZTjeYRcMAVXjmg+eO6AOMEOST8P2/df4jeBe1iI9uEpyiKmqEs7YoP1hNM2GHa+BXjj3eEyTmVep9BwAR4imuyh9OvgAAAABJRU5ErkJggg=="
 
 /***/ },
 /* 40 */
 /***/ function(module, exports) {
 
-	module.exports = "data:image/png;base64,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"
+	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAKCAYAAACALL/6AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAACmSURBVHjalNC9CQJBEAXgzx9M7UNQhIsECxAEMw/FFizDEqxAwcjUyFQQ4TI7sAYj4cBklOVQxAfLDu+9mX07tXmeq2CJbtRXrFOx7k80P3AjjKM+fHthgAsKDBN9GNybfzWcY1If7aShHdwap2qkLUps0AjugQX2aaQsMewwC+MD08TcQNaMfL1YoTCUuOOYJOigeEWaoJWIt7izyvbef1jF+YnnANfiHcPfn0KJAAAAAElFTkSuQmCC"
 
 /***/ },
 /* 41 */
 /***/ function(module, exports) {
 
-	module.exports = "data:image/png;base64,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"
+	module.exports = "\n<v-content _v-597b7bdd=\"\">\n    <h3 _v-597b7bdd=\"\">选择页码</h3>\n    <div class=\"inpp\" _v-597b7bdd=\"\">\n        <form _v-597b7bdd=\"\">\n            <input type=\"text\" _v-597b7bdd=\"\">\n        </form>\n        <p _v-597b7bdd=\"\">请输入待转换页面的页码以逗号分开 （例如: 1,3,5-8,10-20）　(全部转换请留空)</p>\n    </div>\n</v-content>\n";
 
 /***/ },
 /* 42 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "data:image/png;base64,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"
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(43)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\details-pdf2ppt.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(44)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+
 
 /***/ },
 /* 43 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "data:image/png;base64,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"
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _detailsContent = __webpack_require__(33);
+
+	var _detailsContent2 = _interopRequireDefault(_detailsContent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        VContent: _detailsContent2.default
+	    },
+	    ready: function ready() {
+	        console.log('PdfToPpt.vue');
+	    }
+	};
+	// </script>
+	// <template>
+	//     <v-content>
+	//         <h3>pdf to ppt</h3>
+	//     </v-content>
+	// </template>
+	// <script>
 
 /***/ },
 /* 44 */
 /***/ function(module, exports) {
 
-	module.exports = "data:image/png;base64,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"
+	module.exports = "\n<v-content>\n    <h3>pdf to ppt</h3>\n</v-content>\n";
 
 /***/ },
 /* 45 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "data:image/png;base64,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"
+	var __vue_script__, __vue_template__
+	__vue_script__ = __webpack_require__(46)
+	if (__vue_script__ &&
+	    __vue_script__.__esModule &&
+	    Object.keys(__vue_script__).length > 1) {
+	  console.warn("[vue-loader] src\\components\\details-pdf2xls.vue: named exports in *.vue files are ignored.")}
+	__vue_template__ = __webpack_require__(47)
+	module.exports = __vue_script__ || {}
+	if (module.exports.__esModule) module.exports = module.exports.default
+	if (__vue_template__) {
+	(typeof module.exports === "function" ? (module.exports.options || (module.exports.options = {})) : module.exports).template = __vue_template__
+	}
+
 
 /***/ },
 /* 46 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "data:image/png;base64,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"
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _detailsContent = __webpack_require__(33);
+
+	var _detailsContent2 = _interopRequireDefault(_detailsContent);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = {
+	    components: {
+	        VContent: _detailsContent2.default
+	    },
+	    ready: function ready() {
+	        console.log('PdfToXls.vue');
+	    }
+	};
+	// </script>
+	// <template>
+	//     <v-content>
+	//         <h3>pdf to xls</h3>
+	//     </v-content>
+	// </template>
+	// <script>
 
 /***/ },
 /* 47 */
 /***/ function(module, exports) {
 
-	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAYAAADDPmHLAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAgfSURBVHja7J1tjFxVHYefAWJ8QZ1WBQOo02rKSn0ZPij6weyuRlKbANtIxXC37FZi1aDWakz4AHRXP0ijdLemGjDR3ZUdohDtrkiC+KFTEGwkplNkE42ljC9NigayJaDFF8YP9zfpyc29szNBdmbv/p5ksjN7zz3nzj3POed/zr17t9BoNDCrl7N8CiyAsQDGAhgLYCyAsQDGAhgLYCyAsQDGAhgLYCyAsQDGAhgLYCyAsQDGAhgLYCyAWeGc02sHVJmtrIr71KPhqOAewFgA4yGgFV8GDubkXA8Cey1AZzwZDUe1JWKGbo/l7cY2JQ8BxgIYC2AsgLEAxgIYC2AsgLEAxgIYC2AsgFluzlnF3/3NwFuBV+vzP4A/AyctQD5ZD3wC+BDwfuCNGen+DjwKPAjcAxy3ACv7+30SuAH4QEaa5/XzNfr5JmCzXrcCh4H9wI+B/zgGWDlcASwAdwaV/wdgD/BxoAS8AjgfOE/vS9q2R2nRvrPK6woL0PusUWv9GbAB+K8kuBToA25Uq9+r7v45fT6pin9Gafq0z53KY4Py/BFQtAC9ySXAbzXWA9wPXAxcB9RUcfMa2/8IbFIPcD5wJXAC+LkEOlf7XCcZ7lee16iMSyxAb3EZ8GtgnVr1NuBjwBPafi7x/YVFteYbNb7/Ta+Hga8A79RQ8Avgldr3mPLaprzXA4+oTAvQA7wbeAB4nVrxBzVuh+wD/q2KPAm8R2mOA7uCdH8BPqq89iTymFXeJ4DXAw9UZisbLUB3WQvcG1T+APB4Is0GYAS4XvP9zcBv9P4zwPcT6Z8FPg18DnhLYtvjKuOEyryvMltZawG6xx3A24KKPZaS5hrgEPA74LXAD9Xd7wB+qQpPchg4Clydsu2YynpeZd9uAbpAZbayOaigLwKPZSR9F/Arvf8I8ALw3TaKeEj7pvEY8AW931qZrWyyAMvPQLCYc/cSw8QpvW8o0m/nbxBPLTHluydYSPqwBehO9/8C8Sret1qkOwlcqPfzGvfb4ULgqRbbb1PZ/9KxWIDlJBqOngBu1scdCvLSeFDRf6fnZpP2TeN6lQlwi47FAnSB2zQLaPYIQylpfgpcAGztIN9RrQPcm7JtKGjx9wHfdBDYPV4ErtW07mzgJ8QXf0KeBm5StH5xG3m+F5gEvhqM8U1uUBlnq8xro+HoRQvQXZ4DLideCTyL+Ord3cQXeZrsB+5SmquBtAc0FIhX+x4CvgPMBNvOI14i3q8yDgOXR8PRsyv5xOXpcvApReJ3EK/fb9WU72ZgCvinpm0L6gnGgDniawIF9QxXAW8APq+1AoBXAduBr2s2AfEFoh3A6ZV+0vJ2Meg08YpfpG5/rVryceAW4os6twPvUOywXsHcKHAR8dLv21X5fdrnuPJYqzy3SbDTeThheb0h5C7iizk3AZ8lvv1rXK/faxg4orH8Ge2zRtO+bxOv9/clxPoe8DVJkBvyfEfQ08QXeW4FPqVeYaMqtk/d+lIsABXgB0usB1iAHuYp4Bt6bSS+J/B9ivQv4swl39PAX4nX/x9VILiQ95Oz2u4KXgiCQIP/LsAC+BRYAGMBjAUwFsBYAGMBjAUwFsBYAGMBTN7p9YtB6yqzlXIvH2AH/69gnQXonL1uox4CjAUwLxeFRqPhs+AewFgAYwGMBTAWwFgAYwGMBTAWwFgAYwGMBTAWwFgAYwFMvlj2W8I6uIfu/00ZWATqHe5TIn6a2HJTAkrRcFTNlQDED3juDz4fBaqqnKzttZSKKxE/ESzJTEYlH1QZndycuZv4qaCDOsY0DuhYBiVMf4v8xpVmImP7YPB+hPhRdoW8CdCvLxaySPzQprmM7agCtgeVW8pId0jbkswRPw7uSxIqpJZRec2ypoDplHKqEu6ABKsq/2paa5YARUk+HeQ/wJknnzcyvlduBAhtr6pSptQq5lK2l4LWcJD4P3ktBunGdGJDWt3nNpFxLE3xqiniEVRQUbI0084RP41sJKMlN3uSsZSeqproGfMfA6QwrZOXdQLqQQWPATtTKjxJIeieyynd/gGVtybRM6HKLLbIu6j9w0qrET9beHcH33siELm0aoLAjBNaTrTqNPZJgIE2BGgyrzG8nOj2B1Ja+oy69YklWuMWtfA68GSKdO2yGPQwA92SoJvTwBG1mCOSYLLNE5ZkTF1+I6Xrn9N+YcscVXkzKT1NVZVbCF6XBvJMKk1V6QsZ4/XuxGsgMaQU9LMomQdf7mCvF3uA0eCEjKcEWWk9RdYQMtNCmklV0pDKmlCFtjO1K0vQWkKEl8LBhBCNl9CL5CIIbJediaAs2XJbTb2GFGjWJVLaY2IbbYiQDA6Twd6f9LvmesOi9p0PBG7GGBPB55GgQay6GKCdGGGnWnFdsUCnjAcB4XRGSx7MqPgJVVJtiSHpgETbLtl2SZIj6m22BAFjUWP+tNL0r+YgcKnpWjk4cdvbCBaT8+/dal3NVjmq388khp1WvUitxfZiEFhOqvJrQUwzptdU0PPs5Mz/MU4TsZ6xyJULAQ4FrbnV9jCQm09pgXWlO5RSIUPB1LIZB4zr/aikCNceknPysvJpp2UO6Nj2BfHFYKL3KancozqG5vfvD7bVE8KXl6Mylv1vA5fhWkCRM/8kep9a+WJGEHqV3id7lqlgTF5UAFhvI7grBjFA2jHVgynvrsTsZFwShhUyFw1HWyxAvihJgLaGsmg4ylcPYHoL3w9gAYwFMBbAWABjAYwFMBbAWABjAYwFMBbAWABjAYwFMBbAWABjAUye+N8AjcDh1wNN6SkAAAAASUVORK5CYII="
-
-/***/ },
-/* 48 */
-/***/ function(module, exports) {
-
-	module.exports = "\n<v-header></v-header>\n<v-content></v-content>\n<v-footer></v-footer>\n";
+	module.exports = "\n<v-content>\n    <h3>pdf to xls</h3>\n</v-content>\n";
 
 /***/ }
 /******/ ]);
