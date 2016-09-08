@@ -13,6 +13,7 @@
             VHeader, VFooter, VContent
         },
         ready() {
+            
         }
     }
 </script>

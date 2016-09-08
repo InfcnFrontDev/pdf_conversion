@@ -6,6 +6,7 @@
     </div>
 </template>
 <script>
+    
     import VHeader from './common/header.vue'
     import VFooter from './common/footer.vue'
 
@@ -13,7 +14,10 @@
         components: {
             VHeader, VFooter
         },
+       
         ready() {
+           
+
         }
     }
 </script>
