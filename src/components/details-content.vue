@@ -11,7 +11,7 @@
             <div class="botton">
                 <h3>选择文件</h3>
                 <a class="a1" href="javascript:;" id="picker">选择本地文件</a>
-                <a class="a2" href="javascript:;">开始转换</a>
+                <a class="a2" href="javascript:;" id="b1">开始转换</a>
                 <div style="clear: both"></div>
             </div>
             <div class="file" style="display:block" id="thelist">
@@ -111,6 +111,22 @@
 
 </style>
 <script>
+   var a = [];
+for (var i = 0; i < 10; i++) {
+  a[i] = function () {
+    console.log(i);
+  };
+}
+a[6]();
+var a = [];
+for (let i = 0; i < 10; i++) {
+  a[i] = function () {
+    console.log(i);
+  };
+}
+a[6]();
+
+    
 
     export default{
         
