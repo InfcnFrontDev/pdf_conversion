@@ -14,13 +14,14 @@
                 <a class="a2" href="javascript:;">开始转换</a>
                 <div style="clear: both"></div>
             </div>
-            <div class="file" style="display:block">
+            <div class="file" style="display:block" id="thelist">
                 <h3>未选择文件</h3>
             </div>
             <div class="file2" style="display:none">
                 <div class="pdf">
                     <img src="../static/img/pdfff.png">
                     <a href="javascript:;" class="aa1">信息化建设简述.pdf</a>
+                    <div style=""></div>
                     <img src="../static/img/x.png" class="ii1">
                     <a href="javascript:;" class="aa2">移除</a>
                     <img src="../static/img/download.png" class="ii2">

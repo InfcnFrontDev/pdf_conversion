@@ -34,6 +34,7 @@
                     '<h4 class="info">' + file.name + '</h4>' +
                     '<p class="state">等待上传...</p>' +
                 '</div>' );
+                console.log(file.neme);
             });
             uploader.on( 'uploadProgress', function( file, percentage ) {
                 var $li = $( '#'+file.id ),
