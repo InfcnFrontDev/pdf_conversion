@@ -26,272 +26,224 @@ const revCollector = require('gulp-rev-collector');
 const exec = require('child_process').exec;
 const CDN = '/pdf_conversion';
 var webpackConfig = {
-	resolve: {
-		root: path.join(__dirname, 'node_modules'),
-		alias: {
-			components: '../../components' // 组件别名,js里引用路径可直接 'components/xxx/yyy'
-		},
-		extensions: ['', '.js', '.vue', '.scss', '.css']
-	},
-	output: {
-		// publicPath: 'yourcdnlink/static/',
-		filename: 'es6/[name].js',
-		chunkFilename: 'es6/[id].js?[hash]'
-	},
-	module: {
-		noParse: [/vue.js/],
-		loaders: [
-			{test: /\.vue$/, loader: 'vue'},
-			{test: /\.js$/, loader: 'babel', exclude: /node_modules/},
-			{
-				test: /\.(png|jpe?g|gif)(\?.*)?$/,
-				loader: 'url',
-				query: {
-					limit: 5000, // 换成你想要得大小
-					name: 'images/[name].[ext]?[hash:10]'
-				}
-			},
-			{
-				test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
-				loader: 'url',
-				query: {
-					limit: 5000, // 换成你想要得大小
-					name: 'fonts/[name].[hash:7].[ext]'
-				}
-			}
-		]
-	},
-	plugins: [],
-	babel: { //配置babel
-		"presets": ["es2015",'stage-2'],
-		"plugins": ["transform-runtime"]
-	}
+    resolve: {
+        root: path.join(__dirname, 'node_modules'),
+        alias: {
+            components: '../../components' // 组件别名,js里引用路径可直接 'components/xxx/yyy'
+        },
+        extensions: ['', '.js', '.vue', '.scss', '.css']
+    },
+    output: {
+        // publicPath: 'yourcdnlink/static/',
+        filename: '[name].js',
+        chunkFilename: '[id].js?[hash]'
+    },
+    module: {
+        noParse: [/vue.js/],
+        loaders: [
+            {test: /\.vue$/, loader: 'vue'},
+            {test: /\.js$/, loader: 'babel', exclude: /node_modules/},
+            {
+                test: /\.(png|jpe?g|gif)(\?.*)?$/,
+                loader: 'url',
+                query: {
+                    //limit: 5000,
+                    name: 'images/[name].[ext]?[hash:10]'
+                }
+            },
+            {
+                test: /\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
+                loader: 'url',
+                query: {
+                    //limit: 5000,
+                    name: 'fonts/[name].[hash:7].[ext]'
+                }
+            }
+        ]
+    },
+    plugins: [],
+    babel: { //配置babel
+        "presets": ["es2015", 'stage-2'],
+        "plugins": ["transform-runtime"]
+    }
 };
 
 const processes = [
-	autoprefixer({browsers: ['last 2 version', 'safari 5', 'opera 12.1', 'ios 6', 'android 4', '> 10%']}),
-	precss,
-	cssnano
+    autoprefixer({browsers: ['last 2 version', 'safari 5', 'opera 12.1', 'ios 6', 'android 4', '> 10%']}),
+    precss,
+    cssnano
 ];
 // background: color($blue blackness(20%));  precss为了用这样的语法
 const src = {
-	css: './src/static/css/**/*.css',
-	es6: './src/static/es6/**/*.js',
-	fonts: './src/static/fonts/**/*.{eot,svg,ttf,woff}',
-	images: './src/static/images/**/*.{png,jpg,jpeg}',
-	js: './src/js/**/*.js',
-	sass: './src/sass/**/*.scss',
-	components: './src/components/**/*.vue',
-	views: './src/views/**/*.html'
+    css: './src/css/**/*.css',
+    fonts: './src/fonts/**/*.{eot,svg,ttf,woff}',
+    images: './src/images/**/*.{png,jpg,jpeg,gif}',
+    js: './src/js/**/*.js',
+    vendors: './src/vendors/**/*.*',
+    sass: './src/sass/**/*.scss',
+    components: './src/components/**/*.vue',
+    es6: './src/es6/**/*.js',
+    views: './src/views/**/*.html'
 };
 const dist = {
-	css: './public/static/css/',
-	es6: './public/static/es6',
-	fonts: './public/static/fonts/',
-	images: './public/static/images/',
-	js: './public/static/js/',
-	sass: './public/static/sass/',
-	views: './public/views'
+    css: './public/css/',
+    fonts: './public/fonts/',
+    images: './public/images/',
+    js: './public/js/',
+    vendors: './public/vendors/',
+    views: './public/views'
+};
+
+const dev = {
+    css: './dev/css/',
+    fonts: './dev/fonts/',
+    images: './dev/images/',
+    js: './dev/js/',
+    vendors: './dev/vendors/',
+    views: './dev/views/'
 };
 
 var BUILD = 'DEV';
 gulp.task('build', function () {
-	BUILD = 'PUBLIC';
-	webpackConfig.plugins.push(new webpack.DefinePlugin({
-		NODE_ENV: JSON.stringify(process.env.NODE_ENV) || 'production'
-	}));
-	build(function() {
-		del(['./src/tmp'])
-	});
+    BUILD = 'PUBLIC';
+    webpackConfig.plugins.push(new webpack.DefinePlugin({
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV) || 'production'
+    }));
+    build(function () {
+        del(['./src/tmp'])
+    });
 });
 gulp.task('reload', function () {
-	browserSync.init(src.views, {
-		startPath: "/views/",
-		server: {
-			baseDir : ['./src']
-		},
-		notify: false
-	});
-	webpackConfig.plugins.push(new webpack.DefinePlugin({
-		NODE_ENV: JSON.stringify(process.env.NODE_ENV) || 'dev'
-	}));
-	init();// watch
+    browserSync.init(dev.views, {
+        startPath: "/views/",
+        files: ["dev/**/*.*", "!dev/vendors/**/*.*"],
+        server: {
+            baseDir: 'dev'
+        },
+        open: false,
+        notify: true
+    });
+    webpackConfig.plugins.push(new webpack.DefinePlugin({
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV) || 'dev'
+    }));
+    init();// watch
 });
-gulp.task('css:dev', function () {
-	
-	return gulp.src(src.css)
-	.pipe(gulp.dest(dist.css));
-});
-gulp.task('css:build', function () {
-	return gulp.src(src.css)
-	.pipe(base64({
-		extensions: ['png', /\.jpg#datauri$/i],
-		maxImageSize: 10 * 1024 // bytes,
-	}))
-	.pipe(ifElse(BUILD === 'PUBLIC', function () {
-		return postcss(processes)
-	}))
-	.pipe(rev())
-	.pipe(gulp.dest(dist.css))
-	.pipe(rev.manifest())
-	.pipe(gulp.dest(dist.css))
-	
-});
-gulp.task('sass', function () {
-	return gulp.src(src.sass)
-	.pipe(sourcemaps.init())
-	.pipe(sass().on('error', sass.logError))
-	.pipe(postcss(processes))
-	.pipe(replace('/assets', ''))
-	.pipe(sourcemaps.write('./maps'))
-	.pipe(gulp.dest('./src/static/css/'));
-});
-gulp.task('js', function () {
-	
-	watch([src.js], function (event) {
-		var paths = watchPath(event, src.js, './src/static/es6/');
-		var sp = paths.srcPath.indexOf('\\') > -1 ? '\\' : '/';
-		
-		if(paths.srcPath.split(sp).length === 3) { // 共有库情况,要编译所有js
-			compileJS(['./src/js/**/*.js','!./src/js/lib/*.js']);
-		} else { // 否则 只编译变动js
-			compileJS(paths.srcPath);
-		}
-	})
-	
-});
-gulp.task('component', function () {
-	
-	watch(['./src/components/**/*.vue'], function (event) {
-		var sp = event.path.indexOf('\\') > -1 ? '\\' : '/';
-        var business = event.path.split(sp);
-        var business2 = business.slice(-(business.length - business.indexOf('components') - 1));
-        var jsFile   = business2[business2.length-1].split('.')[0].split('-')[0];
 
-        //console.log(business2, jsFile);
-
-		var path;
-		if (business2[0] === 'common') {
-			path = ['./src/js/**/*.js','!./src/js/lib/*.js'];
-		} else if (business2[0] === jsFile) {
-			path = './src/js/'+ business2[0] +'/*.js';
-        } else if (business2.length == 2) {
-			path = './src/js/' + business2[0] + '/' + jsFile + '.js';
-		}else{
-            path = './src/js/' + jsFile + '.js';
-        }
-		compileJS(path);
-	})
-	
-});
 gulp.task('clean', function () {
-	del([
-		'public/static/es6/**/*',
-		'public/static/css/**/*'
-	]);
+    del([
+        'public/**/*',
+        'dev/**/*'
+    ]);
 });
-gulp.task('ugjs:build', function () {
-	return gulp.src('./src/tmp/**/*.js')
-	.pipe(ifElse(BUILD === 'PUBLIC', ugjs))
-	.pipe(rev())
-	.pipe(gulp.dest('./public/static/'))
-	.pipe(rev.manifest())
-	.pipe(gulp.dest('./public/static/'))
-});
-gulp.task('js:compile', function () {
-	cp('./src/js/lib/*.js','./src/static/es6/lib');
-	return compileJS(['./src/js/**/*.js','!./src/js/lib/*.js']);
-});
-gulp.task('js:build', function () {
-	cp('./src/js/lib/*.js','./src/tmp/es6/lib');
-	return compileJS(['./src/js/**/*.js','!./src/js/lib/*.js'],'./src/tmp');
-});
-gulp.task('views:build', function () {
-	return gulp.src(['./public/**/*.json', src.views])
-	.pipe(revCollector({
-		replaceReved: true
-	}))
-	.pipe(replace('../../assets', ''+ CDN +'/static')) // 直接html页面引入样式情况
-	.pipe(replace('../assets', ''+ CDN +'/static')) // 直接html页面引入样式情况
-	.pipe(replace('../../', ''+ CDN +'/')) // 替换html页面静态资源地址
-	.pipe(replace('../', ''+ CDN +'/')) // 替换html页面静态资源地址
-	.pipe(gulp.dest(dist.views));
-});
-gulp.task('views', function () {
-	return gulp.src(src.views)
-	.pipe(gulp.dest(dist.views));
-});
-
-gulp.task('images', function () {
-	gulp.src(src.images)
-	.pipe(gulp.dest(dist.images));
+gulp.task('css', function () {
+    return gulp.src(src.css)
+        .pipe(gulp.dest(dev.css));
 });
 gulp.task('fonts', function () {
-	return gulp.src(src.fonts)
-	.pipe(gulp.dest(dist.fonts));
+    return gulp.src(src.fonts)
+        .pipe(gulp.dest(dev.fonts));
 });
-
+gulp.task('images', function () {
+    gulp.src(src.images)
+        .pipe(gulp.dest(dev.images));
+});
+gulp.task('js', function () {
+    return gulp.src(src.js)
+        .pipe(gulp.dest(dev.js));
+});
+gulp.task('vendors', function () {
+    return gulp.src(src.vendors)
+        .pipe(gulp.dest(dev.vendors));
+});
+gulp.task('sass', function () {
+    return gulp.src(src.sass)
+        .pipe(sourcemaps.init())
+        .pipe(sass().on('error', sass.logError))
+        .pipe(postcss(processes))
+        .pipe(sourcemaps.write('./maps'))
+        .pipe(gulp.dest(dev.css));
+});
+gulp.task('es6', function () {
+    compileJS([src.es6, '!./src/vendors/**/*.js'], dev.js);
+});
+gulp.task('views', function () {
+    return gulp.src(src.views)
+        .pipe(gulp.dest(dev.views));
+});
 function init() {
-	watch([src.sass]).on('change', function () {
-		runSequence('sass', 'css:dev', function () {
-			bsReload();
-		});
-	});
-	gulp.start('js', 'component');
-	watch([src.views]).on('change', function() {
-		runSequence('views', function () {
-			bsReload()
-		});
-	});
-	watch('./src/assets/images/**/*.*', function () {
-		cp('./src/assets/images/**/*.*','./src/static/images');
-	});
-	watch('./src/assets/fonts/**/*.{eot,svg,ttf,woff}', function () {
-		cp('./src/assets/fonts/**/*.{eot,svg,ttf,woff}','./src/static/fonts');
-	});
-	watch('./src/js/lib/*.js', function () {
-		cp('./src/js/lib/*.js','./src/static/es6/lib');
-	});
-	// 初始化无需编译的lib库
-	cp('./src/js/lib/*.js','./src/static/es6/lib');
-	cp('./src/js/lib/*.js','./public/static/es6/lib');
-	cp('./src/assets/images/**/*.*','./src/static/images');
-	cp('./src/assets/fonts/**/*.{eot,svg,ttf,woff}','./src/static/fonts');
+    watch([src.css], function () {
+        cp(src.css, dev.css);
+    });
+    watch([src.fonts], function () {
+        cp(src.fonts, dev.fonts);
+    });
+    watch([src.images], function () {
+        cp(src.images, dev.images);
+    });
+    watch([src.js], function () {
+        cp(src.js, dev.js);
+    });
+    watch([src.vendors], function () {
+        cp(src.vendors, dev.vendors);
+    });
+    watch([src.sass], function () {
+        runSequence('sass', function () {
+            bsReload();
+        });
+    });
+    watch([src.es6], function (event) {
+        runSequence('es6', function () {
+            bsReload();
+        });
+    });
+    watch([src.components], function (event) {
+        runSequence('es6', function () {
+            bsReload();
+        });
+    });
+    watch([src.views], function () {
+        runSequence('views', function () {
+            bsReload()
+        });
+    });
+
+    gulp.start('css', 'fonts', 'images', 'js', 'vendors', 'sass', 'es6', 'views');
+
 }
-function compileJS(path,dest) {
-	dest = dest || './src/static';
-	webpackConfig.output.publicPath = BUILD === 'PUBLIC' ? ''+ CDN +'/static/' : '/static/';
-	
-	return gulp.src(path)
-	.pipe(named(function (file) {
-		var path = JSON.parse(JSON.stringify(file)).history[0];
-		var sp = path.indexOf('\\') > -1 ? '\\js\\' : '/js/';
-		var target = path.split(sp)[1];
-		return target.substring(0,target.length - 3);
-	}))
-	.pipe(webpackStream(webpackConfig))
-	.on('error',function(err) {
-		this.end()
-	})
-	.pipe(browserSync.reload({
-		stream: true
-	}))
-	.pipe(gulp.dest(dest))
+function compileJS(path, dest) {
+    dest = dest || dev.js;
+    webpackConfig.output.publicPath = BUILD === 'PUBLIC' ? '' + CDN + '/static/' : '/static/';
+
+    return gulp.src(path)
+        .pipe(named(function (file) {
+            var path = JSON.parse(JSON.stringify(file)).history[0];
+            var sp = 'es6\\';
+            var target = path.split(sp)[1];
+            return target.substring(0, target.length - 3);
+        }))
+        .pipe(webpackStream(webpackConfig))
+        .on('error', function (err) {
+            this.end()
+        })
+        .pipe(browserSync.reload({
+            stream: true
+        }))
+        .pipe(gulp.dest(dest))
 }
-function cp(from,to) {
-	gulp.src(from)
-	.pipe(gulp.dest(to));
+function cp(from, to) {
+    gulp.src(from)
+        .pipe(gulp.dest(to));
 }
 
 function build(cb) {
-	cp('./src/assets/images/**/*.*','./src/static/images');
-	cp('./src/assets/fonts/**/*.{eot,svg,ttf,woff}','./src/static/fonts');
-	runSequence('clean','sass', 'css:build','js:build', 'ugjs:build', 'views:build', 'images', 'fonts',function() {
-		// 上传静态资源文件到CDN
-		cb && cb();
-		/*exec('node upload.js', function (err, output) {
-			if(err) console.log(err);
-			console.log(output);
-		});*/
-	});
+    cp('./src/assets/images/**/*.*', './src/static/images');
+    cp('./src/assets/fonts/**/*.{eot,svg,ttf,woff}', './src/static/fonts');
+    runSequence('clean', 'sass', 'css:build', 'js:build', 'ugjs:build', 'views:build', 'images', 'fonts', function () {
+        // 上传静态资源文件到CDN
+        cb && cb();
+        /*exec('node upload.js', function (err, output) {
+         if(err) console.log(err);
+         console.log(output);
+         });*/
+    });
 }

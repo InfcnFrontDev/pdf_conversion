@@ -1,6 +1,10 @@
 .idea
 *.log
 *.DS_Store
-node_modules
-public
+node_modules/
+public/
+dev/
+src/static/
+src/tmp/
+src/vendors/
 npm-debug.log

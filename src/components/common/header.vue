@@ -3,14 +3,14 @@
 		<div class="header-in1">
 			<div class="header-in11">
 				<ul>
-					<li><a href="#"><img src="../../static/img/qq.png"><span>在线咨询</span></a></li>
-					<li><a href="#"><img src="../../static/img/phone.png"><span>400-086-6899</span></a></li>
-					<li><img src="../../static/img/person.png"><a href="#"><span>登录</span></a><a href="#"><span>&nbsp;|&nbsp;</span></a><a href="#"><span>我要注册</span></a></li>
+					<li><a href="#"><img src="../../images/qq.png"><span>在线咨询</span></a></li>
+					<li><a href="#"><img src="../../images/phone.png"><span>400-086-6899</span></a></li>
+					<li><img src="../../images/person.png"><a href="#"><span>登录</span></a><a href="#"><span>&nbsp;|&nbsp;</span></a><a href="#"><span>我要注册</span></a></li>
 				</ul>
 			</div>
 		</div>
 		<div class="header-in">
-			<img src="../../static/img/logo.png">
+			<img src="../../images/logo.png">
 			<ul>
 				<li class="ding"><a href="#">PDF转换处理</a>
 					<div class="kuang">
