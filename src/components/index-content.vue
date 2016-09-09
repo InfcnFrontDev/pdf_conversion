@@ -1,25 +1,12 @@
 <template>
     <div class="banner">
         <div class="body">
-            <div class="line">
-                <div @click="click" class="blue"><a href="details.html#!/pdf2doc"><img src="../images/wo.png"></a></div>
-                <div  @click="click" class="blue"><a href="details.html#!/pdf2ppt"><img src="../images/ppt.png"></a></div>
-                <div class="blue"><a href="details.html#!/pdf2xls"><img src="../images/exl.png"></a></div>
-                <div class="blue"><a href="details.html#!/pdf2html"><img src="../images/html.png"></a></div>
-                <div class="blue"><a href="details.html#!/pdf2txt"><img src="../images/txt.png"></a></div>
-                <div class="blue"><a href="details.html#!/pdf2pic"><img src="../images/img.png"></a></div>
-                <div class="blue"><a href="details.html#!/doc2pdf"><img src="../images/world2.png"></a></div>
-                <div class="blue"><a href="details.html#!/txt2pdf"><img src="../images/txt2.png"></a></div>
-                <div class="blue"><a href="details.html#!/ppt2pdf"><img src="../images/ppt2.png"></a></div>
-                <div class="blue"><a href="details.html#!/html2pdf"><img src="../images/html2.png"></a></div>
-                <div class="blue"><a href="details.html#!/pdf2rtf"><img src="../images/rxt.png"></a></div>
-                <div class="blue"><a href="details.html#!/pdf2xml"><img src="../images/xml.png"></a></div>
-                <div class="blue"><a href="details.html#!/pdfjiemi"><img src="../images/yaoshi.png"></a></div>
-                <div class="blue"><a href="details.html#!/pdfjiami"><img src="../images/suo.png"></a></div>
-                <div class="blue"><a href="details.html#!/pdfhebing"><img src="../images/hebing.png"></a></div>
-                <div class="blue"><a href="details.html#!/pdffenge"><img src="../images/fenge.png"></a></div>
-                <div class="blue"><a href="details.html#!/pdftiqu"><img src="../images/huoqu.png"></a></div>
-                <div class="blue"><a href="details.html#!/pdfshuiying"><img src="../images/shibie.png"></a></div>
+            <div class="line" >
+                <div v-for="item in items"  >
+                    <a v-bind:href="details.html#!/pdf2doc" >
+                        <img :src="item.src" v-on:mouseover="click($index)" v-on:mouseout="click2($index)" class="{{item.isc?'blue':''}}" >
+                    </a>
+                </div>                
             </div>
         </div>
     </div>
@@ -32,9 +19,37 @@
         ready() {
           
         },
+        data(){
+            return{                
+                 items:[
+                    {src:"../images/world.png",isc:false},
+                    {src:"../images/ppt.png",isc:false},
+                    {src:"../images/exl.png",isc:false},
+                    {src:"../images/html.png",isc:false},
+                    {src:"../images/txt.png",isc:false},
+                    {src:"../images/img.png",isc:false},
+                    {src:"../images/world2.png",isc:false},
+                    {src:"../images/txt2.png",isc:false},
+                    {src:"../images/ppt2.png",isc:false},
+                    {src:"../images/html2.png",isc:false},
+                    {src:"../images/rxt.png",isc:false},
+                    {src:"../images/xml.png",isc:false},
+                    {src:"../images/yaoshi.png",isc:false},
+                    {src:"../images/suo.png",isc:false},
+                    {src:"../images/hebing.png",isc:false},
+                    {src:"../images/fenge.png",isc:false},
+                    {src:"../images/huoqu.png",isc:false},
+                    {src:"../images/shibie.png",isc:false},                   
+                ]
+            }
+             
+        },
         methods: {
-            click(){
-              
+            click($index){
+              this.items[$index].isc=true;
+            },
+            click2($index){
+              this.items[$index].isc=false;
             }
         }
 
