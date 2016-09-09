@@ -116,7 +116,7 @@ gulp.task('build', function () {
 gulp.task('reload', function () {
     browserSync.init(dev.views, {
         startPath: "/views/",
-        files: ["dev/**/*.*", "!dev/vendors/**/*.*"],
+        files: ["dev/css/**/*.*", "dev/js/**/*.*", "dev/views/**/*.*"],
         server: {
             baseDir: 'dev'
         },
@@ -171,40 +171,56 @@ gulp.task('views', function () {
         .pipe(gulp.dest(dev.views));
 });
 function init() {
-    watch([src.css], function () {
-        cp(src.css, dev.css);
+    watch([src.css, src.fonts, src.images, src.js, src.vendors], function (event) {
+        var paths = watchPath(event, 'src/', 'dev/');
+        cp(paths.srcPath, paths.distDir);
     });
-    watch([src.fonts], function () {
-        cp(src.fonts, dev.fonts);
-    });
-    watch([src.images], function () {
-        cp(src.images, dev.images);
-    });
-    watch([src.js], function () {
-        cp(src.js, dev.js);
-    });
-    watch([src.vendors], function () {
-        cp(src.vendors, dev.vendors);
-    });
-    watch([src.sass], function () {
-        runSequence('sass', function () {
-            bsReload();
-        });
+    watch([src.sass], function (event) {
+        var paths = watchPath(event, 'src/sass/', 'dev/css/');
+        return gulp.src(paths.srcPath)
+            .pipe(sourcemaps.init())
+            .pipe(sass().on('error', sass.logError))
+            .pipe(postcss(processes))
+            .pipe(sourcemaps.write('./maps'))
+            .pipe(gulp.dest(paths.distDir));
     });
     watch([src.es6], function (event) {
-        runSequence('es6', function () {
-            bsReload();
-        });
+        var paths = watchPath(event, 'src/es6/', 'dev/js/');
+        console.log(paths);
+        var sp = paths.srcPath.indexOf('\\') > -1 ? '\\' : '/';
+        var business = paths.srcDir.split(sp);
+
+        var path = paths.srcPath;
+        if(business[business.length-1] === 'common'){ // 修改common目录，编译该模块所有js
+            path = paths.srcDir.replace('common', '') + '*.js';
+        }
+        compileJS(path);
     });
     watch([src.components], function (event) {
-        runSequence('es6', function () {
-            bsReload();
-        });
+        var paths = watchPath(event, 'src/components/', 'dev/js/');
+        var business = paths.srcDir.split('\\');
+        var jsFile = paths.srcFilename.split('.')[0].split('-')[0];
+
+        var path;
+        if(business.length == 2){
+            path = './src/es6/' + jsFile + '.js';
+        }else if(business.length == 3){
+            if(business[2] === 'common'){
+                path = './src/es6/**/*.js';
+            }else if(business[2] === jsFile){
+                path = './src/es6/'+ business[2] +'/*.js';
+            }else{
+                path = './src/es6/' + business[2] + '/' + jsFile + '.js';
+            }
+        }else{
+            path = paths.srcDir + '/' + jsFile + '.js';
+        }
+        console.log(path);
+        compileJS(path);
     });
-    watch([src.views], function () {
-        runSequence('views', function () {
-            bsReload()
-        });
+    watch([src.views], function (event) {
+        var paths = watchPath(event, 'src/views/', 'dev/views/');
+        cp(paths.srcPath, paths.distDir);
     });
 
     gulp.start('css', 'fonts', 'images', 'js', 'vendors', 'sass', 'es6', 'views');

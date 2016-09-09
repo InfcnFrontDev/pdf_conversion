@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "clean": "gulp clean",
     "build": "cross-env NODE_ENV=production gulp build",
     "dev": "cross-env NODE_ENV=dev gulp reload"
   },
