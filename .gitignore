@@ -6,4 +6,5 @@ public/
 dev/
 src/static/
 src/tmp/
+src/vendors/
 npm-debug.log
