@@ -79,9 +79,10 @@ const src = {
     fonts: './src/fonts/**/*.{eot,svg,ttf,woff}',
     images: './src/images/**/*.{png,jpg,jpeg,gif}',
     js: './src/js/**/*.js',
+    vendors: './src/vendors/**/*.*',
     sass: './src/sass/**/*.scss',
     components: './src/components/**/*.vue',
-    vendors: './src/vendors/**/*.*',
+    es6: './src/es6/**/*.js',
     views: './src/views/**/*.html'
 };
 const dist = {
@@ -99,7 +100,7 @@ const dev = {
     images: './dev/images/',
     js: './dev/js/',
     vendors: './dev/vendors/',
-    views: './dev/views'
+    views: './dev/views/'
 };
 
 var BUILD = 'DEV';
@@ -115,10 +116,12 @@ gulp.task('build', function () {
 gulp.task('reload', function () {
     browserSync.init(dev.views, {
         startPath: "/views/",
+        files: ["dev/**/*.*", "!dev/vendors/**/*.*"],
         server: {
-            baseDir: ['./dev']
+            baseDir: 'dev'
         },
-        notify: false
+        open: false,
+        notify: true
     });
     webpackConfig.plugins.push(new webpack.DefinePlugin({
         NODE_ENV: JSON.stringify(process.env.NODE_ENV) || 'dev'
@@ -132,29 +135,25 @@ gulp.task('clean', function () {
         'dev/**/*'
     ]);
 });
-
-gulp.task('views', function () {
-    return gulp.src(src.views)
-        .pipe(gulp.dest(dev.views));
-});
-gulp.task('images', function () {
-    gulp.src(src.images)
-        .pipe(gulp.dest(dev.images));
+gulp.task('css', function () {
+    return gulp.src(src.css)
+        .pipe(gulp.dest(dev.css));
 });
 gulp.task('fonts', function () {
     return gulp.src(src.fonts)
         .pipe(gulp.dest(dev.fonts));
 });
+gulp.task('images', function () {
+    gulp.src(src.images)
+        .pipe(gulp.dest(dev.images));
+});
+gulp.task('js', function () {
+    return gulp.src(src.js)
+        .pipe(gulp.dest(dev.js));
+});
 gulp.task('vendors', function () {
     return gulp.src(src.vendors)
         .pipe(gulp.dest(dev.vendors));
-});
-gulp.task('css', function () {
-    return gulp.src(src.css)
-        .pipe(gulp.dest(dev.css));
-});
-gulp.task('js', function () {
-    compileJS(['./src/js/**/*.js', '!./src/js/lib/*.js'], dev.js);
 });
 gulp.task('sass', function () {
     return gulp.src(src.sass)
@@ -164,19 +163,41 @@ gulp.task('sass', function () {
         .pipe(sourcemaps.write('./maps'))
         .pipe(gulp.dest(dev.css));
 });
+gulp.task('es6', function () {
+    compileJS([src.es6, '!./src/vendors/**/*.js'], dev.js);
+});
+gulp.task('views', function () {
+    return gulp.src(src.views)
+        .pipe(gulp.dest(dev.views));
+});
 function init() {
+    watch([src.css], function () {
+        cp(src.css, dev.css);
+    });
+    watch([src.fonts], function () {
+        cp(src.fonts, dev.fonts);
+    });
+    watch([src.images], function () {
+        cp(src.images, dev.images);
+    });
+    watch([src.js], function () {
+        cp(src.js, dev.js);
+    });
+    watch([src.vendors], function () {
+        cp(src.vendors, dev.vendors);
+    });
     watch([src.sass], function () {
         runSequence('sass', function () {
             bsReload();
         });
     });
-    watch([src.js], function (event) {
-        runSequence('js', function () {
+    watch([src.es6], function (event) {
+        runSequence('es6', function () {
             bsReload();
         });
     });
     watch([src.components], function (event) {
-        runSequence('js', function () {
+        runSequence('es6', function () {
             bsReload();
         });
     });
@@ -185,27 +206,18 @@ function init() {
             bsReload()
         });
     });
-    watch([src.images], function () {
-        cp(src.images, dev.images);
-    });
-    watch([src.fonts], function () {
-        cp(src.fonts, dev.fonts);
-    });
-    watch([src.vendors], function () {
-        cp(src.vendors, dev.vendors);
-    });
 
-    gulp.start('images', 'fonts', 'css', 'vendors', 'views', 'sass', 'js');
+    gulp.start('css', 'fonts', 'images', 'js', 'vendors', 'sass', 'es6', 'views');
 
 }
 function compileJS(path, dest) {
-    dest = dest || './src/static';
+    dest = dest || dev.js;
     webpackConfig.output.publicPath = BUILD === 'PUBLIC' ? '' + CDN + '/static/' : '/static/';
 
     return gulp.src(path)
         .pipe(named(function (file) {
             var path = JSON.parse(JSON.stringify(file)).history[0];
-            var sp = path.indexOf('\\') > -1 ? '\\js\\' : '/js/';
+            var sp = 'es6\\';
             var target = path.split(sp)[1];
             return target.substring(0, target.length - 3);
         }))
