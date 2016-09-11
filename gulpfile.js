@@ -24,6 +24,7 @@ const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
 const revCollector = require('gulp-rev-collector');
 const exec = require('child_process').exec;
+const rename = require("gulp-rename");
 const CDN = '/pdf_conversion';
 var webpackConfig = {
     resolve: {
@@ -75,32 +76,30 @@ const processes = [
 ];
 // background: color($blue blackness(20%));  precss为了用这样的语法
 const src = {
-    css: './src/css/**/*.css',
-    fonts: './src/fonts/**/*.{eot,svg,ttf,woff}',
-    images: './src/images/**/*.{png,jpg,jpeg,gif}',
-    js: './src/js/**/*.js',
+    static: './src/static/**/*.*',
     vendors: './src/vendors/**/*.*',
-    sass: './src/sass/**/*.scss',
-    components: './src/components/**/*.vue',
-    es6: './src/es6/**/*.js',
-    views: './src/views/**/*.html'
+    sass: './src/sass/**/*.{sacc,scss}',
+    components: './src/components/**/*.{vue}',
+    modules: './src/modules/**/*.{vue,js,html}',
+    es6: './src/modules/**/main.js',
+    views: './src/modules/**/index.html'
 };
 const dist = {
-    css: './public/css/',
-    fonts: './public/fonts/',
-    images: './public/images/',
-    js: './public/js/',
-    vendors: './public/vendors/',
-    views: './public/views'
+    static: './dist/static/',
+    css: './dist/static/css/',
+    js: './dist/js/',
+    vendors: './dist/vendors/',
+    views: './dist/views'
 };
 
 const dev = {
-    css: './dev/css/',
-    fonts: './dev/fonts/',
-    images: './dev/images/',
-    js: './dev/js/',
+    static: './dev/static/',
+    css: './dev/static/css/',
+    fonts: './dev/static/fonts/',
+    images: './dev/static/images/',
+    js: './dev/static/js/',
     vendors: './dev/vendors/',
-    views: './dev/views/'
+    views: './dev/'
 };
 
 var BUILD = 'DEV';
@@ -114,42 +113,19 @@ gulp.task('build', function () {
     });
 });
 gulp.task('reload', function () {
-    browserSync.init(dev.views, {
-        startPath: "/views/",
-        files: ["dev/css/**/*.*", "dev/js/**/*.*", "dev/views/**/*.*"],
-        server: {
-            baseDir: 'dev'
-        },
-        open: false,
-        notify: true
-    });
-    webpackConfig.plugins.push(new webpack.DefinePlugin({
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV) || 'dev'
-    }));
-    init();// watch
+    server();
+    monitor();
+    init();
 });
-
 gulp.task('clean', function () {
     del([
-        'public/**/*',
-        'dev/**/*'
+        'dist/',
+        'dev/'
     ]);
 });
-gulp.task('css', function () {
-    return gulp.src(src.css)
-        .pipe(gulp.dest(dev.css));
-});
-gulp.task('fonts', function () {
-    return gulp.src(src.fonts)
-        .pipe(gulp.dest(dev.fonts));
-});
-gulp.task('images', function () {
-    gulp.src(src.images)
-        .pipe(gulp.dest(dev.images));
-});
-gulp.task('js', function () {
-    return gulp.src(src.js)
-        .pipe(gulp.dest(dev.js));
+gulp.task('static', function () {
+    return gulp.src(src.static)
+        .pipe(gulp.dest(dev.static));
 });
 gulp.task('vendors', function () {
     return gulp.src(src.vendors)
@@ -164,14 +140,36 @@ gulp.task('sass', function () {
         .pipe(gulp.dest(dev.css));
 });
 gulp.task('es6', function () {
-    compileJS([src.es6, '!./src/vendors/**/*.js'], dev.js);
+    compileJS(src.es6);
 });
 gulp.task('views', function () {
     return gulp.src(src.views)
+        .pipe(rename(function (path) {
+            path.basename = path.dirname;
+            path.dirname = "";
+        }))
         .pipe(gulp.dest(dev.views));
 });
-function init() {
-    watch([src.css, src.fonts, src.images, src.js, src.vendors], function (event) {
+function server() {
+    browserSync.init(dev.views, {
+        startPath: "/",
+        files: ["dev/**/*.*", "!dev/vendors/**/*.*"],
+        server: {
+            baseDir: 'dev'
+        },
+        open: false,
+        notify: true
+    });
+    webpackConfig.plugins.push(new webpack.DefinePlugin({
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV) || 'dev'
+    }));
+}
+function monitor() {
+    watch([src.static, '!src/**/*.*___'], function (event) {
+        var paths = watchPath(event, 'src/', 'dev/');
+        cp(paths.srcPath, paths.distDir);
+    });
+    watch([src.vendors, '!src/**/*.*___'], function (event) {
         var paths = watchPath(event, 'src/', 'dev/');
         cp(paths.srcPath, paths.distDir);
     });
@@ -182,49 +180,26 @@ function init() {
             .pipe(sass().on('error', sass.logError))
             .pipe(postcss(processes))
             .pipe(sourcemaps.write('./maps'))
-            .pipe(gulp.dest(paths.distDir));
-    });
-    watch([src.es6], function (event) {
-        var paths = watchPath(event, 'src/es6/', 'dev/js/');
-        console.log(paths);
-        var sp = paths.srcPath.indexOf('\\') > -1 ? '\\' : '/';
-        var business = paths.srcDir.split(sp);
-
-        var path = paths.srcPath;
-        if(business[business.length-1] === 'common'){ // 修改common目录，编译该模块所有js
-            path = paths.srcDir.replace('common', '') + '*.js';
-        }
-        compileJS(path);
+            .pipe(gulp.dest(dev.css));
     });
     watch([src.components], function (event) {
-        var paths = watchPath(event, 'src/components/', 'dev/js/');
+        gulp.start('es6', 'views');
+    });
+    watch(['./src/modules/*/index.html'], function (event) {
+        var paths = watchPath(event, 'src/modules/', 'dev/modules/');
         var business = paths.srcDir.split('\\');
-        var jsFile = paths.srcFilename.split('.')[0].split('-')[0];
-
-        var path;
-        if(business.length == 2){
-            path = './src/es6/' + jsFile + '.js';
-        }else if(business.length == 3){
-            if(business[2] === 'common'){
-                path = './src/es6/**/*.js';
-            }else if(business[2] === jsFile){
-                path = './src/es6/'+ business[2] +'/*.js';
-            }else{
-                path = './src/es6/' + business[2] + '/' + jsFile + '.js';
-            }
-        }else{
-            path = paths.srcDir + '/' + jsFile + '.js';
-        }
-        console.log(path);
-        compileJS(path);
+        var modulePath = business[0] + '\\' + business[1] + '\\' + business[2] + '\\';
+        compileView(paths.srcPath, dev.views);
     });
-    watch([src.views], function (event) {
-        var paths = watchPath(event, 'src/views/', 'dev/views/');
-        cp(paths.srcPath, paths.distDir);
+    watch(['./src/modules/**/*.{vue,js}'], function (event) {
+        var paths = watchPath(event, 'src/modules/', 'dev/modules/');
+        var business = paths.srcDir.split('\\');
+        var modulePath = business[0] + '\\' + business[1] + '\\' + business[2] + '\\';
+        compileJS(modulePath + 'main.js', dev.js);
     });
-
-    gulp.start('css', 'fonts', 'images', 'js', 'vendors', 'sass', 'es6', 'views');
-
+}
+function init() {
+    gulp.start('static', 'vendors', 'sass', 'es6', 'views');
 }
 function compileJS(path, dest) {
     dest = dest || dev.js;
@@ -233,8 +208,8 @@ function compileJS(path, dest) {
     return gulp.src(path)
         .pipe(named(function (file) {
             var path = JSON.parse(JSON.stringify(file)).history[0];
-            var sp = 'es6\\';
-            var target = path.split(sp)[1];
+            var sp = 'modules\\';
+            var target = path.split(sp)[1].replace('\\main', '');
             return target.substring(0, target.length - 3);
         }))
         .pipe(webpackStream(webpackConfig))
@@ -246,6 +221,15 @@ function compileJS(path, dest) {
         }))
         .pipe(gulp.dest(dest))
 }
+
+function compileView(src, dest) {
+    gulp.src(src)
+        .pipe(rename(function (path) {
+            path.basename = src.split('\\')[2];
+        }))
+        .pipe(gulp.dest(dest));
+}
+
 function cp(from, to) {
     gulp.src(from)
         .pipe(gulp.dest(to));

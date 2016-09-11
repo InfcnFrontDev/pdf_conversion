@@ -1,3 +1,7 @@
-/**
- * Created by Administrator on 2016/9/9.
- */
+import Vue from 'vue'
+import App from './App.vue'
+
+new Vue({
+    el: 'body',
+    components: {App}
+});
