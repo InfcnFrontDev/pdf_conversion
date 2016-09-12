@@ -3,7 +3,6 @@
         <h1 slot="title">
             <span>PDF</span>文档转换为<span>RTF</span>
         </h1>
-        <h3>pdf to rtf</h3>
     </v-content>
 </template>
 <script>
