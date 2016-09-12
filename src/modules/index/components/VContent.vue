@@ -2,9 +2,9 @@
     <div class="banner">
         <div class="body">
             <div class="line">
-                <div v-for="item in items" v-bind:class="{'blue':item.selected}">
+                <div v-for="item in items" :class="{'blue':item.selected}">
                     <a href="details.html#!/{{item.id}}" @mouseover="mouseover(item)" @mouseout="mouseout(item)">
-                        <img v-bind:src="item.src">
+                        <img :src="item.src">
                     </a>
                 </div>
             </div>

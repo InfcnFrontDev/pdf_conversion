@@ -9,21 +9,16 @@
     
     import VHeader from '../../components/VHeader.vue'
     import VFooter from '../../components/VFooter.vue'
+    import store from './vuex/store'
 
     export default{
+        store,
         components: {
             VHeader, VFooter
         },
         ready() {
-
         }
     }
 </script>
 <style>
-    .fade-transition {
-        transition: opacity .3s ease;
-    }
-    .fade-enter, .fade-leave {
-        opacity: 0;
-    }
 </style>

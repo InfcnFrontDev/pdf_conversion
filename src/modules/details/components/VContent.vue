@@ -5,15 +5,15 @@
                 <h1><span>PDF</span>文档换为<span>Word</span></h1>
             </slot>
             <ul class="ul">
-                <li class="change"><a href="#">1</a><span></span><b>上传文件</b></li>
-                <li><a href="#">2</a><span></span><b>上传完毕</b></li>
-                <li><a href="#">3</a><span></span><b>开始转换</b></li>
-                <li><a href="#">4</a><span></span><b>完成</b></li>
+                <li :class="{ change: step>=1 }"><a href="#">1</a><span></span><b>上传文件</b></li>
+                <li :class="{ change: step>=2 }"><a href="#">2</a><span></span><b>上传完毕</b></li>
+                <li :class="{ change: step>=3 }"><a href="#">3</a><span></span><b>开始转换</b></li>
+                <li :class="{ change: step>=4 }"><a href="#">4</a><span></span><b>完成</b></li>
             </ul>
             <div class="botton">
                 <h3>选择文件</h3>
                 <a class="a1" href="javascript:;" id="picker">选择本地文件</a>
-                <a class="a2" href="javascript:;" id="b1">开始转换</a>
+                <a :class="{ a2:true, a22:files.length==0 }" href="javascript:;" id="b1" @click="start">开始转换</a>
                 <div style="clear: both"></div>
             </div>
             <div class="file" v-show="files.length == 0">
@@ -24,11 +24,16 @@
                     <div class="col col-xs-1">
                         <img class="icon" src="../../../static/images/pdfff.png">
                     </div>
-                    <div class="col col-xs-6">
+                    <div class="col col-xs-5">
                         {{file.name}}
                     </div>
-                    <div class="col col-xs-3">
-                        --------------------------
+                    <div class="col col-xs-4" style="padding:8px 0px;">
+                        <div class="progress" style="width:170px;">
+                            <div class="progress-bar progress-bar-striped" :class="{active:step>1&&step<4}"
+                                 style="width: 100%">
+                                <span class="sr-only">{{file.status}}</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="col col-xs-2">
                         <span class="btn aa2" @click="remove(file)">
@@ -62,45 +67,60 @@
     </div>
 </template>
 <style>
-.row .col{
-    padding:0;
-    margin:0;
-    border:0;
-}
+    .row .col {
+        padding: 0;
+        margin: 0;
+        border: 0;
+    }
 </style>
 <script>
+    import * as getters from '../vuex/getters'
+    import * as actions from '../vuex/actions'
+
+    var uploader;
+
     export default{
-        data: function () {
-            return {
-                files: []
-            }
+        vuex: {
+            getters, actions
         },
         ready() {
-            let $this = this;
-            var uploader = WebUploader.create({
+            var $this = this;
+            uploader = WebUploader.create({
                 swf: 'vendors/fex-webuploader/dist/Uploader.swf',
-                server: '#',
-                pick: '#picker',
-                resize: false
+                server: 'http://192.168.10.38:8088/api/PDFApi/pdf2word',
+                //server: 'http://localhost:8080/uploader',
+                pick: '#picker'
             });
             // 当有文件被添加进队列的时候
             uploader.on('fileQueued', function (file) {
                 console.log(file);
-                $this.files.push({
+                $this.addFile({
                     id: file.id,
                     name: file.name,
                     ext: file.ext,
                     size: file.size,
-                    status: 'sucess'
+                    status: '等待上传'
                 });
+            });
+            uploader.on( 'uploadSuccess', function( file, response ) {
+                console.log('uploadSuccess', file, response)
+            });
+
+            uploader.on( 'uploadError', function( file, reason ) {
+                console.log('uploadError', file, reason)
             });
         },
         methods: {
             remove: function (file) {
-                this.files.$remove(file);
+                this.removeFile(file)
             },
             download: function (file) {
-                console.log(file);
+                console.log(file)
+            },
+            start: function () {
+                if (this.files.length > 0) {
+                    uploader.upload();
+                }
             }
         }
     }
