@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="file3" style="display:block">
-                <slot>
+                <slot name="foot">
                     <h3>选择页码</h3>
                     <div class="inpp">
                         <form>
@@ -67,6 +67,7 @@
     margin:0;
     border:0;
 }
+
 </style>
 <script>
     export default{
@@ -100,7 +101,7 @@
                 this.files.$remove(file);
             },
             download: function (file) {
-                console.log(file);
+                console.log(file.name);
             }
         }
     }
