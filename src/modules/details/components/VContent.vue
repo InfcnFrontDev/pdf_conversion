@@ -34,7 +34,7 @@
                         <span class="btn aa2" @click="remove(file)">
                             <img src="../../../static/images/x.png" class="ii1">移除
                         </span>
-                        <span class="btn" @click="file.sucess?download(file):null">
+                        <span class="btn" @click="download(file)">
                             <img src="../../../static/images/download.png" class="ii1">下载
                         </span>
                     </div>

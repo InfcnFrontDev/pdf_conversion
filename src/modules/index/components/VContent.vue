@@ -39,18 +39,10 @@
                     {id: 'pdffenge', src: 'static/images/pdffenge.png', selected: false},
                     {id: 'pdfhuoqu', src: 'static/images/pdfhuoqu.png', selected: false},
                     {id: 'pdfshibie', src: 'static/images/pdfshibie.png', selected: false}
-                ],
-                selected: 'pdf2doc'
+                ]
             }
         },
         methods: {
-            clickItem(item){
-                this.items.forEach(item2 => {
-                    item2.src = 'static/images/'+ item2.id +'.png';
-                });
-                item.src = 'static/images/'+ item.id +'_.png';
-                this.selected = item.id;
-            },
             mouseover(item){
                 item.src = 'static/images/'+ item.id +'_.png';
                 item.selected = true;
