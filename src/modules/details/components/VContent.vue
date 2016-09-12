@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="file3" style="display:block">
-                <slot>
+                <slot name="foot">
                     <h3>选择页码</h3>
                     <div class="inpp">
                         <form>

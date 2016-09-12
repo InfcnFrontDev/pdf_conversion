@@ -10,14 +10,14 @@ import Pdf2doc from './components/Pdf2doc.vue'
 import Pdf2ppt from './components/Pdf2ppt.vue'
 import Pdf2xls from './components/Pdf2xls.vue'
 import Pdf2html from './components/Pdf2html.vue'
-import Pdf2pic from './components/Pdf2pic.vue'
+import Pdf2pic from './components/Pdf2img.vue'
 import Pdf2rtf from './components/Pdf2rtf.vue'
 import Pdf2txt from './components/Pdf2txt.vue'
 import Pdf2xml from './components/Pdf2xml.vue'
 
-import Pdfshuiying from './components/Pdfshuiying.vue'
+import Pdfshibie from './components/Pdfshibie.vue'
 import Pdfyasuo from './components/Pdfyasuo.vue'
-import Pdftiqu from './components/Pdftiqu.vue'
+import Pdfhuoqu from './components/Pdfhuoqu.vue'
 import Pdfjiemi from './components/Pdfjiemi.vue'
 import Pdfjiami from './components/Pdfjiami.vue'
 import Pdfhebing from './components/pdfhebing.vue'
@@ -37,13 +37,13 @@ router.map({
     '/pdf2ppt': {component: Pdf2ppt},
     '/pdf2xls': {component: Pdf2xls},
     '/pdf2html': {component: Pdf2html},
-    '/pdf2pic': {component: Pdf2pic},
+    '/pdf2img': {component: Pdf2pic},
     '/pdf2rtf': {component: Pdf2rtf},
     '/pdf2txt': {component: Pdf2txt},
     '/pdf2xml': {component: Pdf2xml},
-    '/pdfshuiying': {component: Pdfshuiying},
+    '/pdfshibie': {component: Pdfshibie},
     '/pdfyasuo': {component: Pdfyasuo},
-    '/pdftiqu': {component: Pdftiqu},
+    '/pdfhuoqu': {component: Pdfhuoqu},
     '/pdfjiemi': {component: Pdfjiemi},
     '/pdfjiami': {component: Pdfjiami},
     '/pdfhebing': {component: Pdfhebing},

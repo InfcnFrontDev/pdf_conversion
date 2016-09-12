@@ -1,6 +1,6 @@
 <template>
     <v-content>
-        <h3>ppt to pdf</h3>
+        
     </v-content>
 </template>
 <script>

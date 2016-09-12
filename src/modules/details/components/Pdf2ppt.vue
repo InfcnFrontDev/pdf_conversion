@@ -3,7 +3,7 @@
         <h1 slot="title">
             <span>PDF</span>文档转换为<span>PPT</span>
         </h1>
-        <h3>pdf to ppt</h3>
+        
     </v-content>
 </template>
 <script>
