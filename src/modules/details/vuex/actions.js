@@ -3,4 +3,6 @@
 // 我们可以利用 ES6 的解构（destructuring）功能来简化对参数的导入
 export const addFile = ({ dispatch }, file) => dispatch('ADD_FILE', file)
 export const removeFile = ({ dispatch }, file) => dispatch('REMOVE_FILE', file)
+export const updateStatus = ({ dispatch }, fid, status) => dispatch('UPDATE_STATUS', fid, status)
+export const setOid = ({ dispatch }, fid, oid) => dispatch('SET_OID', fid, oid)
 export const nextStep = ({ dispatch }) => dispatch('NEXT_STEP')

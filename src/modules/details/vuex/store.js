@@ -18,6 +18,14 @@ const mutations = {
     REMOVE_FILE (state, file){
         state.files.$remove(file);
     },
+    UPDATE_STATUS (state, fid, status){
+        state.files.filter(file => file.id == fid)
+            .forEach(file => file.status = status);
+    },
+    SET_OID (state, fid, oid){
+        state.files.filter(file => file.id == fid)
+            .forEach(file => file.oid = oid);
+    },
     NEXT_STEP (state) {
         if(state.step < 4)
             state.step++
