@@ -5,4 +5,4 @@ node_modules/
 public/
 dev/
 src/vendors/
-npm-debug.log
+npm-debug.log*
