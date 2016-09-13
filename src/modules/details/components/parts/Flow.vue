@@ -65,6 +65,7 @@
             uploader = WebUploader.create({
                 swf: 'vendors/fex-webuploader/dist/Uploader.swf',
                 server: config.apiPath + $this.url,
+                formData: $this.data,
                 pick: '#picker'
             });
             // 当有文件被添加进队列的时候
@@ -76,6 +77,11 @@
                     size: file.size,
                     status: {step: 1, text: '等待上传', active: false, success: false, finish: false}
                 });
+            });
+            uploader.on('uploadBeforeSend', function (object, data, headers) {
+                for(var key in $this.formData){
+                    data[key] = $this.formData[key]
+                }
             });
             uploader.on('uploadStart', function (file) {
                 $this.updateStatus(file.id, {step: 2, text: '开始上传', active: true});

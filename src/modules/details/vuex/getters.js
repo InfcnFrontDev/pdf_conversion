@@ -10,3 +10,4 @@ export const step = state => {
     return step
 }
 export const downloadUrl = state => state.downloadUrl
+export const formData = state => state.formData

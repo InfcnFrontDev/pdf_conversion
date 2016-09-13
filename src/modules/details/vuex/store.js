@@ -7,6 +7,7 @@ Vue.use(Vuex)
 // each Vuex instance is just a single state tree.
 const state = {
     files: [],// 文件列表
+    formData: {},
     downloadUrl: '' // 下载地址
 }
 
@@ -32,6 +33,10 @@ const mutations = {
     SET_OID (state, fid, oid){
         state.files.filter(file => file.id == fid)
             .forEach(file => file.oid = oid);
+    },
+    UPDATE_FORM_DATA (state, formData){
+        for (let key in formData)
+            state.formData[key] = formData[key];
     },
     NEXT_STEP (state) {
         if (state.step < 4)
