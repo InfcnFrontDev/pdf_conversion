@@ -5,8 +5,8 @@
 </template>
 <script>
     
-    import VHeader from '../../components/VHeader.vue'
-    import VFooter from '../../components/VFooter.vue'
+    import VHeader from '../../common/components/VHeader.vue'
+    import VFooter from '../../common/components/VFooter.vue'
     import VContent from './components/VContent.vue'
 
     export default{

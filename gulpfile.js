@@ -30,7 +30,8 @@ var webpackConfig = {
     resolve: {
         root: path.join(__dirname, 'node_modules'),
         alias: {
-            components: '../../components' // 组件别名,js里引用路径可直接 'components/xxx/yyy'
+            common: path.join(__dirname, "src/common"),
+            static: path.join(__dirname, "src/static")
         },
         extensions: ['', '.js', '.vue', '.scss', '.css']
     },

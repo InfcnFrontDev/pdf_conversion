@@ -62,7 +62,7 @@ li{list-style: none}
 .body-in .ul .change2 b{color: #ec6d74}
 .body-in .ul .change span{background: url("../images/bigred.png");width: 26px;height: 26px;top:-8px;;left: 53px;}
 .body-in .ul .change2 span{background: url("../images/red.png")}
-.botton{padding-bottom: 8px;border-bottom: 1px solid #595656;width: 900px;margin: 80px auto 0px auto}
+.botton{padding-bottom: 8px;width: 900px;margin: 80px auto 0px auto}
 .botton h3,.botton a{float: left}
 .botton h3{font-size: 16px;color: #595656}
 .botton .a1{display: block;width: 127px;height: 27px;border:1px solid #1d2088;line-height: 27px;text-align: center;font-size: 12px;color: #1d2088;margin-left: 26px;position: relative;
@@ -71,9 +71,9 @@ li{list-style: none}
 .botton .a2{display: block;width: 114px;height: 25px;background-color:  #1d2088;line-height: 25px;text-align: center;font-size: 12px;color: #ffffff;margin-left: 26px;margin-top: 4px;}
 .botton .a22{background-color:  #cccccc;color: #666666; border:1px solid #595656; cursor: default;}
 
-.file{width: 900px;border-bottom: 1px solid #595656;height: 210px;padding-top: 17px;margin: 0 auto}
-.file2{width: 900px;border-bottom: 1px solid #595656;min-height: 210px;margin: 5px auto}
-.file3{width: 900px;border-bottom: 1px solid #595656;min-height: 40px;padding-top: 17px;padding-bottom: 17px;margin: 0 auto}
+.file{width: 900px;border-top: 1px solid #595656;height: 210px;padding-top: 17px;margin: 0 auto}
+.file2{width: 900px;border-top: 1px solid #595656;min-height: 210px;margin: 5px auto}
+.file3{width: 900px;border-top: 1px solid #595656;min-height: 40px;padding-top: 17px;padding-bottom: 17px;margin: 0 auto}
 .file h3{font-size: 16px;color: #595656}
 .file3 h3{font-size: 16px;color: #595656;float: left;margin-top: 8px;}
 .file3 input{width: 558px;height: 30px;}
@@ -84,7 +84,8 @@ li{list-style: none}
 .pdf .btn{margin:0px 3px; cursor: pointer;}
 .pdf .ii1{margin:13px 3px;vertical-align:bottom;}
 .pdf .aa2{color: #b81c22}
-.file4{width: 900px;margin: 0 auto;padding: 18px;height: 50px;}
+.pdf .aa3{color: #c30811}
+.file4{width: 900px;margin: 0 auto;padding: 18px 0px;border-top: 1px solid #595656;}
 .file4 h3{font-size: 16px;color: #595656;float: left}
 .file4 p,.file4 a{float: left;margin-left: 24px;}
 .file4 p{color: #595656;font-size: 12px;}

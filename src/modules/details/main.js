@@ -1,8 +1,10 @@
 //前期准备工作
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import VueResource from 'vue-resource'
 
 Vue.use(VueRouter)
+Vue.use(VueResource)
 
 //导入需要的组件
 import App from './App.vue'
