@@ -1,19 +1,29 @@
 <template>
-    <v-content>
-        <h1 slot="title">
-            <span>PDF</span>文档转换为<span>PPT</span>
-        </h1>
-    </v-content>
+    <div class="banner">
+        <div class="body-in">
+            <h1>
+                <span>PDF</span>文档换为<span>PPT</span>
+            </h1>
+            <progress></progress>
+            <flow url="/PDFApi/pdf2ppt"></flow>
+            <select-page></select-page>
+            <result></result>
+            <download></download>
+        </div>
+    </div>
 </template>
+<style>
+</style>
 <script>
-    import VContent from './VContent.vue'
+    import Progress from './parts/Progress.vue'
+    import Flow from './parts/Flow.vue'
+    import SelectPage from './parts/SelectPage.vue'
+    import Result from './parts/Result.vue'
+    import Download from './parts/Download.vue'
 
     export default{
         components: {
-            VContent
-        },
-        ready() {
-            console.log('PdfToPpt.vue')
+            Progress, Flow, SelectPage, Result, Download
         }
     }
 </script>

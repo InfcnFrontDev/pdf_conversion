@@ -7,3 +7,4 @@ export const updateStatus = ({ dispatch }, fid, status) => dispatch('UPDATE_STAT
 export const setOid = ({ dispatch }, fid, oid) => dispatch('SET_OID', fid, oid)
 export const nextStep = ({ dispatch }) => dispatch('NEXT_STEP')
 export const downloadFile = ({ dispatch }, url) => dispatch('DOWNLOAD_FILE', url)
+export const init = ({ dispatch }) => dispatch('INIT')

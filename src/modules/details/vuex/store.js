@@ -7,12 +7,15 @@ Vue.use(Vuex)
 // each Vuex instance is just a single state tree.
 const state = {
     files: [],// 文件列表
-    step: 1, // 操作步骤
     downloadUrl: '' // 下载地址
 }
 
 // mutations are operations that actually mutates the state.
 const mutations = {
+    INIT (state){
+        state.files = [];
+        state.downloadUrl = '';
+    },
     ADD_FILE (state, file){
         state.files.push(file)
     },

@@ -80,7 +80,7 @@ const src = {
     static: './src/static/**/*.*',
     vendors: './src/vendors/**/*.*',
     sass: './src/sass/**/*.{sacc,scss}',
-    components: './src/components/**/*.{vue}',
+    common: './src/common/**/*.{vue,js}',
     modules: './src/modules/**/*.{vue,js,html}',
     es6: './src/modules/**/main.js',
     views: './src/modules/**/index.html'
@@ -183,7 +183,7 @@ function monitor() {
             .pipe(sourcemaps.write('./maps'))
             .pipe(gulp.dest(dev.css));
     });
-    watch([src.components], function (event) {
+    watch([src.common], function (event) {
         gulp.start('es6', 'views');
     });
     watch(['./src/modules/*/index.html'], function (event) {
