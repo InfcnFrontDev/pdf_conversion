@@ -2,22 +2,13 @@
     <div class="file3">
         <h3>转换类型</h3>
         <div class="inpp">
-            <input type="radio" class="ra" v-model="imgType" value="jpeg">.jpeg
-            <input type="radio" class="ra" v-model="imgType" value="png">.png
-            <input type="radio" class="ra" v-model="imgType" value="tiff">.tiff
+            <input type="radio" v-model="imgType" value="jpeg">.jpeg
+            <input type="radio" v-model="imgType" value="png">.png
+            <input type="radio" v-model="imgType" value="tiff">.tiff
         </div>
     </div>
 </template>
 <style>
-    .inpp {
-        padding-top: 10px;
-    }
-
-    .inpp .ra {
-        width: 15px;
-        height: 15px;
-        margin-bottom: 20px;
-    }
 </style>
 <script>
     import config from 'common/config'

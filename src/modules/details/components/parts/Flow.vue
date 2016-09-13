@@ -2,8 +2,9 @@
     <div class="botton">
         <h3>选择文件</h3>
         <a class="a1" href="javascript:;" id="picker">选择本地文件</a>
-        <a :class="{ a2:true, a22:files.length==0 }" href="javascript:;" id="b1" @click="start">开始转换</a>
+        <a :class="{ a2:true, a22:files.length==0 || step>1 }" href="javascript:;" id="b1" @click="start">开始转换</a>
         <div style="clear: both"></div>
+        <div class="abc"></div>
     </div>
     <div class="file" v-show="files.length == 0">
         <h3>未选择文件</h3>
