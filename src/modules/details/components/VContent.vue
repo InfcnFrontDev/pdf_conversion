@@ -57,11 +57,7 @@
                     </div>
                 </slot>
             </div>
-            <div class="file4" v-show="step==4">
-                <h3>转换结果</h3>
-                <p></p>
-                <a href="javascript:;" @click="downloadAll">下载</a>
-            </div>
+            <slot name="result"></slot>
             <div style="clear: both">
             </div>
             <iframe :src="downloadUrl" style="display:none;"></iframe>

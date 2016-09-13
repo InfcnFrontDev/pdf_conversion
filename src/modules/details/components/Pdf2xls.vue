@@ -1,36 +1,29 @@
 <template>
-    <v-content>
-        <h1 slot="title">
-            <span>PDF</span>文档转换为<span>Excel</span>
-        </h1>
-        <div slot="foot">
-            <h3></h3>
-             <div class="inpp">
-                <form>
-                    <input type="checkbox" class="check">
-                    合并多个工作表(WorkSheet)成单一的工作表(WorkSheet)
-                </form>
-
-            </div>
-
+    <div class="banner">
+        <div class="body-in">
+            <h1>
+                <span>PDF</span>文档换为<span>Excel</span>
+            </h1>
+            <progress></progress>
+            <flow url="/PDFApi/pdf2excel"></flow>
+            <select-page></select-page>
+            <result></result>
+            <download></download>
         </div>
-    </v-content>
+    </div>
 </template>
 <style>
-.inpp .check{
-    width:15px;
-    height:15px;
-}
 </style>
 <script>
-    import VContent from './VContent'
+    import Progress from './parts/Progress.vue'
+    import Flow from './parts/Flow.vue'
+    import SelectPage from './parts/SelectPage.vue'
+    import Result from './parts/Result.vue'
+    import Download from './parts/Download.vue'
 
     export default{
         components: {
-            VContent
-        },
-        ready() {
-            console.log('PdfToXls.vue')
+            Progress, Flow, SelectPage, Result, Download
         }
     }
 </script>
