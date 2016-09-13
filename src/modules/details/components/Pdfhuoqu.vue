@@ -1,17 +1,18 @@
 <template>
     <v-content>
-        <h3>pdf tiqu</h3>
+        <h1 slot="title">
+            <span>PDF</span> huoqu
+        </h1>
     </v-content>
 </template>
 <script>
-    import VContent from './VContent'
+    import VContent from './VContent.vue'
 
     export default{
         components: {
             VContent
         },
         ready() {
-            console.log('PdfToXls.vue')
         }
     }
 </script>

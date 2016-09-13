@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="file3" style="display:block">
-                <slot>
+                <slot name="foot">
                     <h3>选择页码</h3>
                     <div class="inpp">
                         <form>
@@ -103,11 +103,12 @@
                 });
             });
             uploader.on( 'uploadSuccess', function( file, response ) {
-                console.log('uploadSuccess', file, response)
+                $this.setOid(file.id, response.obj[0]);
+                $this.updateStatus(file.id, '上传成功');
             });
 
             uploader.on( 'uploadError', function( file, reason ) {
-                console.log('uploadError', file, reason)
+                $this.updateStatus(file.id, '上传失败');
             });
         },
         methods: {
