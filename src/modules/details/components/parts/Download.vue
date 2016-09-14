@@ -11,6 +11,9 @@
     export default{
         vuex: {
             getters, actions
+        },
+        ready() {
+            this.downloadFile('');
         }
     }
 </script>
