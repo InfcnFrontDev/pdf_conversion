@@ -8,20 +8,20 @@
                         <input class='inp-fenge' type="radio" v-model="splitMode" value="0"/><i>拆分成单页PDF</i>
                     </li>
                     <li>
-                        <input class='inp-fenge' type="radio" v-model="splitMode" value="1"/><i>每</i>
-                        <input class="txt-fenge" type="text" v-model="value1" v-if="splitMode==1"/><input class="txt-fenge" type="text" disabled="disabled" v-else/>
-                        <i>页一个文档</i>
+                        <input class='inp-fenge' type="radio" v-model="splitMode" value="1" @click="testing1"/><i>每</i>
+                        <input class="txt-fenge" type="text" v-model="value1" v-if="splitMode==1" @keyup.enter="testing"/><input class="txt-fenge" type="text" disabled="disabled" v-else/>
+                        <i>页一个文档</i>&nbsp;&nbsp;&nbsp;<span v-show="pageNumberError" class="prompt">您输入正确的格式</span>
                     </li>
                     <li>
-                        <input class='inp-fenge' type="radio" v-model="splitMode" value="2"/><i>平均分割</i>
+                        <input class='inp-fenge' type="radio" v-model="splitMode" value="2" @click="testing2"/><i>平均分割</i>
                         <input class="txt-fenge" type="text" v-model="value2" v-if="splitMode==2"/><input class="txt-fenge" type="text" disabled="disabled" v-else/>
-                        <i>个文档</i>
+                        <i>个文档</i>&nbsp;&nbsp;&nbsp;<span v-show="documentNumError" class="prompt">您输入正确的格式</span>
                     </li>
                     <li>
-                        <input class='inp-fenge' type="radio" v-model="splitMode" value="3"/><i>自定义分割</i>
+                        <input class='inp-fenge' type="radio" v-model="splitMode" value="3" @click="testing3"/><i>自定义分割</i>
                     </li>
                     <li>
-                        <input class="yema-fenge input" type="text" v-model="value3" v-if="splitMode==3"/><input class="yema-fenge input" type="text" disabled="disabled" v-else/>
+                        <input class="yema-fenge input" type="text" v-model="value3" v-if="splitMode==3"/><input class="yema-fenge input" type="text" disabled="disabled" v-else/>&nbsp;&nbsp;&nbsp;<span v-show="customNumError" class="prompt">您输入正确的格式</span>
                     </li>
                     <li>
                         <p class="txt-title">需要分割的页数之间用逗号分开，格式为：1，2-4，5-8</p>
@@ -44,7 +44,10 @@
                 splitMode: '0', // 拆分方式
                 value1: '', // 拆分参数
                 value2: '', // 拆分参数
-                value3: '' // 拆分参数
+                value3: '', // 拆分参数
+                pageNumberError:false,
+                documentNumError:false,
+                customNumError:false
             }
         },
         ready(){
@@ -54,6 +57,33 @@
                 'value': ''
             });
         },
+        methods:{
+            testing1:function(){
+                this.documentNumError = false;
+                this.customNumError = false;
+                this.value2='';
+                this.value3='';
+                var pattern=/^[1-9]{1}[0-9]?$/
+                return pattern.test(this.value1);
+            },
+            testing2:function(){
+                this.pageNumberError = false;
+                this.customNumError = false;
+                this.value1='';
+                this.value3='';
+                var pattern=/^[1-9]{1}[0-9]?$/
+                return pattern.test(this.value2);
+            },
+            testing3:function(){
+                this.documentNumError = false;
+                this.pageNumberError = false;
+                this.value1='';
+                this.value2='';
+                var pattern=/^[1-9]{1}[0-9]?([\,|\-]{1}[1-9]{1}[0-9]?)+$/;
+                var pattern1=/^[1-9]{1}[0-9]?$/;
+                return pattern.test(this.value3)||pattern1.test(this.value3);
+            },
+        },
         watch: {
             'splitMode': function (val, oldVal) {
                 this.updateFormData({
@@ -61,19 +91,37 @@
                 });
             },
             'value1': function (val, oldVal) {
-                this.updateFormData({
-                    'value': val
-                });
+                
+                if(this.testing1()||this.value1==''){
+                    this.updateFormData({
+                        'value': val
+                    });
+                    this.pageNumberError = false;
+                }else{
+                    this.pageNumberError = true;
+                } 
             },
             'value2': function (val, oldVal) {
-                this.updateFormData({
-                    'value': val
-                });
+                
+                if(this.testing2()||this.value2==''){
+                    this.updateFormData({
+                        'value': val
+                    });
+                    this.documentNumError = false;
+                }else{
+                    this.documentNumError = true;
+                }
             },
             'value3': function (val, oldVal) {
-                this.updateFormData({
-                    'value': val
-                });
+                
+                if(this.testing3()||this.value3==''){
+                    this.updateFormData({
+                        'value': val
+                    });
+                    this.customNumError = false;
+                }else{
+                    this.customNumError = true;
+                }
             }
         }
     }
