@@ -33,7 +33,7 @@
         },
         methods:{
             testing:function(){
-                var pattern=/^[1-9]{1}[0-9]?[\,|\-]{1}[1-9]{1}[0-9]?$/;
+                var pattern=/^[1-9]{1}[0-9]?([\,|\-]{1}[1-9]{1}[0-9]?)+$/;
                 var pattern1=/^[1-9]{1}[0-9]?$/;
 
                 return pattern.test(this.pageNumber)||pattern1.test(this.pageNumber)
@@ -41,9 +41,6 @@
         },
         watch: {
             'pageNumber': function (val, oldVal) {
-                console.log(this.testing())
-                console.log(this.pageNumber=='')
-                console.log(this.pageNumber)
                 if(this.testing()||this.pageNumber==''){
                     this.updateFormData({
                         'pageNum': val
