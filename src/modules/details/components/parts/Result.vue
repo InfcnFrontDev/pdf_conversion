@@ -1,5 +1,5 @@
 <template>
-    <div class="file4" v-show="step == 4">
+    <div class="file4" v-show="hasDownload">
         <h3>转换结果</h3>
         <p></p>
         <a href="javascript:;" @click="download">下载</a>

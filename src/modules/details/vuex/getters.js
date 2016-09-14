@@ -11,3 +11,4 @@ export const step = state => {
 }
 export const downloadUrl = state => state.downloadUrl
 export const formData = state => state.formData
+export const hasDownload = state => state.files.filter(file => file.status.success && file.status.finish).length > 0

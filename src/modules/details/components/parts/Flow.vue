@@ -52,13 +52,27 @@
 
     var uploader;
 
+    var STATUS = {
+        WAIT_UPLOAD: {step: 1, text: '等待上传', active: false, success: false, finish: false},
+        START_UPLOAD: {step: 2, text: '开始上传', active: true, success: false, finish: false},
+        UPLOADING: {step: 2, text: '正在上传', active: true, success: false, finish: false},
+        UPLOAD_SUCCESS: {step: 2, text: '上传成功', active: true, success: false, finish: false},
+        WAIT_DEAL: {step: 3, text: '等待处理', active: false, success: false, finish: false},
+        START_DEAL: {step: 3, text: '开始处理', active: true, success: false, finish: false},
+        DEALING: {step: 3, text: '正在处理', active: true, success: false, finish: false},
+        UPLOAD_FAIL: {step: 4, text: '上传失败', active: false, success: false, finish: true},
+        DEAL_SUCCESS: {step: 4, text: '处理成功', active: false, success: true, finish: true},
+        DEAL_FAIL: {step: 4, text: '处理失败', active: false, success: false, finish: true}
+    }
+
     export default{
         vuex: {
             getters, actions
         },
         props: {
             url: {type: String, required: true},
-            exts: {type: String, default: 'pdf'}
+            exts: {type: String, default: 'pdf'},
+            progress: {type: Boolean, default: true}
         },
         ready() {
             // 初始化数据
@@ -79,8 +93,9 @@
                     name: file.name,
                     ext: file.ext,
                     size: file.size,
-                    status: {step: 1, text: '等待上传', active: false, success: false, finish: false}
+                    status: STATUS.WAIT_UPLOAD
                 });
+                $this.updateStatus(file.id, STATUS.WAIT_UPLOAD);
             });
             uploader.on('uploadBeforeSend', function (object, data, headers) {
                 for (var key in $this.formData) {
@@ -88,18 +103,22 @@
                 }
             });
             uploader.on('uploadStart', function (file) {
-                $this.updateStatus(file.id, {step: 2, text: '开始上传', active: true});
+                $this.updateStatus(file.id, STATUS.START_UPLOAD);
             });
             uploader.on('uploadProgress', function (file, percentage) {
-                $this.updateStatus(file.id, {text: '文件上传中...', active: true});
+                $this.updateStatus(file.id, STATUS.UPLOADING);
             });
             uploader.on('uploadError', function (file, reason) {
-                $this.updateStatus(file.id, {text: '上传失败', active: false});
+                $this.updateStatus(file.id, STATUS.UPLOAD_FAIL);
             });
             uploader.on('uploadSuccess', function (file, response) {
                 $this.setOid(file.id, response.obj[0]);
-                $this.updateStatus(file.id, {text: '上传成功', active: false});
-                $this.transforming(file.id);
+                $this.updateStatus(file.id, STATUS.UPLOAD_SUCCESS);
+                if ($this.progress) {
+                    $this.transforming(file.id);
+                } else {
+                    $this.complete(file.id);
+                }
             });
         },
         methods: {
@@ -126,23 +145,24 @@
                 $this.updateStatus(file.id, {step: 3, text: '开始处理', active: true});
 
                 var handler = function () {
-                    // GET /someUrl
-                    $this.$http.get(config.apiPath + '/PDFApi/progress?fileName=' + file.oid).then((response) => {
+                    $this.$http.post(config.apiPath + '/PDFApi/progress',
+                            {fileName: file.oid},
+                            {emulateJSON:true}
+                    ).then((response) => {
                         var obj = response.data.obj;
-                        var active = obj == 1;
-                        $this.updateStatus(file.id, {text: statusInfo[obj], active: active});
-                        if (!active) {
-                            $this.updateStatus(file.id, {step: 4, success: true, finish: true});
+                        if (obj == 0) {
+                            $this.updateStatus(file.id, STATUS.WAIT_DEAL);
+                        } else if (obj == 1) {
+                            $this.updateStatus(file.id, STATUS.DEALING);
+                        } else if (obj == 2) {
+                            $this.updateStatus(file.id, STATUS.DEAL_SUCCESS);
+                            clear();
+                        } else {
+                            $this.updateStatus(file.id, STATUS.DEAL_FAIL);
                             clear();
                         }
                     }, (response) => {
-                        $this.updateStatus(file.id, {
-                            step: 4,
-                            text: '处理失败',
-                            active: false,
-                            success: false,
-                            finish: true
-                        });
+                        $this.updateStatus(file.id, STATUS.DEAL_FAIL);
                         clear();
                     });
                 };
@@ -150,6 +170,17 @@
                 var clear = function () {
                     clearInterval(timer);
                 };
+            },
+            complete: function (fid) {
+                var $this = this;
+                var file = this.getFile(fid);
+
+                $this.updateStatus(file.id, STATUS.START_DEAL);
+                var handler = function () {
+                    $this.updateStatus(file.id, STATUS.DEAL_SUCCESS);
+                    clearInterval(timer);
+                };
+                var timer = setInterval(handler, 1000);
             }
         }
     }
