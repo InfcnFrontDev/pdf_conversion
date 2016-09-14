@@ -2,7 +2,7 @@
     <div class="banner">
         <div class="body-in">
             <slot name="title">
-                <h1><span>PDF</span>文档换为<span>Word</span></h1>
+                <h1><span>PDF</span>文档转换为<span>Word</span></h1>
             </slot>
             <ul class="ul">
                 <li :class="{ change: step>=1 }"><a href="#">1</a><span></span><b>选择文件</b></li>
