@@ -104,6 +104,7 @@
         },
         methods: {
             remove: function (file) {
+                uploader.removeFile(file.id);
                 this.removeFile(file)
             },
             download: function (file) {
