@@ -9,7 +9,7 @@
                     </li>
                     <li>
                         <input class='inp-fenge' type="radio" v-model="splitMode" value="1" @click="testing1"/><i>每</i>
-                        <input class="txt-fenge" type="text" v-model="value1" v-if="splitMode==1" @keyup.enter="testing"/><input class="txt-fenge" type="text" disabled="disabled" v-else/>
+                        <input class="txt-fenge" type="text" v-model="value1" v-if="splitMode==1"/><input class="txt-fenge" type="text" disabled="disabled" v-else/>
                         <i>页一个文档</i>&nbsp;&nbsp;&nbsp;<span v-show="pageNumberError" class="prompt">您输入正确的格式</span>
                     </li>
                     <li>
