@@ -2,7 +2,7 @@
     <div class="banner">
         <div class="body-in">
             <h1>
-                <span>PDF</span>文档换为<span>图片</span>
+                <span>PDF</span>文档转换为<span>图片</span>
             </h1>
             <progress></progress>
             <flow url="/PDFApi/pdf2img"></flow>
