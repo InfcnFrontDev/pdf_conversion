@@ -5,7 +5,7 @@
                 <span>Excel</span>文档转换为<span>PDF</span>
             </h1>
             <progress></progress>
-            <flow url="/PDFApi/topdf"></flow>
+            <flow url="/PDFApi/topdf" exts="xls,xlsx"></flow>
             <result></result>
             <download></download>
         </div>

@@ -5,7 +5,7 @@
                 <span>PDF</span>文档转换为<span>Word</span>
             </h1>
             <progress></progress>
-            <flow url="/PDFApi/pdf2word"></flow>
+            <flow url="/PDFApi/pdf2word" ></flow>
             <select-page></select-page>
             <result></result>
             <download></download>
