@@ -18,6 +18,7 @@
             </div>
             <div class="file" v-show="files.length == 0">
                 <h3>未选择文件</h3>
+                
             </div>
             <div class="file2" v-show="files.length > 0">
                 <div class="row pdf" v-for="file in files">
