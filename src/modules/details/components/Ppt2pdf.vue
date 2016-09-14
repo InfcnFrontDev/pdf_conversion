@@ -1,56 +1,27 @@
 <template>
-    <v-content>
-        <div slot="foot">
-        
-             <div class="inpp1">
-                <form>
-                    字体设置
-                    <select>
-                        <option>宋体</ooption>
-                        <option>楷体</ooption>
-                        <option>华文黑体</ooption>
-                    </select>
-                    字体大小
-                    <select>
-                        <option>10</ooption>
-                        <option>14</ooption>
-                        <option>16</ooption>
-                    </select></br>
-                    页面设置
-                    <input type="radio" class="check">
-                    A4纵向&nbsp&nbsp
-                    <input type="radio" class="check">
-                    A4横向&nbsp&nbsp
-                    <input type="radio" class="check">
-                    自定义尺寸</br>
-                    页码设置
-                    <input type="checkbox" class="check">
-                    添加页码&nbsp&nbsp
-                    格式
-                    <select>
-                        <option>1</ooption>
-                        <option>-1-</ooption>
-                    </select>&nbsp&nbsp
-                    位置
-                    <select>
-                        <option>居中</ooption>
-                        <option>偏左</ooption>
-                    </select></br>
-                </form>
-                
-            </div>
+    <div class="banner">
+        <div class="body-in">
+            <h1>
+                <span>PPT</span>文档转换为<span>PDF</span>
+            </h1>
+            <progress></progress>
+            <flow url="/PDFApi/topdf" exts="ppt,pptx"></flow>
+            <result></result>
+            <download></download>
         </div>
-    </v-content>
+    </div>
 </template>
+<style>
+</style>
 <script>
-    import VContent from './VContent'
+    import Progress from './parts/Progress.vue'
+    import Flow from './parts/Flow.vue'
+    import Result from './parts/Result.vue'
+    import Download from './parts/Download.vue'
 
     export default{
         components: {
-            VContent
-        },
-        ready() {
-            console.log('PdfToXls.vue')
+            Progress, Flow, Result, Download
         }
     }
 </script>

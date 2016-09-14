@@ -1,34 +1,29 @@
 <template>
-    <v-content>
-        <h3>pdf jiami</h3>
-        <div slot="foot">
-            <form>
-                <span class="jiami-span">填写密码</span>
-                <input class="inp-jiami" type="text"/>
-            </form>
+    <div class="banner">
+        <div class="body-in">
+            <h1>
+                <span>PDF</span>加密
+            </h1>
+            <progress></progress>
+            <flow url="/PDFApi/protect"></flow>
+            <select-jiami></select-jiami>
+            <result></result>
+            <download></download>
         </div>
-    </v-content>
+    </div>
 </template>
 <style>
-   .file3 .inp-jiami{
-        display:inline-block;
-        width:200px;
-        height:30px;
-        margin-left:20px;
-    }
-    .jiami-span{
-    font-size:14px;
-    }
 </style>
 <script>
-    import VContent from './VContent'
+    import Progress from './parts/Progress.vue'
+    import Flow from './parts/Flow.vue'
+    import SelectJiami from './parts/SelectJiami.vue'
+    import Result from './parts/Result.vue'
+    import Download from './parts/Download.vue'
 
     export default{
         components: {
-            VContent
-        },
-        ready() {
-            console.log('PdfToXls.vue')
+            Progress, Flow, SelectJiami, Result, Download
         }
     }
 </script>

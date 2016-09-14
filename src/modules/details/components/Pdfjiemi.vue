@@ -1,39 +1,29 @@
 <template>
-    <v-content>
-        <div slot="foot">
-            <form>
-                <span class="jiemi-span">输入密码</span>
-                <input class="inp" type="text"/>
-                <p class="ppp">不知道密码则不用填写</p>
-            </form>
+    <div class="banner">
+        <div class="body-in">
+            <h1>
+                <span>PDF</span>解密
+            </h1>
+            <progress></progress>
+            <flow url="/PDFApi/unlock"></flow>
+            <select-jiemi></select-jiemi>
+            <result></result>
+            <download></download>
         </div>
-    </v-content>
+    </div>
 </template>
 <style>
-   .file3 .inp{
-        display:inline-block;
-        width:200px;
-        height:30px;
-        margin-left:20px;
-    }
-    .ppp{
-        margin:10px 0 0 80px;
-        color:#c30811;
-        font-size:14px;
-    }
-    .jiemi-span{
-        font-size:14px;
-    }
 </style>
 <script>
-    import VContent from './VContent'
+    import Progress from './parts/Progress.vue'
+    import Flow from './parts/Flow.vue'
+    import SelectJiemi from './parts/SelectJiemi.vue'
+    import Result from './parts/Result.vue'
+    import Download from './parts/Download.vue'
 
     export default{
         components: {
-            VContent
-        },
-        ready() {
-            console.log('PdfToXls.vue')
+            Progress, Flow, SelectJiemi, Result, Download
         }
     }
 </script>
