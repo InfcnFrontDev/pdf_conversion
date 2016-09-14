@@ -64,20 +64,18 @@ li{list-style: none}
 .body-in .ul .change2 span{background: url("../images/red.png")}
 .botton{padding-bottom: 8px;width: 900px;margin: 80px auto 0px auto}
 .botton h3,.botton a{float: left}
-.botton h3{font-size: 16px;color: #595656}
-.botton .a1{display: block;width: 127px;height: 27px;border:1px solid #1d2088;line-height: 27px;text-align: center;font-size: 12px;color: #1d2088;margin-left: 26px;position: relative;
-  background: url("../images/flie2.png")no-repeat;background-position: 11px 7px;
-}
-.botton .a2{display: block;width: 114px;height: 25px;background-color:  #1d2088;line-height: 25px;text-align: center;font-size: 12px;color: #ffffff;margin-left: 26px;margin-top: 4px;}
-.botton .a22{background-color:  #cccccc;color: #666666; border:1px solid #595656; cursor: default;}
+.botton h3{font-size: 16px;line-height: 27px;color: #595656}
+.botton .a1{display: block;width: 127px;height: 27px;border:1px solid #1d2088;line-height: 27px;text-align: center;font-size: 12px;color: #1d2088;margin-left: 26px;position: relative; background: url("../images/flie2.png")no-repeat;background-position: 11px 7px;}
+.botton .a2{display: block;width: 127px;height: 27px;background-color:  #1d2088;line-height: 27px;text-align: center;font-size: 12px;color: #ffffff;margin-left: 26px;margin-top: 0px;}
+.botton .a22{background-color:#cccccc;color: #666666; border:1px solid #595656; cursor: default;}
 
 .file{width: 900px;border-top: 1px solid #595656;height: 210px;padding-top: 17px;margin: 0 auto}
 .file2{width: 900px;border-top: 1px solid #595656;min-height: 210px;margin: 5px auto}
 .file3{width: 900px;border-top: 1px solid #595656;min-height: 40px;padding-top: 17px;padding-bottom: 17px;margin: 0 auto}
 .file h3{font-size: 16px;color: #595656}
 .file3 h3{font-size: 16px;color: #595656;float: left;margin-top: 8px;}
-.file3 input{width: 558px;height: 30px;}
-.file3 .inpp{margin-left: 110px; font-size:14px;}
+.file3 .input{width: 558px;height: 30px;}
+.file3 .inpp{margin-left: 110px;padding-top: 10px; font-size:14px;}
 .file3 .inpp p{font-size: 12px; color: #595656;margin-top: 15px;}
 .file2 .pdf{width: 725px;height: 37px;border:  1px solid #b9b9b9;background-color: #e7e7e7;margin:15px auto;line-height: 36px;color: #595656;font-size: 12px;}
 .pdf .icon{margin:8px 10px;}

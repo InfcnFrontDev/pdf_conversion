@@ -1,9 +1,9 @@
 <template>
     <div class="footer">
         <div class="footer-in">
-            <div class="left"><img src="../../static/images/infcn.png"></div>
+            <div class="left"><img src="/static/images/infcn.png"></div>
             <div class="center">
-                <img src="../../static/images/phone2.png">
+                <img src="/static/images/phone2.png">
                 <ul>
                     <li><a href="javascript:;">诚聘英才</a></li>
                     <li><a href="javascript:;">产品与服务</a></li>
@@ -11,7 +11,7 @@
                 </ul>
             </div>
             <div class="right">
-                <img src="../../static/images/file.png">
+                <img src="/static/images/file.png">
                 <ul>
                     <li><a href="javascript:;">关于我们</a></li>
                     <li><a href="javascript:;">新闻与活动</a></li>
