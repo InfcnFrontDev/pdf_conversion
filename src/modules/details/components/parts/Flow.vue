@@ -14,8 +14,8 @@
             <div class="col col-xs-1">
                 <img class="icon" src="/static/images/pdfff.png">
             </div>
-            <div class="col col-xs-5">
-                {{file.name}}
+            <div class="col col-xs-5" title="{{file.name}}">
+                {{file.name|string 25 '...'}}
             </div>
             <div class="col col-xs-4" style="padding:8px 0px;">
                 <div class="progress" style="width:170px;">
@@ -61,6 +61,8 @@
         ready() {
             // 初始化数据
             this.init();
+
+            console.log(this);
 
             var $this = this;
             uploader = WebUploader.create({
