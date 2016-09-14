@@ -14,8 +14,8 @@
             <div class="col col-xs-1">
                 <img class="icon" src="/static/images/pdfff.png">
             </div>
-            <div class="col col-xs-5">
-                {{file.name}}
+            <div class="col col-xs-5" title="{{file.name}}">
+                {{file.name|string 25 '...'}}
             </div>
             <div class="col col-xs-4" style="padding:8px 0px;">
                 <div class="progress" style="width:170px;">
@@ -45,9 +45,10 @@
     }
 </style>
 <script>
-    import config from 'common/config'
     import * as getters from '../../vuex/getters'
     import * as actions from '../../vuex/actions'
+    import config from 'common/config'
+    import {accept} from '../../common/tools'
 
     var uploader;
 
@@ -56,18 +57,20 @@
             getters, actions
         },
         props: {
-            url: {type: String, required: true}
+            url: {type: String, required: true},
+            exts: {type: String, default: 'pdf'}
         },
         ready() {
             // 初始化数据
             this.init();
 
-            var $this = this;
+            let $this = this;
             uploader = WebUploader.create({
                 swf: 'vendors/fex-webuploader/dist/Uploader.swf',
                 server: config.apiPath + $this.url,
                 formData: $this.data,
-                pick: '#picker'
+                pick: '#picker',
+                accept: accept(this.exts)
             });
             // 当有文件被添加进队列的时候
             uploader.on('fileQueued', function (file) {
@@ -80,7 +83,7 @@
                 });
             });
             uploader.on('uploadBeforeSend', function (object, data, headers) {
-                for(var key in $this.formData){
+                for (var key in $this.formData) {
                     data[key] = $this.formData[key]
                 }
             });

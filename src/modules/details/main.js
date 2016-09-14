@@ -68,5 +68,15 @@ router.redirect({
 router.start(App, '#app')
 
 
+// 自定义过滤器
+
+// 文件名过滤器，限定文件名的长度
+Vue.filter('string', function (value, len, add='') {
+    if(value.length > len){
+        return value.substr(0, len) + add
+    }
+    return value
+})
+
 
 
