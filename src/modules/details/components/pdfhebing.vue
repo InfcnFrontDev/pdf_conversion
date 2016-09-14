@@ -1,17 +1,27 @@
 <template>
-    <v-content>
-        <h3>pdf hebing</h3>
-    </v-content>
+    <div class="banner">
+        <div class="body-in">
+            <h1>
+                <span>PDF</span>文档合并<span></span>
+            </h1>
+            <progress></progress>
+            <flow url="/PDFApi/pdf2img"></flow>
+            <result></result>
+            <download></download>
+        </div>
+    </div>
 </template>
+<style>
+</style>
 <script>
-    import VContent from './VContent'
+    import Progress from './parts/Progress.vue'
+    import Flow from './parts/Flow.vue'
+    import Result from './parts/Result.vue'
+    import Download from './parts/Download.vue'
 
     export default{
         components: {
-            VContent
-        },
-        ready() {
-            console.log('PdfToXls.vue')
+            Progress, Flow, Result, Download
         }
     }
 </script>
