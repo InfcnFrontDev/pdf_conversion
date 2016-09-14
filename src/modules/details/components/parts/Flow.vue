@@ -2,7 +2,7 @@
     <div class="botton">
         <h3>选择文件</h3>
         <a class="a1" href="javascript:;" id="picker">选择本地文件</a>
-        <a :class="{ a2:true, a22:files.length==0 || step>1 }" href="javascript:;" id="b1" @click="start">开始转换</a>
+        <a class="a2" :class="{ a22:files.length==0 || step>1 }" href="javascript:;" @click="start">开始转换</a>
         <div style="clear: both"></div>
         <div class="abc"></div>
     </div>
@@ -104,13 +104,14 @@
         },
         methods: {
             remove: function (file) {
+                uploader.removeFile(file.id);
                 this.removeFile(file)
             },
             download: function (file) {
                 this.downloadFile(config.apiPath + '/PDFApi/download?file=' + file.oid + '&isZip=false&time=' + new Date().getTime())
             },
             start: function () {
-                if (this.files.length > 0) {
+                if (this.step == 1) {
                     uploader.upload();
                 }
             },
