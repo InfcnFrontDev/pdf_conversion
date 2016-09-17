@@ -36,7 +36,7 @@ var webpackConfig = {
         extensions: ['', '.js', '.vue', '.scss', '.css']
     },
     output: {
-        // publicPath: 'yourcdnlink/static/',
+        publicPath: '/static/',
         filename: '[name].js',
         chunkFilename: '[id].js?[hash]'
     },
@@ -85,14 +85,6 @@ const src = {
     es6: './src/modules/**/main.js',
     views: './src/modules/**/index.html'
 };
-const dist = {
-    static: './dist/static/',
-    css: './dist/static/css/',
-    js: './dist/js/',
-    vendors: './dist/vendors/',
-    views: './dist/views'
-};
-
 const dev = {
     static: './dev/static/',
     css: './dev/static/css/',
@@ -103,20 +95,18 @@ const dev = {
     views: './dev/'
 };
 
-var BUILD = 'DEV';
 gulp.task('build', function () {
-    BUILD = 'PUBLIC';
-    webpackConfig.plugins.push(new webpack.DefinePlugin({
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV) || 'production'
-    }));
-    build(function () {
-        del(['./src/tmp'])
-    });
+    gulp.src('./dev/vendors/**/*.*').pipe(gulp.dest('./dist/vendors/'));
+    gulp.src('./dev/static/css/*.*').pipe(gulp.dest('./dist/static/css/'));
+    gulp.src('./dev/static/fonts/*.*').pipe(gulp.dest('./dist/static/fonts/'));
+    gulp.src('./dev/static/images/**/*.*').pipe(gulp.dest('./dist/static/images/'));
+    gulp.src('./dev/static/js/*.js').pipe(replace('/static/', 'static/')).pipe(gulp.dest('./dist/static/js/'));
+    gulp.src('./dev/*.html').pipe(gulp.dest('./dist/'));
+
 });
-gulp.task('reload', function () {
+gulp.task('dev', function () {
     server();
-    monitor();
-    init();
+    gulp.start('static', 'vendors', 'sass', 'es6', 'views');
 });
 gulp.task('clean', function () {
     del([
@@ -151,6 +141,7 @@ gulp.task('views', function () {
         }))
         .pipe(gulp.dest(dev.views));
 });
+
 function server() {
     browserSync.init(dev.views, {
         startPath: "/",
@@ -161,11 +152,7 @@ function server() {
         open: false,
         notify: true
     });
-    webpackConfig.plugins.push(new webpack.DefinePlugin({
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV) || 'dev'
-    }));
-}
-function monitor() {
+
     watch([src.static, '!src/**/*.*___'], function (event) {
         var paths = watchPath(event, 'src/', 'dev/');
         cp(paths.srcPath, paths.distDir);
@@ -199,13 +186,8 @@ function monitor() {
         compileJS(modulePath + 'main.js', dev.js);
     });
 }
-function init() {
-    gulp.start('static', 'vendors', 'sass', 'es6', 'views');
-}
 function compileJS(path, dest) {
     dest = dest || dev.js;
-    webpackConfig.output.publicPath = BUILD === 'PUBLIC' ? '' + CDN + '/static/' : '/static/';
-
     return gulp.src(path)
         .pipe(named(function (file) {
             var path = JSON.parse(JSON.stringify(file)).history[0];
@@ -236,15 +218,3 @@ function cp(from, to) {
         .pipe(gulp.dest(to));
 }
 
-function build(cb) {
-    cp('./src/assets/images/**/*.*', './src/static/images');
-    cp('./src/assets/fonts/**/*.{eot,svg,ttf,woff}', './src/static/fonts');
-    runSequence('clean', 'sass', 'css:build', 'js:build', 'ugjs:build', 'views:build', 'images', 'fonts', function () {
-        // 上传静态资源文件到CDN
-        cb && cb();
-        /*exec('node upload.js', function (err, output) {
-         if(err) console.log(err);
-         console.log(output);
-         });*/
-    });
-}

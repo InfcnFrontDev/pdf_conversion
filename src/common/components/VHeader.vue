@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="header-in">
-            <a href="/"><img src="/static/images/logo.png"></a>
+            <a href="./"><img src="/static/images/logo.png"></a>
             <ul>
                 <li class="ding"><a href="#">PDF转换处理</a>
                     <div class="kuang">

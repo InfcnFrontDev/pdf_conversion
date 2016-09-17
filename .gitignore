@@ -2,7 +2,7 @@
 *.log
 *.DS_Store
 node_modules/
-public/
 dev/
+dist/
 src/vendors/
 npm-debug.log*
