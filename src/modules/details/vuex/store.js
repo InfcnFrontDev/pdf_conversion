@@ -17,6 +17,7 @@ const mutations = {
     INIT (state){
         state.files = [];
         state.formData = {};
+        state.validate = true;
         state.hebing = '';
     },
     ADD_FILE (state, file){
