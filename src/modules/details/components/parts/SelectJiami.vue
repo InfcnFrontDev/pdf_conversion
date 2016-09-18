@@ -1,10 +1,10 @@
 <template>
     <div class="file3" style="display:block">               
         <form>
-            <span class="jiami-span">填写密码</span>
+            <span class="jiami-span">设置密码</span>
         </form>
-        <input class="inp-jiami" v-model="jiaMi" v-on:blur="tishi"  type="text"/>
-        <span class="jiami-title" v-show="show">请设置密码！</span>     
+        <input class="inp-jiami" v-model="jiaMi"   type="text"/>
+        <span class="jiami-title" v-show="show">请设置密码！(数字或字母)</span>     
     </div>
 </template>
 <style>
@@ -35,24 +35,28 @@
         data(){
             return {
                 jiaMi: '',
-                show:false
+                show:true
+            }
+        },
+        
+        methods:{
+            testing(){
+                var pattern=/^[A-Za-z0-9]+$/
+                return pattern.test(this.jiaMi);
             }
         },
         watch: {
             'jiaMi': function (val, oldVal) {
-                this.updateFormData({
-                    'password': val                  
-                })
+                if(this.testing()){
+                    this.updateFormData({
+                        'password': val                  
+                    });
+                    this.show=false;
+                }else{
+                    this.show=true;
+                }
+                
             }
         },
-        methods:{
-            tishi(){
-                if(this.jiaMi==""){
-                    this.show=true
-                }else{
-                    this.show=false
-                }
-            }
-        }
     }
 </script>
