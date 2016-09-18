@@ -4,7 +4,7 @@
                 <form>
                     <input class="inp" v-model="jieMi" type="text" @keyup.enter="abc"/>
                 </form>
-                <p class="ppp">不知道密码则不用填写</p>                 
+                               
     </div>
 </template>
 <style>

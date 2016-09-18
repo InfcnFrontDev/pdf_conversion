@@ -6,7 +6,7 @@
             </h1>
             <progress></progress>
             <flow url="/PDFApi/protect"></flow>
-            <select-jiami></select-jiami>
+            <set-jiami></set-jiami>
             <result></result>
             <download></download>
         </div>
@@ -17,13 +17,13 @@
 <script>
     import Progress from './parts/Progress.vue'
     import Flow from './parts/Flow.vue'
-    import SelectJiami from './parts/SelectJiami.vue'
+    import SetJiami from './parts/SetJiami.vue'
     import Result from './parts/Result.vue'
     import Download from './parts/Download.vue'
 
     export default{
         components: {
-            Progress, Flow, SelectJiami, Result, Download
+            Progress, Flow, SetJiami, Result, Download
         }
     }
 </script>

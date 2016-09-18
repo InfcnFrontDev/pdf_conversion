@@ -34,7 +34,7 @@
         },
         data(){
             return {
-                jiaMi: '',
+                jiaMi:'',
                 show:true
             }
         },
