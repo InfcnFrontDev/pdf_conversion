@@ -18,6 +18,9 @@ npm install
 # install bower dependencies
 bower install
 
+# clean for production
+npm run clean
+
 # run for production
 npm run dev
 

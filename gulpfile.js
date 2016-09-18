@@ -1,7 +1,8 @@
 // 二哲 - 2016年08月15日
 const path = require('path');
 const gulp = require('gulp');
-const ugjs = require('gulp-uglify');
+const uglify = require('gulp-uglify');
+const minifycss = require('gulp-minify-css');
 const watch = require('gulp-watch');
 const webpackStream = require('webpack-stream');
 const webpack = require('webpack');
@@ -10,8 +11,6 @@ const del = require('del');
 const watchPath = require('gulp-watch-path');
 const replace = require('gulp-replace');
 
-const rev = require('gulp-rev');
-const ifElse = require('gulp-if-else');
 const browserSync = require('browser-sync').create();
 const base64 = require('gulp-base64');
 const runSequence = require('run-sequence');
@@ -22,10 +21,7 @@ const precss = require('precss'); //提供像scss一样的语法
 const cssnano = require('cssnano');  //更好用的css压缩!
 const sass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
-const revCollector = require('gulp-rev-collector');
-const exec = require('child_process').exec;
 const rename = require("gulp-rename");
-const CDN = '/pdf_conversion';
 var webpackConfig = {
     resolve: {
         root: path.join(__dirname, 'node_modules'),
@@ -97,10 +93,10 @@ const dev = {
 
 gulp.task('build', function () {
     gulp.src('./dev/vendors/**/*.*').pipe(gulp.dest('./dist/vendors/'));
-    gulp.src('./dev/static/css/*.*').pipe(gulp.dest('./dist/static/css/'));
     gulp.src('./dev/static/fonts/*.*').pipe(gulp.dest('./dist/static/fonts/'));
     gulp.src('./dev/static/images/**/*.*').pipe(gulp.dest('./dist/static/images/'));
-    gulp.src('./dev/static/js/*.js').pipe(replace('/static/', 'static/')).pipe(gulp.dest('./dist/static/js/'));
+    gulp.src('./dev/static/js/*.js').pipe(replace('/static/', 'static/')).pipe(uglify()).pipe(gulp.dest('./dist/static/js/'));
+    gulp.src('./dev/static/css/*.css').pipe(minifycss()).pipe(gulp.dest('./dist/static/css/'));
     gulp.src('./dev/*.html').pipe(gulp.dest('./dist/'));
 
 });
