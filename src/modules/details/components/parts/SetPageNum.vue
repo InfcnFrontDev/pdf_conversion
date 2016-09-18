@@ -31,6 +31,9 @@
                 pageNumberError: false
             }
         },
+         ready(){
+            this.isValidate(true);
+        },
         methods:{
             testing:function(){
                 var pattern=/^[1-9]{1}[0-9]?([\,|\-]{1}[1-9]{1}[0-9]?)+$/;
@@ -45,8 +48,10 @@
                     this.updateFormData({
                         'pageNum': val
                     });
+                    this.isValidate(true);
                     this.pageNumberError = false;
                 }else{
+                    this.isValidate(false);
                     this.pageNumberError = true;  
                 }
 

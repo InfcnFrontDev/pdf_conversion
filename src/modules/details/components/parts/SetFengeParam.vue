@@ -56,6 +56,7 @@
                 'select': 0,
                 'value': ''
             });
+            this.isValidate(true);
         },
         methods:{
             testing1:function(){
@@ -96,9 +97,12 @@
                     this.updateFormData({
                         'value': val
                     });
+                    this.isValidate(true);
+                    alert(1);
                     this.pageNumberError = false;
                 }else{
                     this.pageNumberError = true;
+                    this.isValidate(false);
                 } 
             },
             'value2': function (val, oldVal) {
@@ -107,9 +111,11 @@
                     this.updateFormData({
                         'value': val
                     });
+                    this.isValidate(true);
                     this.documentNumError = false;
                 }else{
                     this.documentNumError = true;
+                    this.isValidate(false);
                 }
             },
             'value3': function (val, oldVal) {
@@ -118,9 +124,11 @@
                     this.updateFormData({
                         'value': val
                     });
+                    this.isValidate(true);
                     this.customNumError = false;
                 }else{
                     this.customNumError = true;
+                    this.isValidate(false);
                 }
             }
         }
