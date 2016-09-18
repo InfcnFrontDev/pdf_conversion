@@ -13,7 +13,6 @@
             getters, actions
         },
         ready() {
-            this.downloadFile('');
         }
     }
 </script>

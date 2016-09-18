@@ -8,23 +8,31 @@
 <style>
 </style>
 <script>
-    import config from 'common/config'
     import * as getters from '../../vuex/getters'
     import * as actions from '../../vuex/actions'
+    import config from 'common/config'
+    import { download } from '../../common/tools'
 
     export default{
         vuex: {
             getters, actions
         },
+        props: {
+            isHebing: {type: Boolean, default: false}
+        },
         methods: {
             download: function () {
                 var file = '';
-                this.files.filter(f => f.status.step == 4).forEach(f => {
-                    file += f.oid + ',';
-                });
-                if (file.length > 0)
-                    file = file.substring(0, file.length - 1);
-                this.downloadFile(config.apiPath + '/PDFApi/download?file=' + file + '&isZip=true&time=' + new Date().getTime())
+                if(this.isHebing){
+                    file = this.hebing;
+                }else {
+                    this.files.filter(f => f.status.step == 4).forEach(f => {
+                        file += f.oid + ',';
+                    });
+                    if (file.length > 0)
+                        file = file.substring(0, file.length - 1);
+                }
+                download(config.apiPath + '/PDFApi/download?file=' + file + '&isZip=true&time=' + new Date().getTime())
             }
         }
     }

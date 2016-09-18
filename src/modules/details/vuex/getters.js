@@ -12,3 +12,7 @@ export const step = state => {
 export const downloadUrl = state => state.downloadUrl
 export const formData = state => state.formData
 export const hasDownload = state => state.files.filter(file => file.status.success && file.status.finish).length > 0
+export const isAllUploadSuccess = state => state.files.filter(file => file.status.id != 'UPLOAD_SUCCESS').length == 0
+export const uploadSuccessFiles = state => state.files.filter(file => file.status.id == 'UPLOAD_SUCCESS')
+export const hebing = state => state.hebing
+export const validate = state => state.validate

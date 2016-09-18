@@ -6,6 +6,8 @@ import VueResource from 'vue-resource'
 Vue.use(VueRouter)
 Vue.use(VueResource)
 
+Vue.http.options.emulateJSON = true;
+
 //导入需要的组件
 import App from './App.vue'
 import Pdf2doc from './components/Pdf2doc.vue'

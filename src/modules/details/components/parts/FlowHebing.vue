@@ -2,8 +2,7 @@
     <div class="botton">
         <h3>选择文件</h3>
         <a class="a1" href="javascript:;" id="picker">选择本地文件</a>
-        <a class="a2 a22" href="javascript:;" v-if="files.length==0 || step>1 || !validate">开始转换</a>
-        <a class="a2" href="javascript:;" @click="start" v-else>开始转换</a>
+        <a class="a2" :class="{ a22:files.length==0 || step>1 }" href="javascript:;" @click="start">开始转换</a>
         <div style="clear: both"></div>
         <div class="abc"></div>
     </div>
@@ -32,9 +31,6 @@
                 <span class="btn aa2" @click="remove(file)">
                     <img src="/static/images/x.png" class="ii1">移除
                 </span>
-                <span class="btn" @click="download(file)" v-show="file.status.text=='处理成功'">
-                    <img src="/static/images/download.png" class="ii1">下载
-                </span>
             </div>
         </div>
     </div>
@@ -50,21 +46,21 @@
     import * as getters from '../../vuex/getters'
     import * as actions from '../../vuex/actions'
     import config from 'common/config'
-    import {accept, download} from '../../common/tools'
+    import {accept} from '../../common/tools'
 
     var uploader;
 
     var STATUS = {
-        WAIT_UPLOAD: {step: 1, text: '等待上传', active: false, success: false, finish: false},
-        START_UPLOAD: {step: 2, text: '开始上传', active: true, success: false, finish: false},
-        UPLOADING: {step: 2, text: '正在上传', active: true, success: false, finish: false},
-        UPLOAD_SUCCESS: {step: 2, text: '上传成功', active: true, success: false, finish: false},
-        WAIT_DEAL: {step: 3, text: '等待处理', active: false, success: false, finish: false},
-        START_DEAL: {step: 3, text: '开始处理', active: true, success: false, finish: false},
-        DEALING: {step: 3, text: '正在处理', active: true, success: false, finish: false},
-        UPLOAD_FAIL: {step: 4, text: '上传失败', active: false, success: false, finish: true},
-        DEAL_SUCCESS: {step: 4, text: '处理成功', active: false, success: true, finish: true},
-        DEAL_FAIL: {step: 4, text: '处理失败', active: false, success: false, finish: true}
+        WAIT_UPLOAD: {id: 'WAIT_UPLOAD', step: 1, text: '等待上传', active: false, success: false, finish: false},
+        START_UPLOAD: {id: 'START_UPLOAD', step: 2, text: '开始上传', active: true, success: false, finish: false},
+        UPLOADING: {id: 'UPLOADING', step: 2, text: '正在上传', active: true, success: false, finish: false},
+        UPLOAD_SUCCESS: {id: 'UPLOAD_SUCCESS', step: 2, text: '上传成功', active: true, success: false, finish: false},
+        WAIT_DEAL: {id: 'WAIT_DEAL', step: 3, text: '等待处理', active: false, success: false, finish: false},
+        START_DEAL: {id: 'START_DEAL', step: 3, text: '开始处理', active: true, success: false, finish: false},
+        DEALING: {id: 'DEALING', step: 3, text: '正在处理', active: true, success: false, finish: false},
+        UPLOAD_FAIL: {id: 'UPLOAD_FAIL', step: 4, text: '上传失败', active: false, success: false, finish: true},
+        DEAL_SUCCESS: {id: 'DEAL_SUCCESS', step: 4, text: '处理成功', active: false, success: true, finish: true},
+        DEAL_FAIL: {id: 'DEAL_FAIL', step: 4, text: '处理失败', active: false, success: false, finish: true}
     }
 
     export default{
@@ -73,8 +69,14 @@
         },
         props: {
             url: {type: String, required: true},
+            url2: {type: String, required: true},
             exts: {type: String, default: 'pdf'},
             progress: {type: Boolean, default: true}
+        },
+        watch: {
+            'isAllUploadSuccess': function (val, oldVal) {
+                if(val) this.merge()
+            }
         },
         ready() {
             // 初始化数据
@@ -114,13 +116,8 @@
                 $this.updateStatus(file.id, STATUS.UPLOAD_FAIL);
             });
             uploader.on('uploadSuccess', function (file, response) {
-                $this.setOid(file.id, response.obj[0]);
+                $this.setOid(file.id, response.obj);
                 $this.updateStatus(file.id, STATUS.UPLOAD_SUCCESS);
-                if ($this.progress) {
-                    $this.transforming(file.id);
-                } else {
-                    $this.complete(file.id);
-                }
             });
         },
         methods: {
@@ -129,7 +126,7 @@
                 this.removeFile(file)
             },
             download: function (file) {
-                download(config.apiPath + '/PDFApi/download?file=' + file.oid + '&isZip=false&time=' + new Date().getTime())
+                this.downloadFile(config.apiPath + '/PDFApi/download?file=' + file.oid + '&isZip=false&time=' + new Date().getTime())
             },
             start: function () {
                 if (this.step == 1) {
@@ -139,39 +136,23 @@
             getFile (fid){
                 return this.files.filter(file => file.id == fid)[0]
             },
-            transforming: function (fid) {
+            merge: function(){
                 var $this = this;
-                var file = this.getFile(fid);
-                var statusInfo = {'-1': '无效', '0': '等待处理', '1': '正在处理', '2': '处理成功', '3': '处理失败'};
 
-                $this.updateStatus(file.id, {step: 3, text: '开始处理', active: true});
+                var fileOids = '';
+                this.files.forEach(file => {
+                    fileOids += file.oid + ',';
+                    $this.updateStatus(file.id, STATUS.START_DEAL);
+                });
 
-                var handler = function () {
-                    $this.$http.post(config.apiPath + '/PDFApi/progress',
-                            {fileName: file.oid},
-                            {emulateJSON:true}
-                    ).then((response) => {
-                        var obj = response.data.obj;
-                        if (obj == 0) {
-                            $this.updateStatus(file.id, STATUS.WAIT_DEAL);
-                        } else if (obj == 1) {
-                            $this.updateStatus(file.id, STATUS.DEALING);
-                        } else if (obj == 2) {
-                            $this.updateStatus(file.id, STATUS.DEAL_SUCCESS);
-                            clear();
-                        } else {
-                            $this.updateStatus(file.id, STATUS.DEAL_FAIL);
-                            clear();
-                        }
-                    }, (response) => {
-                        $this.updateStatus(file.id, STATUS.DEAL_FAIL);
-                        clear();
+                this.$http.post(config.apiPath + '/PDFApi/merge2', {
+                    file: fileOids
+                }).then((response) => {
+                    $this.files.forEach(file => {
+                        $this.updateStatus(file.id, STATUS.DEAL_SUCCESS);
                     });
-                };
-                var timer = setInterval(handler, 3000);
-                var clear = function () {
-                    clearInterval(timer);
-                };
+                    $this.setHebing(response.data.obj);
+                });
             },
             complete: function (fid) {
                 var $this = this;

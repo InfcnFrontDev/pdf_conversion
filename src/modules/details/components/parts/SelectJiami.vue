@@ -38,7 +38,9 @@
                 show:true
             }
         },
-        
+        ready(){
+            this.isValidate(false);
+        },
         methods:{
             testing(){
                 var pattern=/^[A-Za-z0-9]+$/
@@ -51,8 +53,10 @@
                     this.updateFormData({
                         'password': val                  
                     });
+                    this.isValidate(true);
                     this.show=false;
                 }else{
+                    this.isValidate(false);
                     this.show=true;
                 }
                 

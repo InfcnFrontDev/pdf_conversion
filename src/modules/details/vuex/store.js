@@ -8,14 +8,16 @@ Vue.use(Vuex)
 const state = {
     files: [],// 文件列表
     formData: {},
-    downloadUrl: '' // 下载地址
+    validate: true,
+    hebing: '' // 合并后文件名
 }
 
 // mutations are operations that actually mutates the state.
 const mutations = {
     INIT (state){
         state.files = [];
-        state.downloadUrl = '';
+        state.formData = {};
+        state.hebing = '';
     },
     ADD_FILE (state, file){
         state.files.push(file)
@@ -34,12 +36,11 @@ const mutations = {
         for (let key in formData)
             state.formData[key] = formData[key];
     },
-    NEXT_STEP (state) {
-        if (state.step < 4)
-            state.step++
+    SET_HEBING (state, hebing){
+        state.hebing = hebing
     },
-    DOWNLOAD_FILE (state, url){
-        state.downloadUrl = url
+    IS_VALIDATE (state, vali){
+        state.validate = vali
     }
 }
 

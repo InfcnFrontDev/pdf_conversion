@@ -5,8 +5,8 @@
                 <span>PDF</span>文档合并<span></span>
             </h1>
             <progress></progress>
-            <flow url="/PDFApi/pdf2img"></flow>
-            <result></result>
+            <flow-hebing url="/PDFApi/upload" url2="/PDFApi/merge2"></flow-hebing>
+            <result :is-hebing="true"></result>
             <download></download>
         </div>
     </div>
@@ -15,13 +15,13 @@
 </style>
 <script>
     import Progress from './parts/Progress.vue'
-    import Flow from './parts/Flow.vue'
+    import FlowHebing from './parts/FlowHebing.vue'
     import Result from './parts/Result.vue'
     import Download from './parts/Download.vue'
 
     export default{
         components: {
-            Progress, Flow, Result, Download
+            Progress, FlowHebing, Result, Download
         }
     }
 </script>
