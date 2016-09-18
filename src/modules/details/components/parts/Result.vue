@@ -32,6 +32,7 @@
                     if (file.length > 0)
                         file = file.substring(0, file.length - 1);
                 }
+                file = encodeURIComponent(file);
                 download(config.apiPath + '/PDFApi/download?file=' + file + '&isZip=true&time=' + new Date().getTime())
             }
         }

@@ -129,7 +129,8 @@
                 this.removeFile(file)
             },
             download: function (file) {
-                download(config.apiPath + '/PDFApi/download?file=' + file.oid + '&isZip=false&time=' + new Date().getTime())
+                let oid = encodeURIComponent(file.oid);
+                download(config.apiPath + '/PDFApi/download?file=' + oid + '&isZip=false&time=' + new Date().getTime())
             },
             start: function () {
                 if (this.step == 1) {
