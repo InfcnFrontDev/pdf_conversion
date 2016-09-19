@@ -2,6 +2,8 @@
  * Created by yangkk on 2016/9/14.
  */
 
+import config from 'common/config'
+
 const ExtMimeTypes = {
     pdf: 'application/pdf',
     doc: 'application/msword',
@@ -56,12 +58,20 @@ export const accept = function (extStr) {
     }
 }
 
-export const download = function (url) {
-    try{
+export const download = function (fileOids, isZip = false) {
+    let url = config.apiPath + '/PDFApi/download?isZip=' + isZip;
+
+    for (let i in fileOids) {
+        url += '&file=' + encodeURIComponent(fileOids[i])
+    }
+
+    url += '&time=' + new Date().getTime();
+    console.log(fileOids, url);
+    try {
         var elemIF = document.createElement("iframe");
         elemIF.src = url;
         elemIF.style.display = "none";
         document.body.appendChild(elemIF);
-    }catch(e){
+    } catch (e) {
     }
 }

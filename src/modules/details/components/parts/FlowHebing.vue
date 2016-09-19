@@ -20,8 +20,8 @@
             </div>
             <div class="col col-xs-4" style="padding:8px 0px;">
                 <div class="progress" style="width:170px;">
-                    <div class="progress-bar progress-bar-success progress-bar-striped"
-                         :class="{active:file.status.active}"
+                    <div class="progress-bar progress-bar-striped"
+                         :class="{'progress-bar-warning': !file.status.finish, 'progress-bar-success': file.status.success&&file.status.finish, 'progress-bar-danger': !file.status.success&&file.status.finish, active:file.status.active}"
                          style="width: 100%">
                         <span class="sr-only">{{file.status.text}}</span>
                     </div>
@@ -125,9 +125,6 @@
                 uploader.removeFile(file.id);
                 this.removeFile(file)
             },
-            download: function (file) {
-                this.downloadFile(config.apiPath + '/PDFApi/download?file=' + file.oid + '&isZip=false&time=' + new Date().getTime())
-            },
             start: function () {
                 if (this.step == 1) {
                     uploader.upload();
@@ -139,9 +136,9 @@
             merge: function(){
                 var $this = this;
 
-                var fileOids = '';
+                var fileOids = [];
                 this.files.forEach(file => {
-                    fileOids += file.oid + ',';
+                    fileOids.push(file.oid);
                     $this.updateStatus(file.id, STATUS.START_DEAL);
                 });
 
