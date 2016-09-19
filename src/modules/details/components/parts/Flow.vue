@@ -21,8 +21,8 @@
             </div>
             <div class="col col-xs-4" style="padding:8px 0px;">
                 <div class="progress" style="width:170px;">
-                    <div class="progress-bar progress-bar-success progress-bar-striped"
-                         :class="{active:file.status.active}"
+                    <div class="progress-bar progress-bar-striped"
+                         :class="{'progress-bar-warning': !file.status.finish, 'progress-bar-success': file.status.success&&file.status.finish, 'progress-bar-danger': !file.status.success&&file.status.finish, active:file.status.active}"
                          style="width: 100%">
                         <span class="sr-only">{{file.status.text}}</span>
                     </div>
