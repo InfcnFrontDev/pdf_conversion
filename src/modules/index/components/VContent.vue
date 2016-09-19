@@ -28,11 +28,11 @@
                     {id: 'pdf2txt', src: 'static/images/pdf2txt.png', selected: false},
                     {id: 'pdf2img', src: 'static/images/pdf2img.png', selected: false},
                     {id: 'doc2pdf', src: 'static/images/doc2pdf.png', selected: false},
-                    {id: 'txt2pdf', src: 'static/images/txt2pdf.png', selected: false},
+                    {id: 'xls2pdf', src: 'static/images/xls2pdf.png', selected: false},
                     {id: 'ppt2pdf', src: 'static/images/ppt2pdf.png', selected: false},
-                    {id: 'html2pdf', src: 'static/images/html2pdf.png', selected: false},
-                    {id: 'pdf2rtf', src: 'static/images/pdf2rtf.png', selected: false},
-                    {id: 'pdf2xml', src: 'static/images/pdf2xml.png', selected: false},
+
+
+
                     {id: 'pdfjiemi', src: 'static/images/pdfjiemi.png', selected: false},
                     {id: 'pdfjiami', src: 'static/images/pdfjiami.png', selected: false},
                     {id: 'pdfhebing', src: 'static/images/pdfhebing.png', selected: false},

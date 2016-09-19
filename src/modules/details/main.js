@@ -35,7 +35,7 @@ import Html2pdf from './components/Html2pdf.vue'
 import Xls2pdf from './components/Xls2pdf.vue'
 
 
-var router = new VueRouter()
+var router = new VueRouter();
 router.map({
     '/pdf2doc': {component: Pdf2doc},
     '/pdf2ppt': {component: Pdf2ppt},

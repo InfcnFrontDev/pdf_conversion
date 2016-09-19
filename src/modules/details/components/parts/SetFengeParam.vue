@@ -98,7 +98,6 @@
                         'value': val
                     });
                     this.isValidate(true);
-                    alert(1);
                     this.pageNumberError = false;
                 }else{
                     this.pageNumberError = true;

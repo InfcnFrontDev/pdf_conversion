@@ -1,19 +1,26 @@
 <template>
-    <v-content>
-        <h1 slot="title">
-            <span>PDF</span> shibie
-        </h1>
-       
-    </v-content>
+    <div class="banner">
+        <div class="body-in">
+            <h1>
+                <span>PDF</span>文字识别
+            </h1>
+            <progress></progress>
+
+            <wait-change></wait-change>
+            <result></result>
+            <download></download>
+        </div>
+    </div>
 </template>
 <script>
-    import VContent from './VContent.vue'
+    import Progress from './parts/Progress.vue'
+    import Result from './parts/Result.vue'
+    import Download from './parts/Download.vue'
+    import WaitChange from './parts/WaitChange.vue'
 
     export default{
         components: {
-            VContent
-        },
-        ready() {
+            Progress, Result, Download,WaitChange
         }
     }
 </script>
