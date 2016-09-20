@@ -4,6 +4,7 @@
         <p></p>
         <a href="javascript:;" @click="download">下载</a>
     </div>
+    <div style="clear: both"></div>
 </template>
 <style>
 </style>

@@ -88,7 +88,9 @@
                 server: config.apiPath + $this.url,
                 formData: $this.data,
                 pick: '#picker',
-                accept: accept(this.exts)
+                accept: accept(this.exts),
+                fileNumLimit: 10,
+                fileSingleSizeLimit: 10485760
             });
             // 当有文件被添加进队列的时候
             uploader.on('fileQueued', function (file) {
@@ -98,9 +100,15 @@
                     ext: file.ext,
                     size: file.size,
                     status: STATUS.WAIT_UPLOAD
+
                 });
                 $this.updateStatus(file.id, STATUS.WAIT_UPLOAD);
             });
+
+            uploader.on('beforeFileQueued', function (file) {
+
+            });
+
             uploader.on('uploadBeforeSend', function (object, data, headers) {
                 for (var key in $this.formData) {
                     data[key] = $this.formData[key]
