@@ -8,7 +8,6 @@
             <flow url="/PDFApi/split" :progress="false"></flow>
             <set-fenge-param></set-fenge-param>
             <result></result>
-            <download></download>
         </div>
     </div>
 </template>
@@ -19,11 +18,10 @@
     import Flow from './parts/Flow.vue'
     import SetFengeParam from './parts/SetFengeParam.vue'
     import Result from './parts/Result.vue'
-    import Download from './parts/Download.vue'
 
     export default{
         components: {
-            Progress, Flow, SetFengeParam, Result, Download
+            Progress, Flow, SetFengeParam, Result
         }
     }
 </script>
