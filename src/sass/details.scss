@@ -6,16 +6,18 @@
 	position: absolute !important;
 	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
     clip: rect(1px,1px,1px,1px);
+	border:none;
 }
-//.webuploader-pick {
-//	position: relative;
-//	display: inline-block;
-//	cursor: pointer;
-//	color: #1d2088;
-//	text-align: center;
-//	border-radius: 3px;
-//	overflow: hidden;
-//}
+.webuploader-pick {
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	color: #1d2088;
+	text-align: center;
+	border-radius: 3px;
+	overflow: hidden;
+
+}
 
 .webuploader-pick-disable {
 	opacity: 0.6;

@@ -1,6 +1,6 @@
 <template>
     <div class="file3" style="display:block">               
-                <span class="jiemi-span">输入密码</span>
+                <h3 class="jiemi-span">输入密码</h3>
                 <form>
                     <input class="inp" v-model="jieMi" type="text" @keyup.enter="abc"/>
                 </form>
@@ -12,7 +12,7 @@
         display:inline-block;
         width:200px;
         height:30px;
-        margin-left:20px;
+        margin-left:45px;
     }
     form{
         display:inline-block;

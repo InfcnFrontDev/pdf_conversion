@@ -7,6 +7,7 @@
             <progress></progress>
             <flow url="/PDFApi/pdf2ppt"></flow>
             <set-page-num></set-page-num>
+            <set-password></set-password>
             <result></result>
 
         </div>
@@ -18,11 +19,12 @@
     import Progress from './parts/Progress.vue'
     import Flow from './parts/Flow.vue'
     import SetPageNum from './parts/SetPageNum.vue'
+    import SetPassword from './parts/SetPassword.vue'
     import Result from './parts/Result.vue'
 
     export default{
         components: {
-            Progress, Flow, SetPageNum, Result
+            Progress, Flow, SetPageNum, Result, SetPassword
         }
     }
 </script>

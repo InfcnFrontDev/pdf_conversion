@@ -1,7 +1,7 @@
 <template>
     <div class="file3" style="display:block">               
         <form>
-            <span class="jiami-span">设置密码</span>
+            <h3 class="jiami-span">设置密码</h3>
         </form>
         <input class="inp-jiami" v-model="jiaMi"   type="text"/>
         <span class="jiami-title" v-show="show">请设置密码！(数字或字母)</span>     

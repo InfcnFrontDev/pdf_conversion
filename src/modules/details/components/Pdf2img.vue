@@ -7,6 +7,7 @@
             <progress></progress>
             <flow url="/PDFApi/pdf2img"></flow>
             <select-img-type></select-img-type>
+            <set-password></set-password>
             <result></result>
         </div>
     </div>
@@ -17,11 +18,13 @@
     import Progress from './parts/Progress.vue'
     import Flow from './parts/Flow.vue'
     import SelectImgType from './parts/SetImgType.vue'
+    import SetPassword from './parts/SetPassword.vue'
     import Result from './parts/Result.vue'
+
 
     export default{
         components: {
-            Progress, Flow, SelectImgType, Result
+            Progress, Flow, SelectImgType, Result, SetPassword
         }
     }
 </script>
