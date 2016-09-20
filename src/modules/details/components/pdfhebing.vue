@@ -7,7 +7,7 @@
             <progress></progress>
             <flow-hebing url="/PDFApi/upload" url2="/PDFApi/merge2"></flow-hebing>
             <result :is-hebing="true"></result>
-            <download></download>
+
         </div>
     </div>
 </template>
@@ -21,7 +21,7 @@
 
     export default{
         components: {
-            Progress, FlowHebing, Result, Download
+            Progress, FlowHebing, Result
         }
     }
 </script>

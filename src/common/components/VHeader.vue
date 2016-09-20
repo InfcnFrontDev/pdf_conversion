@@ -22,7 +22,7 @@
                             <li><a href="details.html#!/pdf2html">PDF转HTML</a></li>
                             <li><a href="details.html#!/pdf2img">PDF转图片</a></li>
                             <li><a href="details.html#!/pdf2txt">PDF转换文本</a></li>
-                            <!--<li><a href="details.html#!/pdf2xml">PDF转换XML</a></li>-->
+                            <li><a href="details.html#!/pdf2xml">PDF转换XML</a></li>
                             <!--<li><a href="details.html#!/pdf2rtf">PDF转换RTF</a></li>-->
                         </ul>
                     </div>
@@ -33,8 +33,8 @@
                             <li><a href="details.html#!/doc2pdf">Word转PDF</a></li>
                             <li><a href="details.html#!/xls2pdf">Excel转PDF</a></li>
                             <li><a href="details.html#!/ppt2pdf">PPT转PDF</a></li>
-                            <!--<li><a href="details.html#!/html2pdf">HTML转PDF</a></li>-->
-                            <!--<li style="border: none"><a href="details.html#!/txt2pdf">TXT转PDF</a></li>-->
+                            <li><a href="details.html#!/html2pdf">HTML转PDF</a></li>
+                            <li style="border: none"><a href="details.html#!/txt2pdf">TXT转PDF</a></li>
                         </ul>
                     </div>
                 </li>

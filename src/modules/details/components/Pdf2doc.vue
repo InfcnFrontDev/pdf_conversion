@@ -8,8 +8,9 @@
 
             <flow url="/PDFApi/pdf2word"></flow>
             <set-page-num></set-page-num>
+            <set-password></set-password>
             <result></result>
-            <download></download>
+
         </div>
     </div>
 </template>
@@ -19,12 +20,13 @@
     import Progress from './parts/Progress.vue'
     import Flow from './parts/Flow.vue'
     import SetPageNum from './parts/SetPageNum.vue'
+    import SetPassword from './parts/SetPassword.vue'
     import Result from './parts/Result.vue'
     import Download from './parts/Download.vue'
 
     export default{
         components: {
-            Progress, Flow, SetPageNum, Result, Download
+            Progress, Flow, SetPageNum, Result, SetPassword
         }
     }
 </script>

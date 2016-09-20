@@ -7,7 +7,6 @@
             <progress></progress>
             <flow url="/PDFApi/topdf" exts="ppt,pptx"></flow>
             <result></result>
-            <download></download>
         </div>
     </div>
 </template>
@@ -21,7 +20,7 @@
 
     export default{
         components: {
-            Progress, Flow, Result, Download
+            Progress, Flow, Result
         }
     }
 </script>

@@ -8,7 +8,6 @@
             <flow url="/PDFApi/unlock"></flow>
             <set-jiemi></set-jiemi>
             <result></result>
-            <download></download>
         </div>
     </div>
 </template>
@@ -23,7 +22,7 @@
 
     export default{
         components: {
-            Progress, Flow, SetJiemi, Result, Download
+            Progress, Flow, SetJiemi, Result
         }
     }
 </script>

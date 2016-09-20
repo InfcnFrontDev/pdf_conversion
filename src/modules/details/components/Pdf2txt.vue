@@ -7,7 +7,7 @@
             <progress></progress>
             <flow url="/PDFApi/pdf2txt"></flow>
             <result></result>
-            <download></download>
+
         </div>
     </div>
 </template>
@@ -21,7 +21,7 @@
 
     export default{
         components: {
-            Progress, Flow, Result, Download
+            Progress, Flow, Result
         }
     }
 </script>

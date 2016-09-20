@@ -8,7 +8,7 @@
             <flow url="/PDFApi/protect"></flow>
             <set-jiami></set-jiami>
             <result></result>
-            <download></download>
+
         </div>
     </div>
 </template>
@@ -23,7 +23,7 @@
 
     export default{
         components: {
-            Progress, Flow, SetJiami, Result, Download
+            Progress, Flow, SetJiami, Result
         }
     }
 </script>

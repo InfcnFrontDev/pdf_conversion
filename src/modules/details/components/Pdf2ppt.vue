@@ -8,7 +8,7 @@
             <flow url="/PDFApi/pdf2ppt"></flow>
             <set-page-num></set-page-num>
             <result></result>
-            <download></download>
+
         </div>
     </div>
 </template>
@@ -23,7 +23,7 @@
 
     export default{
         components: {
-            Progress, Flow, SetPageNum, Result, Download
+            Progress, Flow, SetPageNum, Result
         }
     }
 </script>

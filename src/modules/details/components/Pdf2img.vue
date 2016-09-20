@@ -8,7 +8,6 @@
             <flow url="/PDFApi/pdf2img"></flow>
             <select-img-type></select-img-type>
             <result></result>
-            <download></download>
         </div>
     </div>
 </template>
@@ -23,7 +22,7 @@
 
     export default{
         components: {
-            Progress, Flow, SelectImgType, Result, Download
+            Progress, Flow, SelectImgType, Result
         }
     }
 </script>

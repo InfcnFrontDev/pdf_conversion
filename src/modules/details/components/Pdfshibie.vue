@@ -8,7 +8,6 @@
 
             <wait-change></wait-change>
             <result></result>
-            <download></download>
         </div>
     </div>
 </template>
@@ -20,7 +19,7 @@
 
     export default{
         components: {
-            Progress, Result, Download,WaitChange
+            Progress, Result, WaitChange
         }
     }
 </script>
