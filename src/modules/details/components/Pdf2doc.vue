@@ -22,7 +22,6 @@
     import SetPageNum from './parts/SetPageNum.vue'
     import SetPassword from './parts/SetPassword.vue'
     import Result from './parts/Result.vue'
-    import Download from './parts/Download.vue'
 
     export default{
         components: {

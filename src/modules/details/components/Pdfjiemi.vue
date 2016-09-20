@@ -18,7 +18,7 @@
     import Flow from './parts/Flow.vue'
     import SetJiemi from './parts/SetJiemi.vue'
     import Result from './parts/Result.vue'
-    import Download from './parts/Download.vue'
+
 
     export default{
         components: {

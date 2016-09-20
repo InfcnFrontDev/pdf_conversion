@@ -18,7 +18,6 @@
     import Flow from './parts/Flow.vue'
     import SelectImgType from './parts/SetImgType.vue'
     import Result from './parts/Result.vue'
-    import Download from './parts/Download.vue'
 
     export default{
         components: {

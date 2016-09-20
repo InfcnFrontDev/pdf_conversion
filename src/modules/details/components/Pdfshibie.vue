@@ -14,7 +14,6 @@
 <script>
     import Progress from './parts/Progress.vue'
     import Result from './parts/Result.vue'
-    import Download from './parts/Download.vue'
     import WaitChange from './parts/WaitChange.vue'
 
     export default{

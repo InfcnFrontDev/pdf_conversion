@@ -19,7 +19,6 @@
     import Flow from './parts/Flow.vue'
     import SetPageNum from './parts/SetPageNum.vue'
     import Result from './parts/Result.vue'
-    import Download from './parts/Download.vue'
 
     export default{
         components: {

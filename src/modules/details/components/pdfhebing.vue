@@ -17,7 +17,7 @@
     import Progress from './parts/Progress.vue'
     import FlowHebing from './parts/FlowHebing.vue'
     import Result from './parts/Result.vue'
-    import Download from './parts/Download.vue'
+
 
     export default{
         components: {

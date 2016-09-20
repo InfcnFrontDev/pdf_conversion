@@ -16,7 +16,6 @@
     import Progress from './parts/Progress.vue'
     import Flow from './parts/Flow.vue'
     import Result from './parts/Result.vue'
-    import Download from './parts/Download.vue'
 
     export default{
         components: {
