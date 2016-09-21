@@ -13,6 +13,7 @@ const ExtMimeTypes = {
     ppt: 'application/vnd.ms-powerpoint',
     pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
     rtf: 'application/rtf',
+    zip: 'application/zip',
     bmp: 'image/bmp',
     gif: 'image/gif',
     png: 'image/png',

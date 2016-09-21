@@ -5,7 +5,7 @@
                 <span>Html</span>文档转换为<span>PDF</span>
             </h1>
             <progress></progress>
-            <flow url="/PDFApi/topdf" exts="html"></flow>
+            <flow url="/PDFApi/html2pdf" exts="zip"></flow>
             <result></result>
         </div>
     </div>
