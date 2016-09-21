@@ -1,10 +1,10 @@
 <template>
     <div class="file3" style="display:block">               
-                <h3 class="jiemi-span">输入密码</h3>
-                <form>
-                    <input class="inp" v-model="jieMi" type="text" @keyup.enter="abc"/>
-                    <span class="psprompt">没有密码，或者不知道为空</span>
-                </form>
+        <h3 class="jiemi-span">输入密码</h3>
+        <input class="inp" v-model="jieMi" type="text" @keyup.enter="abc"/>
+        <span class="jiami-title" v-show="show">请设置密码！(数字或字母)</span>
+        <span class="psprompt">没有密码，或者不知道为空</span>
+
     </div>
 </template>
 <style>
@@ -29,6 +29,11 @@
         font-size:14px;
         color:#595656;
     }
+  .jiami-title{
+      font-size:14px;
+      color:#c30811;
+      margin-left:10px;
+  }
 </style>
 <script>
     import config from 'common/config'
@@ -41,7 +46,8 @@
         },
         data(){
             return {
-                jieMi: ''
+                jieMi: '',
+                show:false
             }
         },
         methods:{

@@ -1,8 +1,6 @@
 <template>
-    <div class="file3" style="display:block">               
-        <form>
-            <h3 class="jiami-span">设置密码</h3>
-        </form>
+    <div class="file3" style="display:block">
+        <h3 class="jiami-span">设置密码</h3>
         <input class="inp-jiami" v-model="jiaMi"   type="text"/>
         <span class="jiami-title" v-show="show">请设置密码！(数字或字母)</span>     
     </div>
@@ -12,7 +10,7 @@
         display:inline-block;
         width:200px;
         height:30px;
-        margin-left:20px;
+        margin-left:45px;
     }
     .jiami-span{
         font-size:14px;

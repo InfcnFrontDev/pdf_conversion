@@ -42,6 +42,7 @@ const mutations = {
     },
     IS_VALIDATE (state, vali){
         state.validate = vali
+        console.log(state.validate);
     }
 }
 

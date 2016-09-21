@@ -1,10 +1,7 @@
 <template>
     <div class="file3" style="display:block">               
-                <h3 class="jiemi-span">输入密码</h3>
-                <form>
-                    <input class="inp" v-model="jieMi" type="text" @keyup.enter="abc"/>
-                </form>
-                               
+        <h3 class="jiemi-span">输入密码</h3>
+        <input class="inp" v-model="jieMi" type="text" @keyup.enter="abc"/>
     </div>
 </template>
 <style>
