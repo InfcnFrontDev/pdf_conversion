@@ -11,7 +11,6 @@
 <script>
     import * as getters from '../../vuex/getters'
     import * as actions from '../../vuex/actions'
-    import config from 'common/config'
     import { download } from '../../common/tools'
 
     export default{

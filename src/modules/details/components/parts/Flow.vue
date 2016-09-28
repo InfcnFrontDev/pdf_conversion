@@ -23,9 +23,9 @@
                 <div class="progress" style="width:170px;">
                     <div class="progress-bar progress-bar-striped"
                          :class="{'progress-bar-warning': !file.status.finish, 'progress-bar-success': file.status.success&&file.status.finish, 'progress-bar-danger': !file.status.success&&file.status.finish, active:file.status.active}"
-                         style="width: 100%">
-                        <span class="sr-only">{{file.status.text}}</span>
+                         :style="{width: file.percentage+'%'}">
                     </div>
+                    <span class="sr-only">{{file.percentage}}</span>
                 </div>
             </div>
             <div class="col col-xs-2">
@@ -49,7 +49,6 @@
 <script>
     import * as getters from '../../vuex/getters'
     import * as actions from '../../vuex/actions'
-    import config from 'common/config'
     import {accept, download} from '../../common/tools'
 
     var uploader;
@@ -92,6 +91,7 @@
 
             });
             uploader.on('beforeFileQueued', function (file) {
+                console.log(file.size);
 
             });
 
@@ -102,7 +102,9 @@
                     name: file.name,
                     ext: file.ext,
                     size: file.size,
-                    status: STATUS.WAIT_UPLOAD
+                    status: STATUS.WAIT_UPLOAD,
+                    percentage: 0
+
                 });
                 $this.updateStatus(file.id, STATUS.WAIT_UPLOAD);
             });
@@ -115,7 +117,7 @@
                 $this.updateStatus(file.id, STATUS.START_UPLOAD);
             });
             uploader.on('uploadProgress', function (file, percentage) {
-                $this.updateStatus(file.id, STATUS.UPLOADING);
+                $this.updateStatus(file.id, STATUS.UPLOADING, (percentage*100).toFixed(0));
             });
             uploader.on('uploadError', function (file, reason) {
                 $this.updateStatus(file.id, STATUS.UPLOAD_FAIL);

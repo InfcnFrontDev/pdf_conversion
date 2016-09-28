@@ -26,8 +26,12 @@ const mutations = {
     REMOVE_FILE (state, file){
         state.files.$remove(file);
     },
-    UPDATE_STATUS (state, fid, status){
-        state.files.filter(file => file.id == fid).forEach(file => file.status = status);
+    UPDATE_STATUS (state, fid, status, percentage){
+        state.files.filter(file => file.id == fid).forEach(file => {
+            file.status = status;
+            if(percentage)
+                file.percentage = percentage
+        });
     },
     SET_OID (state, fid, oid){
         state.files.filter(file => file.id == fid)

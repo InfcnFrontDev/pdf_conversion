@@ -2,8 +2,6 @@
  * Created by yangkk on 2016/9/14.
  */
 
-import config from 'common/config'
-
 const ExtMimeTypes = {
     pdf: 'application/pdf',
     doc: 'application/msword',

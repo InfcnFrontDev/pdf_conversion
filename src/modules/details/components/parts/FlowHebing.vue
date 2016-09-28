@@ -45,7 +45,6 @@
 <script>
     import * as getters from '../../vuex/getters'
     import * as actions from '../../vuex/actions'
-    import config from 'common/config'
     import {accept} from '../../common/tools'
 
     var uploader;
