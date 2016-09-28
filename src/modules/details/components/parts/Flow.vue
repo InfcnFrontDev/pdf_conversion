@@ -24,8 +24,11 @@
                     <div class="progress-bar progress-bar-striped"
                          :class="{'progress-bar-warning': !file.status.finish, 'progress-bar-success': file.status.success&&file.status.finish, 'progress-bar-danger': !file.status.success&&file.status.finish, active:file.status.active}"
                          :style="{width: file.percentage+'%'}">
+                        <!--<span class="sr-only" >{{file.status.text}}</span>-->
+                        <span class="sr-only" >{{file.percentage}}</span>
                     </div>
-                    <span class="sr-only">{{file.percentage}}</span>
+
+
                 </div>
             </div>
             <div class="col col-xs-2">
@@ -88,12 +91,18 @@
                 accept: accept(this.exts),
                 fileNumLimit: 10,
                 fileSingleSizeLimit: 10485760
-
             });
+            var a=0;
             uploader.on('beforeFileQueued', function (file) {
-                console.log(file.size);
+                console.log(file.size/1024/1024);
+
+
+
+                console.log(file.percentage);
+
 
             });
+
 
             // 当有文件被添加进队列的时候
             uploader.on('fileQueued', function (file) {
@@ -103,7 +112,8 @@
                     ext: file.ext,
                     size: file.size,
                     status: STATUS.WAIT_UPLOAD,
-                    percentage: 0
+                    percentage: '',
+                    stats:file.numOfQueue
 
                 });
                 $this.updateStatus(file.id, STATUS.WAIT_UPLOAD);
@@ -118,7 +128,9 @@
             });
             uploader.on('uploadProgress', function (file, percentage) {
                 $this.updateStatus(file.id, STATUS.UPLOADING, (percentage*100).toFixed(0));
+                console.log(percentage);
             });
+
             uploader.on('uploadError', function (file, reason) {
                 $this.updateStatus(file.id, STATUS.UPLOAD_FAIL);
             });
