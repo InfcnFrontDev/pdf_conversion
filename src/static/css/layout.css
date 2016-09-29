@@ -54,7 +54,7 @@ li{list-style: none}
 .er{width: 86px;height: 86px;background: url("../images/er.png");display: block;float: right;margin-top: -12px;}
 .bottom{margin-top: 160px;}
 .bottom p{ color: #595656;font-size: 12px;text-align: center}
-.body-in{padding-top: 23px;width: 1000px;margin: 0 auto; min-height: 620px}
+.body-in{padding-top: 23px;width: 1000px;margin: 0 auto; min-height: 620px;padding-bottom: 40px;}
 .body-in h1{font-size: 24px;color: #595656;float: left;text-align: center;}
 .body-in h1 span{color: #1d2088;}
 .body-in .ul{float: right;margin-top: 15px;}
@@ -813,6 +813,7 @@ progress{  display: inline-block;  vertical-align: baseline;}
   border-radius: 4px;
   -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
+  border: 1px #ddd solid;
 }
 .progress-bar {
   float: left;
@@ -874,4 +875,11 @@ progress{  display: inline-block;  vertical-align: baseline;}
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
   background-image:      -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
   background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
+}
+.sr-only {
+    position: absolute;
+    top: 0;
+    left: 60px;
+    width: 60px;
+    text-align: center;
 }

@@ -22,9 +22,9 @@
                 <div class="progress" style="width:170px;">
                     <div class="progress-bar progress-bar-striped"
                          :class="{'progress-bar-warning': !file.status.finish, 'progress-bar-success': file.status.success&&file.status.finish, 'progress-bar-danger': !file.status.success&&file.status.finish, active:file.status.active}"
-                         style="width: 100%">
-                        <span class="sr-only">{{file.status.text}}</span>
+                         :style="{width: file.percentage + '%'}">
                     </div>
+                    <span class="sr-only">{{file.status.text}}</span>
                 </div>
             </div>
             <div class="col col-xs-2">
@@ -74,7 +74,10 @@
         },
         watch: {
             'isAllUploadSuccess': function (val, oldVal) {
-                if(val) this.merge()
+                let $this = this;
+                setTimeout(function () {
+                    if (val) $this.merge()
+                }, 1000);
             }
         },
         ready() {
@@ -88,8 +91,17 @@
                 formData: $this.data,
                 pick: '#picker',
                 accept: accept(this.exts),
-                fileNumLimit: 10,
-                fileSingleSizeLimit: 10485760
+                fileNumLimit: config.maxFileCount,
+                fileSingleSizeLimit: config.maxFileSize * 1024 * 1024
+            });
+            uploader.on('beforeFileQueued', function (file) {
+                if ($this.files.length >= config.maxFileCount || file.size > config.maxFileSize * 1024 * 1024) {
+                    layer.alert('最多可以选择 ' + config.maxFileCount + ' 个文件，并且每个文件的大小不能超过 ' + config.maxFileSize + ' M。', {
+                        icon: 6,
+                        offset: ['300px', ($(document).width() - 350) / 2],
+                        shift: 4
+                    });
+                }
             });
             // 当有文件被添加进队列的时候
             uploader.on('fileQueued', function (file) {
@@ -98,16 +110,12 @@
                     name: file.name,
                     ext: file.ext,
                     size: file.size,
-                    status: STATUS.WAIT_UPLOAD
+                    status: STATUS.WAIT_UPLOAD,
+                    percentage: '0'
 
                 });
                 $this.updateStatus(file.id, STATUS.WAIT_UPLOAD);
             });
-
-            uploader.on('beforeFileQueued', function (file) {
-
-            });
-
             uploader.on('uploadBeforeSend', function (object, data, headers) {
                 for (var key in $this.formData) {
                     data[key] = $this.formData[key]
@@ -117,7 +125,7 @@
                 $this.updateStatus(file.id, STATUS.START_UPLOAD);
             });
             uploader.on('uploadProgress', function (file, percentage) {
-                $this.updateStatus(file.id, STATUS.UPLOADING);
+                $this.updateStatus(file.id, STATUS.UPLOADING, (percentage * 100).toFixed(0));
             });
             uploader.on('uploadError', function (file, reason) {
                 $this.updateStatus(file.id, STATUS.UPLOAD_FAIL);
@@ -125,6 +133,7 @@
             uploader.on('uploadSuccess', function (file, response) {
                 $this.setOid(file.id, response.obj);
                 $this.updateStatus(file.id, STATUS.UPLOAD_SUCCESS);
+
             });
         },
         methods: {
@@ -140,7 +149,7 @@
             getFile (fid){
                 return this.files.filter(file => file.id == fid)[0]
             },
-            merge: function(){
+            merge: function () {
                 var $this = this;
 
                 var fileOids = [];
