@@ -1,6 +1,5 @@
 <template>
-    <div class="banner">
-    <div class="body-in">
+    <v-content>
         <h1>
             <span>PDF</span>文档转换为<span>XML</span>
         </h1>
@@ -9,10 +8,10 @@
         <set-password></set-password>
         <result></result>
 
-    </div>
-</div>
+    </v-content>
 </template>
 <script>
+    import VContent from './parts/VContent.vue'
     import Progress from './parts/Progress.vue'
     import Flow from './parts/Flow.vue'
     import SetPassword from './parts/SetPassword.vue'
@@ -21,7 +20,7 @@
 
     export default{
         components: {
-            Progress, Flow, Result, SetPassword
+            VContent, Progress, Flow, Result, SetPassword
         }
     }
 </script>

@@ -13,7 +13,7 @@
         <div class="header-in">
             <a href="./"><img src="/static/images/logo.png"></a>
             <ul>
-                <li class="ding"><a href="#">PDF转换处理</a>
+                <li class="ding"><a href="javascript:;">PDF转换处理</a>
                     <div class="kuang">
                         <ul>
                             <li><a href="details.html#!/pdf2doc">PDF转Word</a></li>
@@ -27,7 +27,7 @@
                         </ul>
                     </div>
                 </li>
-                <li class="ding"><a href="#">文档转换处理</a>
+                <li class="ding"><a href="javascript:;">文档转换处理</a>
                     <div class="kuang">
                         <ul>
                             <li><a href="details.html#!/doc2pdf">Word转PDF</a></li>
@@ -38,7 +38,7 @@
                         </ul>
                     </div>
                 </li>
-                <li class="ding"><a href="#">PDF页面处理</a>
+                <li class="ding"><a href="javascript:;">PDF页面处理</a>
                     <div class="kuang">
                         <ul>
                             <li><a href="details.html#!/pdfjiemi">PDF解密</a></li>

@@ -1,27 +1,15 @@
 <template>
     <div class="footer">
-        <div class="footer-in">
-            <div class="left"><img src="/static/images/infcn.png"></div>
-            <div class="center">
-                <img src="/static/images/phone2.png">
-                <ul>
-                    <li><a href="javascript:;">诚聘英才</a></li>
-                    <li><a href="javascript:;">产品与服务</a></li>
-                    <li><a href="javascript:;">在线咨询</a></li>
-                </ul>
-            </div>
-            <div class="right">
-                <img src="/static/images/file.png">
-                <ul>
-                    <li><a href="javascript:;">关于我们</a></li>
-                    <li><a href="javascript:;">新闻与活动</a></li>
-                    <li><a href="javascript:;">最新公告</a></li>
-                </ul>
-                <a href="#" class="er"></a>
-            </div>
-            <div class="bottom">
-                <p>© 2011-2016 北京英富森软件股份有限公司 版权所有</p>
-                <p>京ICP备14019076号 京公网安备11010802016118号</p>
+        <div class="wid1000">
+            <div class="p_r">
+                <p class="p1">每天转换万篇文档<span>&bull;</span>功能应用持续更新<span>&bull;</span>在线服务永久免费</p>
+                <div class="right">
+                    <a href="#" class="er"></a>
+                </div>
+                <div class="ftb">
+                    <span>© 2011-2016  北京英富森软件股份有限公司  版权所有</span>
+                    <span>京ICP备14019076号  京公网安备11010802016118号</span>
+                </div>
             </div>
         </div>
     </div>

@@ -23,12 +23,10 @@
                 <div class="progress" style="width:170px;">
                     <div class="progress-bar progress-bar-striped"
                          :class="{'progress-bar-warning': !file.status.finish, 'progress-bar-success': file.status.success&&file.status.finish, 'progress-bar-danger': !file.status.success&&file.status.finish, active:file.status.active}"
-                         :style="{width: file.percentage+'%'}">
-                        <!--<span class="sr-only" >{{file.status.text}}</span>-->
-                        <span class="sr-only" >{{file.percentage}}</span>
+                         :style="{width: file.percentage}">
+                        <!--<span class="sr-only" v-if="file.percentage==''">{{file.percentage || file.status.text}}</span>-->
+                        <span class="sr-only" >{{file.percentage || file.status.text}}</span>
                     </div>
-
-
                 </div>
             </div>
             <div class="col col-xs-2">
@@ -112,7 +110,7 @@
                     ext: file.ext,
                     size: file.size,
                     status: STATUS.WAIT_UPLOAD,
-                    percentage: '',
+                    percentage: '0%',
                     stats:file.numOfQueue
 
                 });
@@ -127,10 +125,8 @@
                 $this.updateStatus(file.id, STATUS.START_UPLOAD);
             });
             uploader.on('uploadProgress', function (file, percentage) {
-                $this.updateStatus(file.id, STATUS.UPLOADING, (percentage*100).toFixed(0));
-                console.log(percentage);
+                $this.updateStatus(file.id, STATUS.UPLOADING, (percentage*100).toFixed(0) + '%');
             });
-
             uploader.on('uploadError', function (file, reason) {
                 $this.updateStatus(file.id, STATUS.UPLOAD_FAIL);
             });

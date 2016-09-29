@@ -1,19 +1,18 @@
 <template>
-    <div class="banner">
-        <div class="body-in">
-            <h1>
-                <span>PDF</span>文档分割<span></span>
-            </h1>
-            <progress></progress>
-            <flow url="/PDFApi/split" :progress="false"></flow>
-            <set-fenge-param></set-fenge-param>
-            <result></result>
-        </div>
-    </div>
+    <v-content>
+        <h1>
+            <span>PDF</span>文档分割<span></span>
+        </h1>
+        <progress></progress>
+        <flow url="/PDFApi/split" :progress="false"></flow>
+        <set-fenge-param></set-fenge-param>
+        <result></result>
+    </v-content>
 </template>
 <style>
 </style>
 <script>
+    import VContent from './parts/VContent.vue'
     import Progress from './parts/Progress.vue'
     import Flow from './parts/Flow.vue'
     import SetFengeParam from './parts/SetFengeParam.vue'
@@ -21,7 +20,7 @@
 
     export default{
         components: {
-            Progress, Flow, SetFengeParam, Result
+            VContent, Progress, Flow, SetFengeParam, Result
         }
     }
 </script>

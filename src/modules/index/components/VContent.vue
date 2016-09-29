@@ -9,14 +9,19 @@
                 </div>
             </div>
         </div>
+        <v-footer></v-footer>
     </div>
 </template>
 <style>
 
 </style>
 <script>
+
+    import VFooter from '../../../common/components/VFooter.vue'
+
     export default{
-        ready() {
+        components: {
+            VFooter
         },
         data(){
             return {
@@ -35,7 +40,6 @@
                     {id: 'txt2pdf', src: 'static/images/txt2pdf.png', selected: false},
 
 
-
                     {id: 'pdfjiemi', src: 'static/images/pdfjiemi.png', selected: false},
                     {id: 'pdfjiami', src: 'static/images/pdfjiami.png', selected: false},
                     {id: 'pdfhebing', src: 'static/images/pdfhebing.png', selected: false},
@@ -47,11 +51,11 @@
         },
         methods: {
             mouseover(item){
-                item.src = 'static/images/'+ item.id +'_.png';
+                item.src = 'static/images/' + item.id + '_.png';
                 item.selected = true;
             },
             mouseout(item){
-                item.src = 'static/images/'+ item.id +'.png';
+                item.src = 'static/images/' + item.id + '.png';
                 item.selected = false;
             }
         }
