@@ -96,7 +96,7 @@ gulp.task('build', function () {
     gulp.src('./dev/static/fonts/*.*').pipe(gulp.dest('./dist/static/fonts/'));
     gulp.src('./dev/static/images/**/*.*').pipe(gulp.dest('./dist/static/images/'));
     gulp.src('./dev/static/js/*.js').pipe(replace('/static/', 'static/')).pipe(uglify()).pipe(gulp.dest('./dist/static/js/'));
-    gulp.src('./dev/static/css/*.css').pipe(minifycss()).pipe(gulp.dest('./dist/static/css/'));
+    gulp.src('./dev/static/css/*.css').pipe(postcss(processes)).pipe(minifycss()).pipe(gulp.dest('./dist/static/css/'));
     gulp.src('./dev/*.html').pipe(gulp.dest('./dist/'));
 
 });
