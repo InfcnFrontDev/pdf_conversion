@@ -1,6 +1,6 @@
 <template>
     <div class="banner">
-        <div class="body-in">
+        <div class="body-in animated lightSpeedIn">
             <slot></slot>
         </div>
         <v-footer></v-footer>

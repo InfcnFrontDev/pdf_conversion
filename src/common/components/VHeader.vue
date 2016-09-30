@@ -6,15 +6,17 @@
                     <li><a href="#"><img src="/static/images/qq.png"><span>在线咨询</span></a></li>
                     <li><a href="#"><img src="/static/images/phone.png"><span>400-086-6899</span></a></li>
                     <!--<li><img src="/static/images/person.png"><a href="#"><span>登录</span></a><a href="#"><span>&nbsp;|&nbsp;</span></a><a-->
-                            <!--href="#"><span>我要注册</span></a></li>-->
+                    <!--href="#"><span>我要注册</span></a></li>-->
                 </ul>
             </div>
         </div>
         <div class="header-in">
-            <a href="./"><img src="/static/images/logo.png"></a>
+            <h1 class="animated" :class="{'bounce': logoSelected}" @mouseover="logoSelected=true" @mouseout="logoSelected=false">
+                <a href="./"> <img src="/static/images/logo.png"></a>
+            </h1>
             <ul>
                 <li class="ding"><a href="javascript:;">PDF转换处理</a>
-                    <div class="kuang">
+                    <div class="kuang animated flipInX">
                         <ul>
                             <li><a href="details.html#!/pdf2doc">PDF转Word</a></li>
                             <li><a href="details.html#!/pdf2xls">PDF转Excel</a></li>
@@ -28,7 +30,7 @@
                     </div>
                 </li>
                 <li class="ding"><a href="javascript:;">文档转换处理</a>
-                    <div class="kuang">
+                    <div class="kuang animated flipInX">
                         <ul>
                             <li><a href="details.html#!/doc2pdf">Word转PDF</a></li>
                             <li><a href="details.html#!/xls2pdf">Excel转PDF</a></li>
@@ -39,7 +41,7 @@
                     </div>
                 </li>
                 <li class="ding"><a href="javascript:;">PDF页面处理</a>
-                    <div class="kuang">
+                    <div class="kuang animated flipInX">
                         <ul>
                             <li><a href="details.html#!/pdfjiemi">PDF解密</a></li>
                             <li><a href="details.html#!/pdfjiami">PDF加密</a></li>
@@ -63,5 +65,11 @@
 <style>
 </style>
 <script>
-    export default{}
+    export default{
+        data(){
+            return {
+                logoSelected: false
+            }
+        }
+    }
 </script>

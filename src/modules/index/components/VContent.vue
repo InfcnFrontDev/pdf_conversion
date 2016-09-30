@@ -3,8 +3,8 @@
         <div class="body">
             <div class="line">
                 <div v-for="item in items" :class="{'blue':item.selected}">
-                    <a href="details.html#!/{{item.id}}" @mouseover="mouseover(item)" @mouseout="mouseout(item)">
-                        <img :src="item.src">
+                    <a id="i_{{item.id}}" href="details.html#!/{{item.id}}" @mouseover="mouseover(item)" @mouseout="mouseout(item)">
+                        <h1 class="animated" :class="{'jello': item.selected}"><img :src="item.src"></h1>
                     </a>
                 </div>
             </div>
@@ -53,6 +53,7 @@
             mouseover(item){
                 item.src = 'static/images/' + item.id + '_.png';
                 item.selected = true;
+
             },
             mouseout(item){
                 item.src = 'static/images/' + item.id + '.png';
