@@ -10,10 +10,10 @@ li{list-style: none}
 .header-in11 ul li a{height: 37px;line-height: 37px;color: #ffffff;font-size: 12px}
 .header-in11 ul li a span{position: relative;bottom: 8px;}
 .header-in11 ul li a img{position: relative;bottom: 0px;left: -2px;}
-.header-in{width: 1000px;background-color: #ffffff;margin: 0 auto;height: 61px;}
+.header-in{width: 1000px;background-color: #ffffff;margin: 0 auto;height: 61px;display:-webkit-box;}
 .header-in img{float: left;}
-.header-in ul{float: left;margin-left: 68px;}
-.header-in ul li{float: left;height: 61px;line-height: 61px;width: 135px;text-align: center}
+.header-in ul{float: left;margin-left: 68px; }
+.header-in ul li{float: left;height: 61px;line-height: 61px;width: 130px;text-align: center}
 .ding{position: relative}
 .header-in ul li:hover{background-color: #1d2088;}
 .header-in ul li:hover a{color: #ffffff}
@@ -173,6 +173,9 @@ li{list-style: none}
 }
 .col-xs-5 {
   width: 41.66666667%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .col-xs-4 {
   width: 33.33333333%;
