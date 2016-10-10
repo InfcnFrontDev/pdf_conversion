@@ -11,12 +11,12 @@
             </div>
         </div>
         <div class="header-in">
-            <h1 class="animated" :class="{'bounce': logoSelected}" @mouseover="logoSelected=true" @mouseout="logoSelected=false">
+            <h1 class="animated" :class="{'': logoSelected}" @mouseover="logoSelected=true" @mouseout="logoSelected=false">
                 <a href="./"> <img src="/static/images/logo.png"></a>
             </h1>
             <ul>
                 <li class="ding"><a href="javascript:;">PDF转换处理</a>
-                    <div class="kuang animated flipInX">
+                    <div class="kuang">
                         <ul>
                             <li><a href="details.html#!/pdf2doc">PDF转Word</a></li>
                             <li><a href="details.html#!/pdf2xls">PDF转Excel</a></li>
@@ -30,7 +30,7 @@
                     </div>
                 </li>
                 <li class="ding"><a href="javascript:;">文档转换处理</a>
-                    <div class="kuang animated flipInX">
+                    <div class="kuang">
                         <ul>
                             <li><a href="details.html#!/doc2pdf">Word转PDF</a></li>
                             <li><a href="details.html#!/xls2pdf">Excel转PDF</a></li>
@@ -41,7 +41,7 @@
                     </div>
                 </li>
                 <li class="ding"><a href="javascript:;">PDF页面处理</a>
-                    <div class="kuang animated flipInX">
+                    <div class="kuang">
                         <ul>
                             <li><a href="details.html#!/pdfjiemi">PDF解密</a></li>
                             <li><a href="details.html#!/pdfjiami">PDF加密</a></li>
