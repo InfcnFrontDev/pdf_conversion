@@ -3,7 +3,7 @@
         <h3 class="jiemi-span">输入密码</h3>
         <input class="inp" v-model="jieMi" type="text" @keyup.enter="abc"/>
         <span class="jiami-title" v-show="show">请设置密码！(数字或字母)</span>
-        <span class="psprompt">没有密码，或者不知道为空</span>
+        <span class="psprompt">密码不知道时，不填写</span>
 
     </div>
 </template>

@@ -2,6 +2,7 @@
     <div class="file3" style="display:block">               
         <h3 class="jiemi-span">输入密码</h3>
         <input class="inp" v-model="jieMi" type="text" @keyup.enter="abc"/>
+        <span class="psprompt">密码不知道时，不填写</span>
     </div>
 </template>
 <style>

@@ -3,15 +3,15 @@
         <div class="header-in1">
             <div class="header-in11">
                 <ul>
-                    <li><a href="#"><img src="/static/images/qq.png"><span>在线咨询</span></a></li>
-                    <li><a href="#"><img src="/static/images/phone.png"><span>400-086-6899</span></a></li>
+                    <li><a href="tencent://message/?uin=12345"><img src="/static/images/qq.png"><span>在线咨询</span></a></li>
+                    <li><a><img src="/static/images/phone.png"><span>400-086-6899</span></a></li>
                     <!--<li><img src="/static/images/person.png"><a href="#"><span>登录</span></a><a href="#"><span>&nbsp;|&nbsp;</span></a><a-->
                     <!--href="#"><span>我要注册</span></a></li>-->
                 </ul>
             </div>
         </div>
         <div class="header-in">
-            <h1 class="animated" :class="{'': logoSelected}" @mouseover="logoSelected=true" @mouseout="logoSelected=false">
+            <h1 @mouseover="logoSelected=true" @mouseout="logoSelected=false">
                 <a href="./"> <img src="/static/images/logo.png"></a>
             </h1>
             <ul>
