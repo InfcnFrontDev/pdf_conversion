@@ -54,11 +54,11 @@
                         </ul>
                     </div>
                 </li>
-                <li class="ding"><a href="#">联系我们</a></li>
+                <li class="ding"><a href="javascript:;">联系我们</a></li>
             </ul>
-            <form>
-                <input type="text" placeholder="请输入关键词" value="请输入关键词">
-            </form>
+            <!--<form>-->
+                <!--<input type="text" placeholder="请输入关键词" value="请输入关键词">-->
+            <!--</form>-->
         </div>
     </div>
 </template>
