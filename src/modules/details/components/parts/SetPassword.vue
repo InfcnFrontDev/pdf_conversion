@@ -27,7 +27,7 @@
     }
     .psprompt{
         font-size:14px;
-        color:#c30811;
+        color:#595656;
     }
   .jiami-title{
       font-size:14px;

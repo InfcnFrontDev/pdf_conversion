@@ -7,7 +7,7 @@
                 <input type="text"  v-model="pageNumber" class="input">
                 <span v-show="pageNumberError" class="prompt">您输入的格式不正确</span>
             </form>
-            <p style="color:#c30811;">请输入待转换页面的码以逗号分开 （例如: 1,3,5-8,10-20）(全部转换请留空) (输入的页码数不能大于文档的页码数)</p>
+            <p style="color:#595656;">请输入待转换页面的码以逗号分开 （例如: 1,3,5-8,10-20）(全部转换请留空) (输入的页码数不能大于文档的页码数)</p>
         </div>
     </div>
 </template>
