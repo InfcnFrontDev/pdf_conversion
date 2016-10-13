@@ -2,7 +2,9 @@
     <div class="file3" style="display:block">
         <h3 class="jiami-span">设置密码</h3>
         <input class="inp-jiami" v-model="jiaMi"   type="text"/>
-        <span class="jiami-title" v-show="show">请设置密码！(数字或字母)</span>     
+        <span class="jiami-title" v-show="show">请设置密码！(数字或字母)</span>
+        <div style="height:20px;"></div>
+        <label><input type="checkbox" v-model="shifou"> <span style="font-size: 14px; color: #c30811;"> 勾选后为全文档加密，需要输入密码后查看文档内容；(默认为页面加密，禁止编辑、复制、打印操作。)</span></label>
     </div>
 </template>
 <style>
@@ -32,6 +34,7 @@
         data(){
             return {
                 jiaMi:'',
+                shifou:'',
                 show:true
             }
         },
@@ -46,7 +49,7 @@
         },
         watch: {
             'jiaMi': function (val, oldVal) {
-                if(this.testing()){
+               if(this.testing()){
                     this.updateFormData({
                         'password': val                  
                     });
@@ -56,7 +59,14 @@
                     this.isValidate(false);
                     this.show=true;
                 }
-                
+            },
+            'shifou': function(val){
+                if(val){
+                    this.updateFormData({
+                        'type':1
+                    });
+                }
+
             }
         },
     }

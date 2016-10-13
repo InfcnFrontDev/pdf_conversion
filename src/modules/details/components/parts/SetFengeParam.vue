@@ -24,7 +24,7 @@
                         <input class="yema-fenge input" type="text" v-model="value3" v-if="splitMode==3"/><input class="yema-fenge input" type="text" disabled="disabled" v-else/>&nbsp;&nbsp;&nbsp;<span v-show="customNumError" class="prompt">您输入正确的格式</span>
                     </li>
                     <li>
-                        <p class="txt-title">需要分割的页数之间用逗号分开，格式为：1，2-4，5-8</p>
+                        <p class="txt-title">需要分割的页数之间用逗号分开，格式为：1，2-4，5-8  (输入的页码数不能大于文档的页码数)</p>
                     </li>
                 </ul>
             </form>

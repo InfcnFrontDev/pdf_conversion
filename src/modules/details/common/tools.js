@@ -57,15 +57,17 @@ export const accept = function (extStr) {
     }
 }
 
-export const download = function (fileOids, isZip = false) {
+/*export const download = function (fileOids, isZip = false) {
     let url = config.apiPath + '/PDFApi/download?isZip=' + isZip;
-
+    console.log(config.apiPath);
+    console.log(fileOids)
     for (let i in fileOids) {
         url += '&file=' + encodeURIComponent(fileOids[i])
     }
 
     url += '&time=' + new Date().getTime();
-    console.log(fileOids, url);
+    console.log(url);
+
     try {
         var elemIF = document.createElement("iframe");
         elemIF.src = url;
@@ -73,4 +75,43 @@ export const download = function (fileOids, isZip = false) {
         document.body.appendChild(elemIF);
     } catch (e) {
     }
+}*/
+
+// 1,<a href="{{downloadUrl}}">下载</a>   --- 当前页面会闪一下
+// 2,window.open(downloadUrl);    --- 会打开新窗口
+// 3,iframe方式
+//     try {
+//         var elemIF = document.createElement("iframe");
+//         elemIF.src = url;
+//         elemIF.style.display = "none";
+//         document.body.appendChild(elemIF);
+//     } catch (e) {
+//     }
+// 4,post方式
+// ？？？
+
+
+/*===================下载文件
+ * options:{
+ * url:'',  //下载地址
+ * data:{name:value}, //要发送的数据
+ * method:'post'
+ * }
+ */
+export const download = function (fileOids, isZip = true) {
+    let url = config.apiPath + '/PDFApi/download?isZip=' + isZip;
+    // console.log(config.apiPath);
+    // console.log(fileOids)
+
+    let $iframe = $('<iframe id="down-file-iframe" />');
+    let $form = $('<form method="post" />');
+    $form.attr('action', url);
+    for (let i in fileOids) {
+        $form.append('<input type="hidden" name="file" value="' + fileOids[i] + '" />');
+    }
+    // console.log($form);
+    $iframe.append($form);
+    $(document.body).append($iframe);
+    $form[0].submit();
+    $iframe.remove();
 }
