@@ -6,9 +6,18 @@
         <progress></progress>
         <flow url="/PDFApi/html2pdf" exts="zip"></flow>
         <result></result>
+        <div class="warm">zip包应包含html和image包</div>
     </v-content>
 </template>
 <style>
+    .warm{
+        width: 900px;
+        border-top: 1px solid #595656;
+        height: 210px;
+        padding-top: 17px;
+        margin: 0 auto;
+        color:#595656;
+    }
 </style>
 <script>
     import VContent from './parts/VContent.vue'

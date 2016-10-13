@@ -6,9 +6,7 @@
         <progress></progress>
         <flow url="/PDFApi/topdf" exts="xls,xlsx"></flow>
         <result></result>
-        <div>
-            aaaaaaaaaaaaaaaaaa
-        </div>
+        <div class="warm">Excel版本格式需要大于等于97</div>
     </v-content>
 </template>
 <style>
