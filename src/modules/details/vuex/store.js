@@ -40,7 +40,6 @@ const mutations = {
     UPDATE_FORM_DATA (state, formData){
         for (let key in formData)
             state.formData[key] = formData[key];
-
     },
     SET_HEBING (state, hebing){
         state.hebing = hebing

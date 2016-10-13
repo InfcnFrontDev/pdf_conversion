@@ -3,8 +3,8 @@
         <div class="header-in1">
             <div class="header-in11">
                 <ul>
-                    <li><a href="tencent://message/?uin=12345"><img src="/static/images/qq.png"><span>在线咨询</span></a></li>
-                    <li><a><img src="/static/images/phone.png"><span>400-086-6899</span></a></li>
+                    <li><a target="_blank" href="tencent://message/?uin=744387576&Site=PDF在线转换&Menu=yes"><img src="/static/images/qq.png"><span>在线咨询</span></a></li>
+                    <li><a><img src="/static/images/phone.png"><span>010-62670085</span></a></li>
                     <!--<li><img src="/static/images/person.png"><a href="#"><span>登录</span></a><a href="#"><span>&nbsp;|&nbsp;</span></a><a-->
                     <!--href="#"><span>我要注册</span></a></li>-->
                 </ul>
@@ -54,7 +54,7 @@
                         </ul>
                     </div>
                 </li>
-                <li class="ding"><a href="javascript:;">联系我们</a></li>
+                <!--<li class="ding"><a href="javascript:;">联系我们</a></li>-->
             </ul>
             <!--<form>-->
                 <!--<input type="text" placeholder="请输入关键词" value="请输入关键词">-->

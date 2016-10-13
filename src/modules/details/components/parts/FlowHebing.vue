@@ -165,6 +165,11 @@
                         $this.updateStatus(file.id, STATUS.DEAL_SUCCESS);
                     });
                     $this.setHebing(response.data.obj);
+                }, (response) => {
+                    // error callback
+                    $this.files.forEach(file => {
+                        $this.updateStatus(file.id, STATUS.DEAL_FAIL);
+                    });
                 });
             },
             complete: function (fid) {

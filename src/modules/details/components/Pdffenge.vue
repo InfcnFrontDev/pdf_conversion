@@ -4,7 +4,7 @@
             <span>PDF</span>文档分割<span></span>
         </h1>
         <progress></progress>
-        <flow url="/PDFApi/split" :progress="false"></flow>
+        <flow url="/PDFApi/split"></flow>
         <set-fenge-param></set-fenge-param>
         <result></result>
     </v-content>
