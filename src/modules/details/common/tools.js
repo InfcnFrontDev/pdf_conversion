@@ -98,10 +98,9 @@ export const accept = function (extStr) {
  * method:'post'
  * }
  */
-export const download = function (fileOids, isZip = true) {
+export const download = function (fileOids, isZip = false) {
     let url = config.apiPath + '/PDFApi/download?isZip=' + isZip;
-    // console.log(config.apiPath);
-    // console.log(fileOids)
+
 
     let $iframe = $('<iframe id="down-file-iframe" />');
     let $form = $('<form method="post" />');
@@ -109,7 +108,6 @@ export const download = function (fileOids, isZip = true) {
     for (let i in fileOids) {
         $form.append('<input type="hidden" name="file" value="' + fileOids[i] + '" />');
     }
-    // console.log($form);
     $iframe.append($form);
     $(document.body).append($iframe);
     $form[0].submit();
