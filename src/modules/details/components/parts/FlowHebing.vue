@@ -74,10 +74,12 @@
         },
         watch: {
             'isAllUploadSuccess': function (val, oldVal) {
-                let $this = this;
-                setTimeout(function () {
-                    if (val) $this.merge()
-                }, 1000);
+                if(val){
+                    let $this = this;
+                    setTimeout(function () {
+                        if (val) $this.merge()
+                    }, 1000);
+                }
             }
         },
         ready() {

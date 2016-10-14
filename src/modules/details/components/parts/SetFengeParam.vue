@@ -174,7 +174,7 @@
     }
 
     .m-fenge li .txt-title {
-        color: #c30811;
+        color:#595656;
         margin-left: 30px;
     }
 
