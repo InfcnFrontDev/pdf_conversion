@@ -10,18 +10,21 @@
                     <li>
                         <input class='inp-fenge' type="radio" v-model="splitMode" value="1" @click="testing1"/><i>每</i>
                         <input class="txt-fenge" type="text" v-model="value1" v-if="splitMode==1"/><input class="txt-fenge" type="text" disabled="disabled" v-else/>
-                        <i>页一个文档</i>&nbsp;&nbsp;&nbsp;<span v-show="pageNumberError" class="prompt">您输入正确的格式</span>
+                        <i>页一个文档</i>&nbsp;&nbsp;&nbsp;<span v-show="pageNumberError" class="prompt">您输入的格式不正确</span>
+                        <span v-if="value1==''&&splitMode==1" class="prompt">文本框内容不能为空</span>
                     </li>
                     <li>
                         <input class='inp-fenge' type="radio" v-model="splitMode" value="2" @click="testing2"/><i>平均分割</i>
                         <input class="txt-fenge" type="text" v-model="value2" v-if="splitMode==2"/><input class="txt-fenge" type="text" disabled="disabled" v-else/>
-                        <i>个文档</i>&nbsp;&nbsp;&nbsp;<span v-show="documentNumError" class="prompt">您输入正确的格式</span>
+                        <i>个文档</i>&nbsp;&nbsp;&nbsp;<span v-show="documentNumError" class="prompt">您输入的格式不正确</span>
+                        <span v-if="value2==''&&splitMode==2" class="prompt">文本框内容不能为空</span>
                     </li>
                     <li>
                         <input class='inp-fenge' type="radio" v-model="splitMode" value="3" @click="testing3"/><i>自定义分割</i>
                     </li>
                     <li>
-                        <input class="yema-fenge input" type="text" v-model="value3" v-if="splitMode==3"/><input class="yema-fenge input" type="text" disabled="disabled" v-else/>&nbsp;&nbsp;&nbsp;<span v-show="customNumError" class="prompt">您输入正确的格式</span>
+                        <input class="yema-fenge input" type="text" v-model="value3" v-if="splitMode==3"/><input class="yema-fenge input" type="text" disabled="disabled" v-else/>&nbsp;&nbsp;&nbsp;<span v-show="customNumError" class="prompt">您输入的格式不正确</span>
+                        <span v-if="value3==''&&splitMode==3" class="prompt">文本框内容不能为空</span>
                     </li>
                     <li>
                         <p class="txt-title">需要分割的页数之间用逗号分开，格式为：1，2-4，5-8  (输入的页码数不能大于文档的页码数)</p>
@@ -47,7 +50,7 @@
                 value3: '', // 拆分参数
                 pageNumberError:false,
                 documentNumError:false,
-                customNumError:false
+                customNumError:false,
             }
         },
         ready(){
@@ -57,6 +60,9 @@
                 'value': ''
             });
             this.isValidate(true);
+
+
+
         },
         methods:{
             testing1:function(){
@@ -82,6 +88,7 @@
                 this.value2='';
                 var pattern=/^[1-9]{1}[0-9]?([\,|\-]{1}[1-9]{1}[0-9]?)+$/;
                 var pattern1=/^[1-9]{1}[0-9]?$/;
+
                 return pattern.test(this.value3)||pattern1.test(this.value3);
             },
         },
@@ -92,14 +99,15 @@
                 });
             },
             'value1': function (val, oldVal) {
-                
                 if(this.testing1()||this.value1==''){
                     this.updateFormData({
                         'value': val
                     });
                     this.isValidate(true);
                     this.pageNumberError = false;
+
                 }else{
+
                     this.pageNumberError = true;
                     this.isValidate(false);
                 } 

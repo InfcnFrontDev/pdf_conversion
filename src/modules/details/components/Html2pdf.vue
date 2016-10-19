@@ -6,7 +6,7 @@
         <progress></progress>
         <flow url="/PDFApi/html2pdf" exts="zip"></flow>
         <result></result>
-        <div class="warm">zip包应包含html和image包</div>
+        <div class="warm">zip包应包含html文件和image文件夹</div>
     </v-content>
 </template>
 <style>
