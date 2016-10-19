@@ -86,8 +86,8 @@
                 this.pageNumberError = false;
                 this.value1='';
                 this.value2='';
-                var pattern=/^[1-9]{1}[0-9]?([\,|\-]{1}[1-9]{1}[0-9]?)+$/;
-                var pattern1=/^[1-9]{1}[0-9]?$/;
+                var pattern=/^[1-9]{1}[0-9]*([\,|\-]{1}[1-9]{1}[0-9]*)+$/;
+                var pattern1=/^[1-9]{1}[0-9]*$/;
 
                 return pattern.test(this.value3)||pattern1.test(this.value3);
             },
