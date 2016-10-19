@@ -1,7 +1,7 @@
 <template>
     <v-content>
         <h1>
-            <span>PDF</span>文档合并<span></span>
+            <span>PDF</span>合并<span></span>
         </h1>
         <progress></progress>
         <flow-hebing url="/PDFApi/upload" url2="/PDFApi/merge2"></flow-hebing>

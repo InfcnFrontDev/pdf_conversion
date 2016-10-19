@@ -45,7 +45,7 @@
                         <ul>
                             <li><a href="details.html#!/pdfjiemi">PDF解密</a></li>
                             <li><a href="details.html#!/pdfjiami">PDF加密</a></li>
-                            <li><a href="details.html#!/pdffenge">PDF页面分割</a></li>
+                            <li><a href="details.html#!/pdffenge">PDF分割</a></li>
                             <li><a href="details.html#!/pdfhebing">PDF合并</a></li>
                             <!--<li><a href="details.html#!/pdfhuoqu">PDF图片提取</a></li>-->
                             <!--<li><a href="details.html#!/pdfdelate">PDF删除页面</a></li>-->

@@ -1,7 +1,7 @@
 <template>
     <v-content>
         <h1>
-            <span>PDF</span>文档分割<span></span>
+            <span>PDF</span>分割<span></span>
         </h1>
         <progress></progress>
         <flow url="/PDFApi/split"></flow>
