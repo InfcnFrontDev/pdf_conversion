@@ -135,7 +135,6 @@
             uploader.on('uploadSuccess', function (file, response) {
                 $this.setOid(file.id, response.obj);
                 $this.updateStatus(file.id, STATUS.UPLOAD_SUCCESS);
-
             });
         },
         methods: {

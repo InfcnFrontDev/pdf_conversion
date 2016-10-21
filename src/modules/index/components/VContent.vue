@@ -45,8 +45,8 @@
                     {id: 'pdfjiami', src: 'static/images/pdfjiami.png', selected: false},
                     {id: 'pdfhebing', src: 'static/images/pdfhebing.png', selected: false},
                     {id: 'pdffenge', src: 'static/images/pdffenge.png', selected: false},
-                    {id: 'pdfhuoqu', src: 'static/images/pdfhuoqu.png', selected: false},
-                    {id: 'pdfshibie', src: 'static/images/pdfshibie.png', selected: false}
+                    //{id: 'pdfhuoqu', src: 'static/images/pdfhuoqu.png', selected: false},
+                    //{id: 'pdfshibie', src: 'static/images/pdfshibie.png', selected: false}
                 ]
             }
         },

@@ -39,36 +39,39 @@
                 show:true
             }
         },
-        ready(){
-            this.isValidate(false);
-        },
-        methods:{
-            testing(){
-                var pattern=/^[A-Za-z0-9]+$/
-                return pattern.test(this.jiaMi);
-            }
-        },
         watch: {
             'jiaMi': function (val, oldVal) {
-               if(this.testing()){
-                    this.updateFormData({
-                        'password': val                  
-                    });
-                    this.isValidate(true);
-                    this.show=false;
-                }else{
-                    this.isValidate(false);
-                    this.show=true;
-                }
+                this.updateFormData({
+                    'password': val
+                });
+                this.valid();
             },
             'shifou': function(val){
-                if(val){
-                    this.updateFormData({
-                        'type':1
-                    });
-                }
-
+                this.updateFormData({
+                    'encryptType': val ? 1 : 0 // 0-页面加密(默认); 1-文档加密
+                });
+                this.valid();
             }
         },
+        ready(){
+            this.valid();
+        },
+        methods:{
+            valid(){
+                if(this.shifou){
+                    if(/^[A-Za-z0-9]+$/.test(this.jiaMi)){
+                        this.show=false;
+                        this.isValidate(true);
+                    }else{
+                        this.show=true;
+                        this.isValidate(false);
+                    }
+                }else{
+                    this.jiaMi = '';
+                    this.show=false;
+                    this.isValidate(true);
+                }
+            }
+        }
     }
 </script>
