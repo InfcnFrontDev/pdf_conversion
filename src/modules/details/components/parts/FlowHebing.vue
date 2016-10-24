@@ -97,12 +97,21 @@
                 fileSingleSizeLimit: config.maxFileSize * 1024 * 1024
             });
             uploader.on('beforeFileQueued', function (file) {
+                if($this.step != 1 && $this.step != 4){
+                    layer.alert('上一次处理没有完成，请等待！', {
+                        icon: 6,
+                        offset: ['300px', ($(document).width() - 350) / 2],
+                        shift: 4
+                    });
+                    return false;
+                }
                 if ($this.files.length >= config.maxFileCount || file.size > config.maxFileSize * 1024 * 1024) {
                     layer.alert('最多可以选择 ' + config.maxFileCount + ' 个文件，并且每个文件的大小不能超过 ' + config.maxFileSize + ' M。', {
                         icon: 6,
                         offset: ['300px', ($(document).width() - 350) / 2],
                         shift: 4
                     });
+                    return false;
                 }
             });
             // 当有文件被添加进队列的时候
