@@ -8,6 +8,16 @@ Vue.use(VueResource)
 
 Vue.http.options.emulateJSON = true;
 
+Vue.http.interceptors.push((request, next) => {
+    // continue to next interceptor
+    next((response) => {
+        if (response.body.message && response.body.message.indexOf('AUTH_FAILURE') > -1) {
+            location.href = config.regPath;
+        }
+    });
+});
+
+
 //导入需要的组件
 import App from './App.vue'
 import Pdf2doc from './components/Pdf2doc.vue'
@@ -67,8 +77,8 @@ router.start(App, '#app')
 // 自定义过滤器
 
 // 文件名过滤器，限定文件名的长度
-Vue.filter('string', function (value, len, add='') {
-    if(value.length > len){
+Vue.filter('string', function (value, len, add = '') {
+    if (value.length > len) {
         return value.substr(0, len) + add
     }
     return value

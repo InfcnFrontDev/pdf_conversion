@@ -122,6 +122,11 @@
             uploader.on('uploadProgress', function (file, percentage) {
                 $this.updateStatus(file.id, STATUS.UPLOADING, (percentage * 100).toFixed(0));
             });
+            uploader.on('uploadAccept', function (obj, result) {
+                if (result.message && result.message.indexOf('AUTH_FAILURE') > -1) {
+                    location.href = config.regPath;
+                }
+            });
             uploader.on('uploadError', function (file, reason) {
                 $this.updateStatus(file.id, STATUS.UPLOAD_FAIL);
             });
