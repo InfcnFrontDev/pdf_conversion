@@ -4,7 +4,7 @@
         <a class="a1" href="javascript:;" id="picker">选择本地文件</a>
         <a class="a2 a22" href="javascript:;" v-if="files.length==0 || step>1 || !validate">开始转换</a>
         <a class="a2" href="javascript:;" @click="start" v-else>开始转换</a>
-        <span class="psprompt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文档显示“完成准备”后，请点击“开始”启动任务</span>
+        <span class="psprompt" style="margin-top:5px; display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文档显示“完成准备”后，请点击“开始”启动任务</span>
         <div style="clear: both"></div>
         <div class="abc"></div>
     </div>

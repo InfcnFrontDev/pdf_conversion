@@ -119,7 +119,9 @@ li{list-style: none}
     /*margin-left:80px;*/
 /*}*/
 
-
+.all{
+  background:#2A3C54;
+}
 
 .container {
   padding-right: 15px;
