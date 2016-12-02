@@ -9,7 +9,7 @@
     </div>
     <div class="file" v-show="files.length == 0">
         <h3>未选择文件</h3>
-        <div class="flow-box"></div>
+        <div id="btnaaa"></div>
     </div>
     <div class="file2" v-show="files.length > 0">
         <div class="row pdf" v-for="file in files">
@@ -84,10 +84,14 @@
                 swf: 'vendors/fex-webuploader/dist/Uploader.swf',
                 server: config.apiPath + $this.url,
                 formData: $this.data,
-                pick: '#picker',
+                pick:'#picker',
                 accept: accept(this.exts),
                 fileNumLimit: config.maxFileCount,
                 fileSingleSizeLimit: config.maxFileSize * 1024 * 1024
+            });
+            uploader.addButton({
+                id: '#btnaaa',
+                innerHTML: '<div class="flow-box" id="btnaaa"></div>'
             });
             uploader.on('beforeFileQueued', function (file) {
                 if ($this.files.length >= config.maxFileCount || file.size > config.maxFileSize * 1024 * 1024) {
@@ -145,6 +149,9 @@
             });
         },
         methods: {
+            click:function(){
+                $('#picker').click();
+            },
             remove: function (file) {
                 uploader.removeFile(file.id);
                 this.removeFile(file)
