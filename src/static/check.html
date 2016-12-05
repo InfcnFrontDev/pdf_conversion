@@ -33,20 +33,5 @@
   <li><a href="http://www.firefox.com.cn/download/"><img src="images/firefox.jpg" alt="火狐浏览器" /> 火狐浏览器<span>Mozilla Firefox</span></a></li>
   <div class="clean"></div>
 </ul>
-<script type="text/javascript">
-  function Request(name){
-    new RegExp("(^|&)"+name+"=([^&]*)").exec(window.location.search.substr(1));
-    return RegExp.$2
-  }
-  var referrer = Request("referrer");
-  var url = document.referrer;
-  if(!url==""){
-    x=document.getElementById("referrer")
-    x.innerHTML='&nbsp;<a href="'+url+'">'+url+'</a>&nbsp;';
-  }else if(!referrer==""){
-    x=document.getElementById("referrer")
-    x.innerHTML='&nbsp;<a href="'+referrer+'">'+referrer+'</a>&nbsp;';
-  }
-</script>
 </body>
 </html>
