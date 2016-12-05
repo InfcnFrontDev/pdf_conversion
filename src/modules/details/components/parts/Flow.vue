@@ -2,8 +2,8 @@
     <div class="botton">
         <h3>选择文件</h3>
         <a class="a1" href="javascript:;" id="picker">选择本地文件</a>
-        <a class="a2 a22" href="javascript:;" v-if="files.length==0 || step>1 || !validate">开始转换</a>
-        <a class="a2" href="javascript:;" @click="start" v-else>开始转换</a>
+        <a class="a2 a22" href="javascript:;" v-if="files.length==0 || step>1 || !validate">开始</a>
+        <a class="a2" href="javascript:;" @click="start" v-else>开始</a>
         <div style="clear: both"></div>
         <div class="abc"></div>
     </div>
@@ -54,7 +54,7 @@
     var uploader;
 
     var STATUS = {
-        WAIT_UPLOAD: {step: 1, text: '等待上传', active: false, success: false, finish: false},
+        WAIT_UPLOAD: {step: 1, text: '完成准备', active: false, success: false, finish: false},
         START_UPLOAD: {step: 2, text: '开始上传', active: true, success: false, finish: false},
         UPLOADING: {step: 2, text: '正在上传', active: true, success: false, finish: false},
         UPLOAD_SUCCESS: {step: 2, text: '上传成功', active: true, success: false, finish: false},
