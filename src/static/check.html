@@ -29,9 +29,17 @@
 <div class="line"></div>
 <p>推荐使用以下浏览器的最新版本。</p>
 <ul class="browser">
-  <li><a href="https://www.google.com/intl/zh-CN/chrome/browser/index.html?system=true&standalone=1"><img src="images/chrome.jpg" alt="谷歌浏览器" /> 谷歌浏览器<span>Google Chrome</span></a></li>
-  <li><a href="http://www.firefox.com.cn/download/"><img src="images/firefox.jpg" alt="火狐浏览器" /> 火狐浏览器<span>Mozilla Firefox</span></a></li>
+  <li><a href="javascript:void(0)" onclick="clickc()"><img src="images/chrome.jpg" alt="谷歌浏览器" /> 谷歌浏览器<span>Google Chrome</span></a></li>
+  <li><a href="javascript:void(0)" onclick="clickf()"><img src="images/firefox.jpg" alt="火狐浏览器" /> 火狐浏览器<span>Mozilla Firefox</span></a></li>
   <div class="clean"></div>
 </ul>
+<script>
+  function clickc(){
+    window.location.href="chrome/ChromeStandalone_54.0.2840.99_Setup.exe";
+  }
+  function clickf(){
+    window.location.href="firefox/Firefox-latest.exe";
+  }
+</script>
 </body>
 </html>

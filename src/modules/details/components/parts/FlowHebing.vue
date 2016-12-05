@@ -3,12 +3,13 @@
         <h3>选择文件</h3>
         <a class="a1" href="javascript:;" id="picker">选择本地文件</a>
         <a class="a2" :class="{ a22:files.length==0 || step>1 }" href="javascript:;" @click="start">开始</a>
+        <span class="psprompt" style="margin-top:5px; display:inline-block;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;文档显示“完成准备”后，请点击“开始”启动任务</span>
         <div style="clear: both"></div>
         <div class="abc"></div>
     </div>
     <div class="file" v-show="files.length == 0">
         <h3>未选择文件</h3>
-        <div class="flow-box"></div>
+        <div id="btnaaa"></div>
     </div>
     <div class="file2" v-show="files.length > 0">
         <div class="row pdf" v-for="file in files">
@@ -95,6 +96,10 @@
                 accept: accept(this.exts),
                 fileNumLimit: config.maxFileCount,
                 fileSingleSizeLimit: config.maxFileSize * 1024 * 1024
+            });
+            uploader.addButton({
+                id: '#btnaaa',
+                innerHTML: '<div class="flow-box" id="btnaaa"></div>'
             });
             uploader.on('beforeFileQueued', function (file) {
                 if($this.step != 1 && $this.step != 4){
