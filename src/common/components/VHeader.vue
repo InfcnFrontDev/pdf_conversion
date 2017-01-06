@@ -1,13 +1,4 @@
 <template>
-    <!--<div class="container">
-        <div class="nav">
-            <img src="/static/images/banner.jpg"/>
-            <a href="#" class="hvr-curl-bottom-left">PDF页面处理</a>
-            <a href="#" class="hvr-curl-bottom-left">文档转换处理</a>
-            <a href="#" class="hvr-curl-bottom-left">PDF转换处理</a>
-        </div>
-    </div>-->
-
     <div class="header">
         <div class="header-in">
             <h1>
