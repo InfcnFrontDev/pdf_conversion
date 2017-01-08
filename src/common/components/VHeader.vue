@@ -2,7 +2,7 @@
     <div class="header">
         <div class="header-in">
             <h1>
-                <a href="./"> <img src="/static/images/banner.jpg"></a>
+                <a href="./"> <img src="../../static/images/banner.jpg"></a>
             </h1>
             <ul>
                 <li class="ding"><a href="javascript:;">PDF转换处理</a>
