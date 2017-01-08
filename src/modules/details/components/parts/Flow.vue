@@ -15,7 +15,7 @@
     <div class="file2" v-show="files.length > 0">
         <div class="row pdf" v-for="file in files">
             <div class="col col-xs-1">
-                <img class="icon" src="/static/images/pdfff.png">
+                <img class="icon" src="../../../../static/images/pdfff.png">
             </div>
             <div class="col col-xs-5" title="{{file.name}}">
                 {{file.name|string 25 '...'}}
@@ -31,10 +31,10 @@
             </div>
             <div class="col col-xs-2">
                 <span class="btn aa2" @click="remove(file)">
-                    <img src="/static/images/x.png" class="ii1">移除
+                    <img src="../../../../static/images/x.png" class="ii1">移除
                 </span>
                 <span class="btn" @click="download(file)" v-show="file.status.text=='处理成功'">
-                    <img src="/static/images/download.png" class="ii1">下载
+                    <img src="../../../../static/images/download.png" class="ii1">下载
                 </span>
             </div>
         </div>
