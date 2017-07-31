@@ -4,5 +4,4 @@
 node_modules/
 dev/
 dist/
-src/vendors/
 npm-debug.log*
