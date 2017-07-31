@@ -99,7 +99,18 @@ export const accept = function (extStr) {
  * }
  */
 export const download = function (fileOids, isZip = false) {
-    let url = config.apiPath + '/PDFApi/download?isZip=' + isZip;
+    var url='';
+    var browser=false;
+    if (!!window.ActiveXObject || "ActiveXObject" in window){
+        browser= true;
+    }
+
+    if(browser){
+
+        url = config.apiPath + '/PDFApi/download?isZip=' + isZip+'&browser=IE';
+    }else{
+        url = config.apiPath + '/PDFApi/download?isZip=' + isZip;
+    }
 
 
     let $iframe = $('<iframe id="down-file-iframe" />');
