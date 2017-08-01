@@ -186,6 +186,7 @@
                             $this.updateStatus(file.id, STATUS.DEAL_SUCCESS);
                             clear();
                         } else {
+
                             $this.updateStatus(file.id, STATUS.DEAL_FAIL);
                             clear();
                         }

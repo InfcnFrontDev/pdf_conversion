@@ -92,7 +92,7 @@ li{list-style: none}
 .pdf .ii1{margin:13px 3px;vertical-align:bottom;}
 .pdf .aa2{color: #b81c22}
 .pdf .aa3{color: #c30811}
-.file4{width: 900px;margin: 0 auto;padding: 18px 0px;border-top: 1px solid #595656;}
+.file4{width: 900px;margin: 0 auto;padding-top: 10px;padding-bottom: 10px;border-top: 1px solid #595656;overflow: hidden;border-top: 1px solid #595656;}
 .file4 h3{font-size: 16px;color: #595656;float: left}
 .file4 p,.file4 a{float: left;margin-left: 24px;}
 .file4 p{color: #595656;font-size: 12px;}
@@ -996,10 +996,10 @@ a, a:hover, a:visited, li, li:hover, dd, dd:hover, p, p:hover{ text-decoration: 
 .tag_bottom_left_a,.tag_bottom_left_b{display: block;float: left;}
 .tag_bottom_left_a{width: 300px;height: 260px;}
 .tag_bottom_left_a span.word_s,.tag_bottom_left_a span.excel_s,.tag_bottom_left_a span.ppt_s,.tag_bottom_left_a span.xml_s,.tag_bottom_left_b span{display: block;float: left;position: relative;}
-.tag_bottom_left_a span.word_s{background: url(../images/tab_word_s.png) no-repeat;width: 150px;height: 130px;}
-.tag_bottom_left_a span.excel_s{background: url(../images/tab_excel_s.png) no-repeat;width: 150px;height: 130px;}
-.tag_bottom_left_a span.ppt_s{background: url(../images/tab_ppt_s.png) no-repeat;width: 150px;height: 130px;}
-.tag_bottom_left_a span.xml_s{background: url(../images/tab_xml_s.png) no-repeat;width: 150px;height: 130px;}
+.tag_bottom_left_a span.word_s{padding-top: 20px;text-align: center;background: url(../images/tab_word_s.png) no-repeat;width: 150px;height: 130px;}
+.tag_bottom_left_a span.excel_s{padding-top: 20px;text-align: center;background: url(../images/tab_excel_s.png) no-repeat;width: 150px;height: 130px;}
+.tag_bottom_left_a span.ppt_s{padding-top: 20px;text-align: center;background: url(../images/tab_ppt_s.png) no-repeat;width: 150px;height: 130px;}
+.tag_bottom_left_a span.xml_s{padding-top: 20px;text-align: center;background: url(../images/tab_xml_s.png) no-repeat;width: 150px;height: 130px;}
 .tag_bottom_left_a span.word_s{-webkit-backface-visibility:hidden;-webkit-transition:opacity 0.3s ease-out;-moz-transition:opacity 0.3s ease-out;-o-transition:opacity 0.3s ease-out;transition:opacity 0.3s ease-out;}
 .tag_bottom_left_a span.word_s:hover{opacity:0.8}
 .tag_bottom_left_a span.excel_s{-webkit-backface-visibility:hidden;-webkit-transition:opacity 0.3s ease-out;-moz-transition:opacity 0.3s ease-out;-o-transition:opacity 0.3s ease-out;transition:opacity 0.3s ease-out;}
@@ -1008,7 +1008,7 @@ a, a:hover, a:visited, li, li:hover, dd, dd:hover, p, p:hover{ text-decoration: 
 .tag_bottom_left_a span.ppt_s:hover{opacity:0.8}
 .tag_bottom_left_a span.xml_s{-webkit-backface-visibility:hidden;-webkit-transition:opacity 0.3s ease-out;-moz-transition:opacity 0.3s ease-out;-o-transition:opacity 0.3s ease-out;transition:opacity 0.3s ease-out;}
 .tag_bottom_left_a span.xml_s:hover{opacity:0.8}
-.tag_bottom_left_a span i{font-style:normal;color: #fff;font-size: 18px;position: absolute;top: 15px;font-family: "微软雅黑",arial;text-align: center;width: 300px;left: 50%;margin-left: -150px;}
+.tag_bottom_left_a span i{font-style:normal;color: #fff;font-size: 18px;font-family: "微软雅黑",arial;text-align: center;margin-top: 30px;}
 .tag_bottom_left_b span{background: url(../images/other.png) no-repeat;width: 293px;height: 259px;position: relative;}
 .tag_bottom_left_b span img{position: absolute;top: 104px;right: 220px;}
 .tag_bottom_left_b span img.jt_b{margin-right: 20px;}
